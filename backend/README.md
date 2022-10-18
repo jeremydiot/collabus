@@ -1,4 +1,4 @@
-# collabus backend
+# Collabus backend
 
 ## OS requirements
 - debian
