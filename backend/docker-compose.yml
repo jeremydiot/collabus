@@ -1,0 +1,23 @@
+services:
+  postgres:
+    container_name: collabus_dev_postgres
+    image: postgres:15
+    hostname: postgres
+    environment:
+      POSTGRES_PASSWORD: ${DJANGO_DATABASE_PSWD}
+      POSTGRES_USER: ${DJANGO_DATABASE_USER}
+      POSTGRES_DB: ${DJANGO_DATABASE_NAME}
+      PGPORT: 5432
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - ${DJANGO_DATABASE_PORT}:5432
+
+  pgadmin:
+    container_name: collabus_dev_pgadmin
+    image: dpage/pgadmin4:6
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - 5050:80
