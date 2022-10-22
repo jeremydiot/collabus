@@ -1,0 +1,6 @@
+{
+  "standard.autoFixOnSave": true,
+  "standard.usePackageJson": true,
+  "standard.engine": "ts-standard",
+  "standard.enable": true
+}
