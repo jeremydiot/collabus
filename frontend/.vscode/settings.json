@@ -1,6 +1,22 @@
 {
+  //
   "standard.autoFixOnSave": true,
+  "standard.run": "onType",
   "standard.usePackageJson": true,
   "standard.engine": "ts-standard",
-  "standard.enable": true
+  "standard.enable": true,
+  //
+  "files.autoSave": "off",
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.formatOnPaste": false,
+  //
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  //
+  "[html]": {
+    "editor.tabSize": 4
+  },
 }
