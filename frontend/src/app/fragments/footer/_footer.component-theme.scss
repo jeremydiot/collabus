@@ -1,0 +1,19 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($color-config) {
+  $primary-palette: map.get($color-config, 'primary');
+
+  app-footer>footer {
+    background-color: mat.get-color-from-palette($primary-palette, 500);
+    color: mat.get-color-from-palette($primary-palette, '500-contrast');
+  }
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+
+  @if $color-config !=null {
+    @include color($color-config);
+  }
+}
