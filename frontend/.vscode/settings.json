@@ -19,4 +19,7 @@
   "[html]": {
     "editor.tabSize": 4
   },
+  "[typescript][javascript]": {
+    "editor.formatOnSave": false,
+  }
 }
