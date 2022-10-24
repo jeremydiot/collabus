@@ -15,6 +15,9 @@ app-navbar {
   }
 
   main {
-    min-height: calc(100% - 100px);
+    min-height: calc(100% - 140px);
+    padding: 20px 70px;
+    display: block;
+    text-align: center;
   }
 }
