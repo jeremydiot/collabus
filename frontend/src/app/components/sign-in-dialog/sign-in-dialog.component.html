@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Se connecter</h1>
+<div mat-dialog-content (keydown.enter)="onValid()" (keyup)="onKeyUpTrim()">
+    <mat-form-field appearance="outline">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input type="text" matInput [(ngModel)]="data.username" required>
+        <mat-error *ngIf="!data.username">Veuillez entrer un nom d'utilisateur</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input type="password" matInput [(ngModel)]="data.password" required>
+        <mat-error *ngIf="!data.password">Veuillez entrer un mot de passe</mat-error>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onValid()">Valider</button>
+</div>

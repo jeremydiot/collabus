@@ -4,4 +4,8 @@ nav {
   flex-flow: row wrap;
   align-items: center;
   padding: 8px 16px;
+
+  .flex-spacer {
+    flex-grow: 1;
+  }
 }

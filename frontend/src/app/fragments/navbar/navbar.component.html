@@ -1,3 +1,9 @@
 <nav>
-    hello nav
+    <a mat-flat-button href="/" color="primary">LOGO Collabus</a>
+    <div class="flex-spacer"></div>
+    <button mat-stroked-button (click)="openSignInDialog()">
+        <div class="d-flex align-items-center">
+            <mat-icon fontIcon="login_rounded"></mat-icon><span>&nbsp;Se connecter</span>
+        </div>
+    </button>
 </nav>

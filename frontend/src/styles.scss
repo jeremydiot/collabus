@@ -40,3 +40,21 @@ app-root {
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+app-root {
+  .d-flex {
+    display: flex;
+  }
+
+  .align-items-center {
+    align-items: center;
+  }
+
+  .justify-content-center {
+    justify-content: center;
+  }
+
+  .flex-direction-column {
+    flex-direction: column;
+  }
+}

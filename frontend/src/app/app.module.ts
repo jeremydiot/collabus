@@ -12,6 +12,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { SettingsComponent } from './pages/settings/settings.component'
 import { ProjectComponent } from './pages/project/project.component'
 import { AdminComponent } from './pages/admin/admin.component'
+import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialog.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AdminComponent } from './pages/admin/admin.component'
     DashboardComponent,
     SettingsComponent,
     ProjectComponent,
-    AdminComponent
+    AdminComponent,
+    SignInDialogComponent
   ],
   imports: [
     BrowserModule,
