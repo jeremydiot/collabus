@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core'
+import { FormControl } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 export interface DialogData {
@@ -16,12 +17,19 @@ export class SignInDialogComponent {
     public dialogRef: MatDialogRef<SignInDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
-    this.data.password = ''
     this.data.username = ''
+    this.data.password = ''
   }
 
+  passwordFormControl = new FormControl()
+  usernameFormControl = new FormControl()
+
   onValid (): void {
-    if (this.data.password.trim() !== '' && this.data.password.trim() !== '') this.dialogRef.close(this.data)
+    if (this.data.password.trim() !== '' && this.data.username.trim() !== '') this.dialogRef.close(this.data)
+    else {
+      this.data.password === '' && this.passwordFormControl.markAsTouched()
+      this.data.username === '' && this.usernameFormControl.markAsTouched()
+    }
   }
 
   onKeyUpTrim (): void {
