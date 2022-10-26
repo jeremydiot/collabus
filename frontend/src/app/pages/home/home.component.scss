@@ -1,0 +1,28 @@
+section.introduction {
+  position: relative;
+  display: flex;
+  padding-bottom: 50px;
+  padding-right: 125px;
+
+  mat-card {
+    .contact-button {
+      position: absolute;
+      height: 50px;
+      width: 250px;
+      right: -125px;
+      bottom: -25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+
+section.presentation {
+  margin-right: -230px;
+  margin-left: -230px;
+  clip-path: polygon(0 30%, 100% 0, 100% 70%, 0 100%);
+  padding: 10rem 230px;
+
+}
