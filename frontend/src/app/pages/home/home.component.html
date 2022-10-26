@@ -20,32 +20,111 @@
             contacter
         </a>
     </mat-card>
-
 </section>
 
 <section class="presentation">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas dapibus nibh, ac vulputate eros
-    dignissim ac. Sed interdum mauris vel arcu hendrerit, non auctor neque luctus. Suspendisse rhoncus ligula
-    non
-    purus hendrerit malesuada. Vivamus ac euismod urna. Maecenas vestibulum libero at quam sodales, non
-    convallis
-    ligula lobortis.
-    Morbi et venenatis neque, imperdiet pellentesque ex. Donec laoreet rhoncus est at volutpat. Morbi
-    tellus turpis, fringilla et mauris a, dictum commodo nisi. Curabitur ultricies aliquet ullamcorper. Aliquam
-    non
-    justo non nulla accumsan vestibulum semper vel mi.
-    Pellentesque hendrerit eros vitae auctor eleifend. Proin consequat
-    venenatis felis sit amet lobortis. Sed vel lorem quis libero sodales molestie. Quisque lacinia nisi tempus
-    lacinia
-    facilisis.
+    <mat-card>
+        <mat-card-content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas dapibus nibh, ac vulputate eros
+            dignissim ac. Sed interdum mauris vel arcu hendrerit, non auctor neque luctus. Suspendisse rhoncus ligula
+            non
+            purus hendrerit malesuada. Vivamus ac euismod urna. Maecenas vestibulum libero at quam sodales, non
+            convallis
+            ligula lobortis.
+            Morbi et venenatis neque, imperdiet pellentesque ex. Donec laoreet rhoncus est at volutpat. Morbi
+            tellus turpis, fringilla et mauris a, dictum commodo nisi. Curabitur ultricies aliquet ullamcorper. Aliquam
+            non
+            justo non nulla accumsan vestibulum semper vel mi.
+            Pellentesque hendrerit eros vitae auctor eleifend. Proin consequat
+            venenatis felis sit amet lobortis. Sed vel lorem quis libero sodales molestie. Quisque lacinia nisi tempus
+            lacinia
+            facilisis.
+        </mat-card-content>
+    </mat-card>
+    <div class="horizontal">
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/digital-key.png" alt="">
+            </mat-card-content>
+            <mat-card-footer>Un projet</mat-card-footer>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/collaboration.png" alt="">
+            </mat-card-content>
+            <mat-card-footer>Des étudiants</mat-card-footer>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/level-up.png" alt="">
+            </mat-card-content>
+            <mat-card-footer>Une solution</mat-card-footer>
+        </mat-card>
+    </div>
 </section>
-
-
-
 <section class="team">
-
+    <h1>Notre équipe</h1>
+    <div class="horizontal top">
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/TP.jpeg" alt="">
+            </mat-card-content>
+            <mat-card-footer><span>Tom PEINY</span><span>Marketing</span></mat-card-footer>
+        </mat-card>
+        <div class="fake"></div>
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/QL.jpeg" alt="">
+            </mat-card-content>
+            <mat-card-footer><span>Quentin LERAY</span><span>Marketing</span></mat-card-footer>
+        </mat-card>
+        <div class="fake"></div>
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/SS.jpeg" alt="">
+            </mat-card-content>
+            <mat-card-footer><span>Stanislas SIPKIN</span><span>Marketing</span></mat-card-footer>
+        </mat-card>
+        <div class="fake"></div>
+    </div>
+    <div class="horizontal bottom">
+        <div class="fake"></div>
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/QC.jpeg" alt="">
+            </mat-card-content>
+            <mat-card-footer><span>Quentin CLOAREC</span><span>Marketing</span></mat-card-footer>
+        </mat-card>
+        <div class="fake"></div>
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/AL.jpeg" alt="">
+            </mat-card-content>
+            <mat-card-footer><span>Antoine LESPINE</span><span>UX/UI Designer</span></mat-card-footer>
+        </mat-card>
+        <div class="fake"></div>
+        <mat-card>
+            <mat-card-content>
+                <img src="assets/images/home/JD.jpeg" alt="">
+            </mat-card-content>
+            <mat-card-footer><span>Jérémy DIOT</span><span>Développeur</span></mat-card-footer>
+        </mat-card>
+    </div>
 </section>
 
 <section id="contact-form" class="contact">
-
+    <h1>Nous contacter</h1>
+    <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Objet</mat-label>
+        <input matInput type="text" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Message</mat-label>
+        <textarea matInput required rows="20"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary">Envoyer</button>
 </section>
