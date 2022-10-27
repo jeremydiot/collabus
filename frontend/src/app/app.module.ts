@@ -12,7 +12,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { SettingsComponent } from './pages/settings/settings.component'
 import { ProjectComponent } from './pages/project/project.component'
 import { AdminComponent } from './pages/admin/admin.component'
-import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialog.component'
+import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialog.component';
+import { StoreModule } from '@ngrx/store'
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialo
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
