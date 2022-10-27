@@ -7,7 +7,8 @@ import { ProjectComponent } from './pages/project/project.component'
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'project', component: ProjectComponent }
+  { path: 'project', component: ProjectComponent },
+  { path: '**', redirectTo: '/' } // redirect 404 to home
 ]
 
 @NgModule({
