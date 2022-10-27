@@ -7,6 +7,10 @@
   app-footer>footer {
     background-color: mat.get-color-from-palette($primary-palette, 500);
     color: mat.get-color-from-palette($primary-palette, '500-contrast');
+
+    a {
+      color: mat.get-color-from-palette($primary-palette, '500-contrast');
+    }
   }
 }
 

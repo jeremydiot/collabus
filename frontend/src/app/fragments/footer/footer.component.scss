@@ -4,4 +4,13 @@ footer {
   align-items: center;
   display: flex;
   flex-flow: row wrap;
+
+  a {
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  .flex-spacer {
+    flex-grow: 1;
+  }
 }
