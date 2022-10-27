@@ -1,11 +1,7 @@
-import { Component, Inject } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-
-export interface DialogData {
-  username: string
-  password: string
-}
+import { MatDialogRef } from '@angular/material/dialog'
+import { User } from '../../models/user'
 
 @Component({
   selector: 'app-sign-in-dialog',
@@ -13,27 +9,28 @@ export interface DialogData {
   styleUrls: ['./sign-in-dialog.component.scss']
 })
 export class SignInDialogComponent {
+  user: User = new User()
+
   constructor (
-    public dialogRef: MatDialogRef<SignInDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    public dialogRef: MatDialogRef<SignInDialogComponent>
   ) {
-    this.data.username = ''
-    this.data.password = ''
+    this.user.email = ''
+    this.user.password = ''
   }
 
   passwordFormControl = new FormControl()
-  usernameFormControl = new FormControl()
+  emailFormControl = new FormControl()
 
   onValid (): void {
-    if (this.data.password.trim() !== '' && this.data.username.trim() !== '') this.dialogRef.close(this.data)
+    if (this.user.password?.trim() !== '' && this.user.email?.trim() !== '') this.dialogRef.close(this.user)
     else {
-      this.data.password === '' && this.passwordFormControl.markAsTouched()
-      this.data.username === '' && this.usernameFormControl.markAsTouched()
+      this.user.password === '' && this.passwordFormControl.markAsTouched()
+      this.user.email === '' && this.emailFormControl.markAsTouched()
     }
   }
 
   onKeyUpTrim (): void {
-    this.data.username = this.data.username.trim()
-    this.data.password = this.data.password.trim()
+    this.user.email = this.user.email?.trim()
+    this.user.password = this.user.password?.trim()
   }
 }

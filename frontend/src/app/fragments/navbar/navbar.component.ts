@@ -8,14 +8,11 @@ import { SignInDialogComponent } from 'src/app/components/sign-in-dialog/sign-in
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  username: string = ''
-
   constructor (public signInDialog: MatDialog) { }
 
   openSignInDialog (): void {
     const dialogRef = this.signInDialog.open(SignInDialogComponent, {
-      width: '500px',
-      data: { username: this.username }
+      width: '500px'
     })
 
     dialogRef.afterClosed().subscribe(result => {
