@@ -21,27 +21,31 @@ section.introduction {
 section.presentation {
   margin-right: -230px;
   margin-left: -230px;
-  clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
-  padding: 10rem 230px;
+  filter: drop-shadow(0px 1px 4px rgba(50, 50, 0, 0.5));
 
-  .horizontal {
-    padding-top: 40px;
-    display: flex;
-    justify-content: space-around;
+  .content {
+    clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
+    padding: 10rem 230px;
 
-    mat-card {
-      min-height: 100px;
-      height: 100px;
-      min-width: 100px;
-      width: 100px;
+    .horizontal {
+      padding-top: 40px;
+      display: flex;
+      justify-content: space-around;
 
-      mat-card-content>img {
-        height: 100%;
-        width: 100%;
-      }
+      mat-card {
+        min-height: 100px;
+        height: 100px;
+        min-width: 100px;
+        width: 100px;
 
-      mat-card-footer {
-        text-align: center;
+        mat-card-content>img {
+          height: 100%;
+          width: 100%;
+        }
+
+        mat-card-footer {
+          text-align: center;
+        }
       }
     }
   }

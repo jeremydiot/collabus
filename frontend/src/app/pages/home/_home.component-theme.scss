@@ -10,7 +10,7 @@
       color: mat.get-color-from-palette($palette, '100-contrast');
     }
 
-    section.presentation {
+    section.presentation .content {
       background-color: mat.get-color-from-palette($palette, 100);
       color: mat.get-color-from-palette($palette, '100-contrast');
     }
