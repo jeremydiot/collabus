@@ -1,15 +1,18 @@
 # Collabus backend
 
 ## OS requirements
+
 - debian
 - vscode
 - python3.10
 - python3-venv
+- python3-pip
 - libpq-dev
 - docker
 - docker-compose-plugin
 
 ## Env file
+
 Example of **.env** file, to be created in django project folder root
 > In production context, use **'production'** value fo key **DJANGO_EXECUTION_ENVIRONMENT** else use **'development'** value.
 
@@ -28,7 +31,9 @@ DJANGO_DATABASE_PORT='5432'
 ```
 
 ## Commands
+
 Execute following commands from django project base folder.
+
 ```bash 
 ./init.sh # init project execution environment
 docker compose up -d # start database
