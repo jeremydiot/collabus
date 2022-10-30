@@ -1,15 +1,17 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, password_validation
+from rest_framework.fields import empty
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
 
-    def __init__(self, instance=None, data=..., *args, **kwargs):
-        data['username'] = data['username'].lower()
-        data['email'] = data['email'].lower()
-        data['first_name'] = data['first_name'].capitalize()
-        data['last_name'] = data['last_name'].capitalize()
-        super().__init__(instance, data, *args, **kwargs)
+    def __init__(self, instance=None, data=empty, **kwargs):
+        if data is not empty:
+            data['username'] = data['username'].lower()
+            data['email'] = data['email'].lower()
+            data['first_name'] = data['first_name'].capitalize()
+            data['last_name'] = data['last_name'].capitalize()
+        super().__init__(instance, data, **kwargs)
 
     class Meta:
         model = get_user_model()
@@ -28,12 +30,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    def __init__(self, instance=None, data=..., *args, **kwargs):
-        data['username'] = data['username'].lower()
-        data['email'] = data['email'].lower()
-        data['first_name'] = data['first_name'].capitalize()
-        data['last_name'] = data['last_name'].capitalize()
-        super().__init__(instance, data, *args, **kwargs)
+    def __init__(self, instance=None, data=empty, **kwargs):
+        if data is not empty:
+            data['username'] = data['username'].lower()
+            data['email'] = data['email'].lower()
+            data['first_name'] = data['first_name'].capitalize()
+            data['last_name'] = data['last_name'].capitalize()
+        super().__init__(instance, data, **kwargs)
 
     class Meta:
         model = get_user_model()
