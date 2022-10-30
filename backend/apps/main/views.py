@@ -2,7 +2,7 @@
 from django.contrib.auth import get_user_model
 
 from rest_framework.response import Response
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_403_FORBIDDEN
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_403_FORBIDDEN, HTTP_202_ACCEPTED
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import AllowAny, IsAdminUser
@@ -10,7 +10,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from drf_spectacular.utils import extend_schema
 from apps.main.permissions import IsOwner
 
-from apps.main.serializers import ChangePasswordUserSerializer, UserSerializer, CreateUserSerializer
+from apps.main.serializers import ChangePasswordUserSerializer, PingPongSerializer, UserSerializer, CreateUserSerializer
 
 
 class UserChangePassword(APIView):
@@ -80,5 +80,17 @@ class UserCreate(APIView):
         if (serializer.is_valid()):
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+class PingPong(APIView):
+    permission_classes = [AllowAny]
+
+    @extend_schema(parameters=[PingPongSerializer], responses=PingPongSerializer, summary='Sanity check')
+    def get(self, request):
+        serializer = PingPongSerializer(data=request.GET)
+        if (serializer.is_valid()):
+            return Response(serializer.data, status=HTTP_202_ACCEPTED)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
