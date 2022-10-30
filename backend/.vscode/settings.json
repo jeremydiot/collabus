@@ -10,10 +10,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "editor.formatOnPaste": false,
-  "[python]": {
-    "editor.tabSize": 4,
-  },
-  "[html]": {
+  "[python][html][markdown]": {
     "editor.tabSize": 4,
   },
   //linter pylint
