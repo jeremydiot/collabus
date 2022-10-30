@@ -1,18 +1,21 @@
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model, password_validation
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
+
+    def __init__(self, instance=None, data=..., *args, **kwargs):
+        data['username'] = data['username'].lower()
+        data['email'] = data['email'].lower()
+        data['first_name'] = data['first_name'].capitalize()
+        data['last_name'] = data['last_name'].capitalize()
+        super().__init__(instance, data, *args, **kwargs)
+
     class Meta:
         model = get_user_model()
         fields = ['username', 'email', 'password', 'first_name', 'last_name']
         extra_kwargs = {
             'password': {'write_only': True},
-            'email': {
-                'required': True,
-                'validators':  [UniqueValidator(queryset=get_user_model().objects.all())]
-            },
         }
 
     def validate(self, attrs):
@@ -25,6 +28,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    def __init__(self, instance=None, data=..., *args, **kwargs):
+        data['username'] = data['username'].lower()
+        data['email'] = data['email'].lower()
+        data['first_name'] = data['first_name'].capitalize()
+        data['last_name'] = data['last_name'].capitalize()
+        super().__init__(instance, data, *args, **kwargs)
+
     class Meta:
         model = get_user_model()
         fields = ['id', 'last_login', 'is_superuser', 'username', 'first_name',
@@ -57,3 +67,13 @@ class ChangePasswordUserSerializer(serializers.ModelSerializer):
         self.instance.set_password(self.validated_data['new_password'])
         self.instance.save()
         return self.instance
+
+
+class PingPongSerializer(serializers.Serializer):
+    result = serializers.CharField(allow_blank=True, default="pong", max_length=4)
+
+    def validate(self, attrs):
+        if (attrs['result'] != 'pong'):
+            raise serializers.ValidationError('What\'s in your head ?')
+
+        return attrs
