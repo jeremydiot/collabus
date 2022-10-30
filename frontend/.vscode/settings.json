@@ -1,11 +1,11 @@
 {
-  //
+  // standard autoformating and linter
   "standard.autoFixOnSave": true,
   "standard.run": "onType",
   "standard.usePackageJson": true,
   "standard.engine": "ts-standard",
   "standard.enable": true,
-  //
+  // general
   "files.autoSave": "off",
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
@@ -13,10 +13,8 @@
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "editor.formatOnPaste": false,
-  //
   "javascript.updateImportsOnFileMove.enabled": "always",
-  //
-  "[html]": {
+  "[html][markdown]": {
     "editor.tabSize": 4
   },
   "[typescript][javascript]": {
