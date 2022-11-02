@@ -27,9 +27,11 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_EXECUTION_ENVIRONMENT') == 'development'
 
 ALLOWED_HOSTS = ['*'] if os.environ.get('DJANGO_EXECUTION_ENVIRONMENT') == 'production' else []
+CORS_ALLOWED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
+# CSRF_TRUSTED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
+# CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
-
 INSTALLED_APPS = [
     # base
     'django.contrib.admin',
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
+    'corsheaders',
 
     # custom apps
     'apps.main'
@@ -52,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # additional library
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
