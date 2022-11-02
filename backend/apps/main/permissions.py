@@ -7,7 +7,7 @@ class IsOwner(BasePermission):
         return bool(
             request.user.is_authenticated
             and username
-            and view.kwargs.get('username', None) == username)
+            and (username == '@me' or view.kwargs.get('username', None) == username))
 
 
 class DenyAny(BasePermission):

@@ -44,7 +44,8 @@ class UserDetail(APIView):
 
     @extend_schema(request=UserSerializer, responses=UserSerializer, summary='Get user data')
     def get(self, request, username):
-        return Response(UserSerializer(self.get_object(username)).data)
+        _username = getattr(request.user, 'username', None) if username == '@me' else username
+        return Response(UserSerializer(self.get_object(_username)).data)
 
     @extend_schema(request=UserSerializer, responses=UserSerializer, summary='Update user data')
     def put(self, request, username):

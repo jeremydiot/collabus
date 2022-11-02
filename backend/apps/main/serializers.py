@@ -22,6 +22,8 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         password_validation.validate_password(attrs['password'], self.instance)
+        if (attrs['username'] == "@me"):
+            serializers.ValidationError('Username "@me" is not authorized')
         return attrs
 
     def create(self, validated_data):
@@ -50,6 +52,11 @@ class UserSerializer(serializers.ModelSerializer):
             'is_staff': {'read_only': True},
             'is_active': {'read_only': True},
         }
+
+        def validate(self, attrs):
+            if (attrs['username'] == "@me"):
+                serializers.ValidationError('Username "@me" is not authorized')
+            return attrs
 
 
 class ChangePasswordUserSerializer(serializers.ModelSerializer):
