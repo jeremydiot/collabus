@@ -1,7 +1,14 @@
 import { Component } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { FormControl, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
-import { User } from '../../models/user'
+import { Store } from '@ngrx/store'
+import { Observable } from 'rxjs'
+import * as authActions from '../../store/auth/auth.actions'
+
+export interface LoginFormData{
+  email: string
+  password: string
+}
 
 @Component({
   selector: 'app-sign-in-dialog',
@@ -9,28 +16,34 @@ import { User } from '../../models/user'
   styleUrls: ['./sign-in-dialog.component.scss']
 })
 export class SignInDialogComponent {
-  user: User = new User()
+  auth$: Observable<string>
 
-  constructor (
-    public dialogRef: MatDialogRef<SignInDialogComponent>
-  ) {
-    this.user.email = ''
-    this.user.password = ''
+  loginFormData: LoginFormData = {
+    email: '',
+    password: ''
   }
 
-  passwordFormControl = new FormControl()
-  emailFormControl = new FormControl()
+  emailFormControl: FormControl = new FormControl('', [Validators.email, Validators.required])
+  passwordFormControl: FormControl = new FormControl('', [Validators.required])
+
+  constructor (
+    public dialogRef: MatDialogRef<SignInDialogComponent>,
+    private readonly store: Store<{auth: string}>
+  ) {
+    this.auth$ = store.select('auth')
+  }
 
   onValid (): void {
-    if (this.user.password?.trim() !== '' && this.user.email?.trim() !== '') this.dialogRef.close(this.user)
-    else {
-      this.user.password === '' && this.passwordFormControl.markAsTouched()
-      this.user.email === '' && this.emailFormControl.markAsTouched()
+    this.store.dispatch(authActions.login({ email: this.emailFormControl.value }))
+    if (this.emailFormControl.valid && this.passwordFormControl.valid) {
+      this.loginFormData.email = this.emailFormControl.value
+      this.loginFormData.password = this.passwordFormControl.value
+      // this.dialogRef.close(this.loginFormData)
     }
   }
 
   onKeyUpTrim (): void {
-    this.user.email = this.user.email?.trim()
-    this.user.password = this.user.password?.trim()
+    this.emailFormControl.setValue(this.emailFormControl.value.trim())
+    this.passwordFormControl.setValue(this.passwordFormControl.value.trim())
   }
 }

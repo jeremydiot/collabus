@@ -14,6 +14,9 @@ import { ProjectComponent } from './pages/project/project.component'
 import { AdminComponent } from './pages/admin/admin.component'
 import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialog.component'
 import { StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
+import { HttpClientModule } from '@angular/common/http'
+import { authReducer } from './store/auth/auth.reducer'
 
 @NgModule({
   declarations: [
@@ -29,10 +32,12 @@ import { StoreModule } from '@ngrx/store'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({ auth: authReducer }, {}),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]
