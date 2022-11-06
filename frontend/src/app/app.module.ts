@@ -15,8 +15,10 @@ import { AdminComponent } from './pages/admin/admin.component'
 import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialog.component'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { authReducer } from './store/auth/auth.reducer'
+import { AuthEffects } from './store/auth/auth.effects'
+import { AuthInterceptor } from './interceptors'
 
 @NgModule({
   declarations: [
@@ -37,9 +39,15 @@ import { authReducer } from './store/auth/auth.reducer'
     BrowserAnimationsModule,
     MaterialModule,
     StoreModule.forRoot({ auth: authReducer }, {}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([AuthEffects])
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
