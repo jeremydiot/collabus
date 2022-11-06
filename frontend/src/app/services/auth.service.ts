@@ -1,47 +1,71 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 import { environment } from 'src/environments/environment'
-import { Acces, Tokens } from '../models/tokens'
-import { User } from '../models/user'
+import { Tokens, User } from '../models/user'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  static ACCES_TOKEN: string = 'access_token'
-  static REFRESH_TOKEN: string = 'refresh_token'
-
-  private readonly apiUrl = environment.backendUrl + environment.apiPath
+  private readonly apiUrl = environment.backendUrl
 
   constructor (private readonly http: HttpClient) { }
 
-  login (email: string, password: string): Observable<Tokens> {
-    return this.http.post<Tokens>(`${this.apiUrl}/token/`, { username: email, password: password })
+  get userProfile (): Object {
+    const _profile = localStorage.getItem(environment.USER_PROFILE)
+    return (_profile !== null) ? JSON.parse(_profile) : {}
   }
 
-  logout (): void {
-    localStorage.removeItem(AuthService.ACCES_TOKEN)
-    localStorage.removeItem(AuthService.REFRESH_TOKEN)
+  set userProfile (profile: Object) {
+    localStorage.setItem(environment.USER_PROFILE, JSON.stringify(profile))
   }
 
-  get token (): string {
-    const _token = localStorage.getItem(AuthService.ACCES_TOKEN)
+  get accessToken (): string {
+    const _token = localStorage.getItem(environment.ACCES_TOKEN)
     return (_token !== null) ? _token : ''
   }
 
-  verifyToken (token: string | null = localStorage.getItem(AuthService.ACCES_TOKEN)): Observable<Object> {
-    return this.http.post<Object>(`${this.apiUrl}/token/verify/`, { token: token })
+  set accessToken (token: string) {
+    localStorage.setItem(environment.ACCES_TOKEN, token)
   }
 
-  refreshToken (refresh: string | null = localStorage.getItem(AuthService.REFRESH_TOKEN)): Observable<Acces> {
-    return this.http.post<Acces>(`${this.apiUrl}/token/refresh/`, { refresh: refresh })
+  get refreshToken (): string {
+    const _token = localStorage.getItem(environment.REFRESH_TOKEN)
+    return (_token !== null) ? _token : ''
   }
 
-  getUser (username: string = '@me'): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/user/${username}/`, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.token}`
-      })
+  set refreshToken (token: string) {
+    localStorage.setItem(environment.REFRESH_TOKEN, token)
+  }
+
+  login (email: string, password: string): Observable<Tokens> {
+    return this.http.post<Tokens>(`${this.apiUrl}/token/`, { username: email, password: password }).pipe(map((tokens) => {
+      this.accessToken = tokens.access
+      this.refreshToken = tokens.refresh
+      return tokens
+    }))
+  }
+
+  logout (): Observable<never> {
+    const observable = new Observable<never>((subscriber) => {
+      localStorage.removeItem(environment.ACCES_TOKEN)
+      localStorage.removeItem(environment.REFRESH_TOKEN)
+      subscriber.next()
     })
+    return observable
+  }
+
+  getUserProfile (username: string = '@me'): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/user/${username}/`).pipe(map((user) => {
+      this.userProfile = user
+      return user
+    }))
+  }
+
+  refreshAccessToken (refresh: string = this.refreshToken): Observable<{access: string}> {
+    return this.http.post<{access: string}>(`${this.apiUrl}/token/refresh/`, { refresh: refresh }).pipe(map((token) => {
+      this.accessToken = token.access
+      return token
+    }))
   }
 }

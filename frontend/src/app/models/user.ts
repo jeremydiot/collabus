@@ -1,3 +1,13 @@
+export class Credentials {
+  email!: string
+  password!: string
+}
+
+export class Tokens {
+  access!: string
+  refresh!: string
+}
+
 export class User {
   id!: number
   last_login!: string // TODO Date type ?
