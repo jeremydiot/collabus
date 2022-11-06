@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,6 +31,11 @@ ALLOWED_HOSTS = ['*'] if os.environ.get('DJANGO_EXECUTION_ENVIRONMENT') == 'prod
 CORS_ALLOWED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
 # CSRF_TRUSTED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
 # CORS_ALLOW_CREDENTIALS = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
+}
 
 # Application definition
 INSTALLED_APPS = [
