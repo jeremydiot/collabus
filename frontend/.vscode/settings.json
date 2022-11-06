@@ -19,5 +19,10 @@
   },
   "[typescript][javascript]": {
     "editor.formatOnSave": false,
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#EC7063",
+    "activityBar.inactiveForeground": "#404040",
+    "activityBar.foreground": "#FFFFFF",
   }
 }
