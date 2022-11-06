@@ -28,6 +28,7 @@ DJANGO_DATABASE_USER='postgres'
 DJANGO_DATABASE_PSWD='postgres'
 DJANGO_DATABASE_HOST='localhost'
 DJANGO_DATABASE_PORT='5432'
+DJANGO_FRONT_URL='http://localhost:4200'
 ```
 
 ## Commands
