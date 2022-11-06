@@ -16,7 +16,6 @@ export class NavbarComponent {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
     })
   }
 }

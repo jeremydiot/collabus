@@ -10,8 +10,9 @@
         <input matInput type="password" [formControl]="passwordFormControl" required>
         <mat-error>{{passwordFormControl.status}}</mat-error>
     </mat-form-field>
-    <span>{{auth$ | async}}</span>
 </div>
+<button (click)="onClick()">click</button>
+<span>{{username}}</span>
 <div mat-dialog-actions>
     <button mat-raised-button color="primary" (click)="onValid()">Valider</button>
 </div>
