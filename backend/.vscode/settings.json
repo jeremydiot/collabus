@@ -37,4 +37,9 @@
     "--max-line-length",
     "120"
   ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#45B39D",
+    "activityBar.inactiveForeground": "#404040",
+    "activityBar.foreground": "#FFFFFF",
+  }
 }
