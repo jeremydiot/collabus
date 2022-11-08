@@ -9,5 +9,6 @@ ENV_PATH="env/"
 
 # install python dependencies in virtual environment
 source env/bin/activate
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements/common.txt
 [ "$DJANGO_EXECUTION_ENVIRONMENT" = "development" ] && python3 -m pip install -r requirements/development.txt
