@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { of } from 'rxjs'
-import { map, mergeMap, catchError, finalize } from 'rxjs/operators'
+import { map, catchError, concatMap } from 'rxjs/operators'
 import { AuthService } from '../../services/auth.service'
 import * as authActions from './auth.actions'
 
@@ -14,28 +14,12 @@ export class AuthEffects {
 
   login$ = createEffect(() => this.actions$.pipe(
     ofType(authActions.login),
-    mergeMap(({ email, password }) => this.authService.login(email, password).pipe(
-      map(() => {
-        return authActions.loginSuccess()
-      }),
+    concatMap(({ email, password }) => this.authService.login(email, password).pipe(
+      concatMap(() => this.authService.getUserProfile().pipe(
+        map(() => authActions.loginComplete()),
+        catchError((error) => of(authActions.loginError({ error })))
+      )),
       catchError((error) => of(authActions.loginError({ error })))
-    ))
-  ))
-
-  getUser$ = createEffect(() => this.actions$.pipe(
-    ofType(authActions.loginSuccess),
-    mergeMap(() => this.authService.getUserProfile().pipe(
-      map(user => {
-        console.log('get user !')
-        return authActions.loginComplete({ isLoggedIn: true, profile: user })
-      }),
-      catchError((error) => {
-        console.log('error !')
-        return of(authActions.loginError({ error }))
-      }),
-      finalize(() => {
-        console.log('try !')
-      })
     ))
   ))
 }

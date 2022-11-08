@@ -6,7 +6,7 @@ import { Observable } from 'rxjs'
 import { AuthState } from 'src/app/store/auth/auth.reducer'
 import * as authActions from '../../store/auth/auth.actions'
 
-export interface LoginFormData{
+export interface LoginFormData {
   email: string
   password: string
 }
@@ -30,7 +30,7 @@ export class SignInDialogComponent {
 
   constructor (
     public dialogRef: MatDialogRef<SignInDialogComponent>,
-    private readonly store: Store<{auth: AuthState}>
+    private readonly store: Store<{ auth: AuthState }>
   ) {
     this.auth$ = store.select('auth')
     this.auth$.subscribe(data => {
@@ -53,6 +53,6 @@ export class SignInDialogComponent {
   }
 
   onClick (): void {
-    this.store.dispatch(authActions.loginSuccess())
+    // this.store.dispatch(authActions.loginSuccess())
   }
 }

@@ -3,16 +3,25 @@ import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler, HttpErrorResponse
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { AuthService } from './services/auth.service'
+import { Store } from '@ngrx/store'
+import * as authActions from './store/auth/auth.actions'
+import { AuthState } from 'src/app/store/auth/auth.reducer'
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private refreshTokenInProgress = false
   private readonly refreshTokenSubject = new BehaviorSubject<any>(null)
+  auth$: Observable<AuthState>
 
-  constructor (private readonly authService: AuthService) { }
+  constructor (
+    private readonly authService: AuthService,
+    private readonly store: Store<{ auth: AuthState }>
+  ) {
+    this.auth$ = store.select('auth')
+  }
 
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.startsWith(environment.backendUrl) && this.authService.accessToken !== '') {
+    if (req.url.startsWith(environment.backendUrl) && AuthService.accessToken !== '') {
       req = this.setHeaders(req)
 
       return next.handle(req).pipe(catchError(err => {
@@ -21,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
           req.url.startsWith(environment.backendUrl + '/token') // api token routes
         )
         ) {
-          this.authService.logout().subscribe() // logout at : refresh acces token error, login error, forbidden request
+          this.store.dispatch(authActions.logout()) // logout at : refresh acces token error, login error, forbidden request
         } else if (err instanceof HttpErrorResponse && err.status === 401) { // unauthorized
           return this.handle401Error(req, next)
         }
@@ -62,7 +71,7 @@ export class AuthInterceptor implements HttpInterceptor {
       setHeaders: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.accessToken}`
+        Authorization: `Bearer ${AuthService.accessToken}`
       }
     })
   }
