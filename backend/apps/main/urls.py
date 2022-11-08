@@ -4,8 +4,12 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 from apps.main import views
 
 urlpatterns = [
-    path('user/', views.UserCreate.as_view(), name='user_list'),
-    path('user/<str:username>/', views.UserDetail.as_view(), name='user_detail'),
+    path('user/', views.UserViewSet.as_view({'post': 'create'}), name='user_list'),
+    path(
+        'user/<str:username>/',
+        views.UserViewSet.as_view({'put': 'update', 'delete': 'destroy', 'get': 'retrieve'}),
+        name='user'
+    ),
     path('user/<str:username>/change_password/', views.UserChangePassword.as_view(), name='user_change_password'),
 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain'),
