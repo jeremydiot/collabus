@@ -19,6 +19,7 @@ Example of **.env** file, to be created in django project folder root
 ```bash
 # rewrite values in production context
 DJANGO_EXECUTION_ENVIRONMENT='development'
+DJANGO_SETTINGS_MODULE='project.settings'
 DJANGO_SECRET_KEY='django-insecure-+8d51zrhytbw=s6+oh)4p$ghje@l#&k9f664cw4u8s)2w*zxgb'
 DJANGO_SUPERUSER_PASSWORD='admin'
 DJANGO_SUPERUSER_USERNAME='admin'
