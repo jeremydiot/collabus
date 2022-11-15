@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { of } from 'rxjs'
-import { map, catchError, concatMap } from 'rxjs/operators'
+import { map, catchError, concatMap, from, concatAll, last } from 'rxjs'
 import { AuthService } from '../../services/auth.service'
 import * as authActions from './auth.actions'
 
@@ -14,12 +13,15 @@ export class AuthEffects {
 
   login$ = createEffect(() => this.actions$.pipe(
     ofType(authActions.login),
-    concatMap(({ email, password }) => this.authService.login(email, password).pipe(
-      concatMap(() => this.authService.getUserProfile().pipe(
-        map(() => authActions.loginComplete()),
-        catchError((error) => of(authActions.loginError({ error })))
-      )),
-      catchError((error) => of(authActions.loginError({ error })))
-    ))
+    concatMap(({ email, password }) => from([
+      this.authService.login(email, password),
+      this.authService.getUserProfile()
+    ]).pipe(
+      concatAll(),
+      catchError((error) => from([authActions.loginError({ error })])),
+      last(),
+      map(() => authActions.loginComplete()
+      ))
+    )
   ))
 }
