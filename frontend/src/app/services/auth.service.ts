@@ -41,6 +41,7 @@ export class AuthService {
   static logout (): void {
     localStorage.removeItem(environment.ACCES_TOKEN)
     localStorage.removeItem(environment.REFRESH_TOKEN)
+    localStorage.removeItem(environment.USER_PROFILE)
   }
 
   login (email: string, password: string): Observable<Tokens> {

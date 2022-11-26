@@ -1,9 +1,19 @@
 <nav>
     <a class="logo-link" href="/"></a>
     <div class="flex-spacer"></div>
-    <button mat-stroked-button (click)="openSignInDialog()">
-        <div class="d-flex align-items-center">
-            <mat-icon fontIcon="login_rounded"></mat-icon><span>&nbsp;Se connecter</span>
-        </div>
-    </button>
+    <div *ngIf="!(auth$ | async)?.isLoggedIn; else loggedIn">
+        <button mat-stroked-button (click)="onOpenSignInDialog()">
+            <div class="d-flex align-items-center">
+                <mat-icon fontIcon="login_rounded"></mat-icon><span>&nbsp;Se connecter</span>
+            </div>
+        </button>
+    </div>
+    <ng-template #loggedIn>
+        <button mat-stroked-button (click)="onLogout()">
+            <div class="d-flex align-items-center">
+                <mat-icon fontIcon="logout_rounded"></mat-icon><span>&nbsp;Se déconnecter</span>
+            </div>
+        </button>
+    </ng-template>
+
 </nav>

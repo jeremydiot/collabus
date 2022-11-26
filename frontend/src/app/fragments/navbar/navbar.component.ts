@@ -1,6 +1,10 @@
 import { Component } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { Store } from '@ngrx/store'
+import { Observable } from 'rxjs'
 import { SignInDialogComponent } from 'src/app/components/sign-in-dialog/sign-in-dialog.component'
+import { AuthState } from 'src/app/store/auth/auth.reducer'
+import * as authActions from '../../store/auth/auth.actions'
 
 @Component({
   selector: 'app-navbar',
@@ -8,14 +12,25 @@ import { SignInDialogComponent } from 'src/app/components/sign-in-dialog/sign-in
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  constructor (public signInDialog: MatDialog) { }
+  auth$: Observable<AuthState>
 
-  openSignInDialog (): void {
+  constructor (
+    public signInDialog: MatDialog,
+    private readonly store: Store<{ auth: AuthState }>
+  ) {
+    this.auth$ = store.select('auth')
+  }
+
+  onOpenSignInDialog (): void {
     const dialogRef = this.signInDialog.open(SignInDialogComponent, {
       width: '500px'
     })
 
     dialogRef.afterClosed().subscribe(result => {
     })
+  }
+
+  onLogout (): void {
+    this.store.dispatch(authActions.logout())
   }
 }
