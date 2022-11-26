@@ -1,18 +1,18 @@
 <h1 mat-dialog-title>Se connecter</h1>
-<div mat-dialog-content (keydown.enter)="onValid()" (keyup)="onKeyUpTrim()">
-    <mat-form-field appearance="outline">
-        <mat-label>E-mail</mat-label>
-        <input matInput type="email" [formControl]="emailFormControl" required>
-        <mat-error>{{emailFormControl.status}}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Mot de passe</mat-label>
-        <input matInput type="password" [formControl]="passwordFormControl" required>
-        <mat-error>{{passwordFormControl.status}}</mat-error>
-    </mat-form-field>
-</div>
-<button (click)="onClick()">click</button>
-<span>{{username}}</span>
-<div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="onValid()">Valider</button>
-</div>
+<form [formGroup]="form" (ngSubmit)="onValid()">
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email" required>
+            <mat-error *ngIf="form.controls.email.status == 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput type="password" formControlName="password" required>
+            <mat-error *ngIf="form.controls.password.status">Champ invalide</mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Valider</button>
+    </div>
+</form>

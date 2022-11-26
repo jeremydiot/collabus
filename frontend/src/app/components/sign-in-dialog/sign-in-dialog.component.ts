@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
@@ -18,15 +18,11 @@ export interface LoginFormData {
 })
 export class SignInDialogComponent {
   auth$: Observable<AuthState>
-  username: string = ''
 
-  loginFormData: LoginFormData = {
-    email: '',
-    password: ''
-  }
-
-  emailFormControl: FormControl = new FormControl('admin', [Validators.email, Validators.required])
-  passwordFormControl: FormControl = new FormControl('admin', [Validators.required])
+  form = new FormGroup({
+    email: new FormControl('admin@admin.com', { nonNullable: true, validators: [Validators.email, Validators.required] }),
+    password: new FormControl('admin', { nonNullable: true, validators: [Validators.required] })
+  })
 
   constructor (
     public dialogRef: MatDialogRef<SignInDialogComponent>,
@@ -34,25 +30,14 @@ export class SignInDialogComponent {
   ) {
     this.auth$ = store.select('auth')
     this.auth$.subscribe(data => {
-      this.username = String(data.profile?.email)
+
     })
   }
 
   onValid (): void {
-    this.store.dispatch(authActions.login({ email: this.emailFormControl.value, password: this.passwordFormControl.value }))
-    if (this.emailFormControl.valid && this.passwordFormControl.valid) {
-      this.loginFormData.email = this.emailFormControl.value
-      this.loginFormData.password = this.passwordFormControl.value
-      // this.dialogRef.close(this.loginFormData)
+    if (this.form.valid) {
+      this.store.dispatch(authActions.login({ email: this.form.controls.email.value, password: this.form.controls.password.value }))
+      this.dialogRef.close()
     }
-  }
-
-  onKeyUpTrim (): void {
-    this.emailFormControl.setValue(this.emailFormControl.value.trim())
-    this.passwordFormControl.setValue(this.passwordFormControl.value.trim())
-  }
-
-  onClick (): void {
-    // this.store.dispatch(authActions.loginSuccess())
   }
 }
