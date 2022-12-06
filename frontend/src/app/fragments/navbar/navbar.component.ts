@@ -22,11 +22,8 @@ export class NavbarComponent {
   }
 
   onOpenSignInDialog (): void {
-    const dialogRef = this.signInDialog.open(SignInDialogComponent, {
+    this.signInDialog.open(SignInDialogComponent, {
       width: '500px'
-    })
-
-    dialogRef.afterClosed().subscribe(result => {
     })
   }
 

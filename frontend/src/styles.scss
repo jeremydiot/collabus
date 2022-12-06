@@ -2,7 +2,8 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
-@use "./app/fragments/navbar/navbar.componant-theme" as navbar;
+@use "./app/components/sign-in-dialog/sign-in-dialog.component-theme" as sign-in-dialog;
+@use "./app/fragments/navbar/navbar.component-theme" as navbar;
 @use "./app/fragments/footer/footer.component-theme" as footer;
 @use "./app/pages/home/home.component-theme" as home;
 // Include the common styles for Angular Material. We include this here so that you only
@@ -35,6 +36,7 @@ $primary-theme: mat.define-light-theme((color: (primary: $primary-palette, accen
 @include navbar.theme($primary-theme);
 @include footer.theme($primary-theme);
 @include home.theme($primary-theme);
+@include sign-in-dialog.theme($primary-theme);
 
 html,
 body,
