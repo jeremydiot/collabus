@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs'
 import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { HomeComponent } from './pages/home/home.component'
 import { ProjectComponent } from './pages/project/project.component'
+import { SettingsComponent } from './pages/settings/settings.component'
 import { AuthState } from './store/auth/auth.reducer'
 
 @Injectable()
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'project', component: ProjectComponent, canActivate: [CanActivateLoggedIn] },
+  { path: 'settings', component: SettingsComponent, canActivate: [CanActivateLoggedIn] },
   { path: '**', redirectTo: '' } // redirect 404 to home
 ]
 

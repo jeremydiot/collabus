@@ -9,11 +9,19 @@
         </button>
     </div>
     <ng-template #loggedIn>
-        <button mat-stroked-button (click)="onLogout()">
+        <button mat-stroked-button [matMenuTriggerFor]="loggedInNavbarMenu">
             <div class="d-flex align-items-center">
-                <mat-icon fontIcon="logout_rounded"></mat-icon><span>&nbsp;Se déconnecter</span>
+                <span>{{ (auth$ | async)?.profile?.email }}</span>
             </div>
         </button>
+        <mat-menu #loggedInNavbarMenu="matMenu" yPosition="below" xPosition="before">
+            <a mat-menu-item routerLink="settings">
+                <mat-icon fontIcon="settings_rounded"></mat-icon><span>Paramètres</span>
+            </a>
+            <button mat-menu-item (click)="onLogout()">
+                <mat-icon fontIcon="logout_rounded"></mat-icon><span>Se déconnecter</span>
+            </button>
+        </mat-menu>
     </ng-template>
 
 </nav>
