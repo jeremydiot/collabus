@@ -22,11 +22,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
 
-        fields = ['username', 'email', 'password', 'first_name', 'last_name']
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'phone', 'entity']
 
         extra_kwargs = {
             'password': {'write_only': True},
-            'username': {'validators': [RegexValidator('^(?!@).*', message='Ne peut pas commencer par @'), UniqueValidator(get_user_model().objects.all())]},
+            'username': {'validators': [RegexValidator(r'^(?!@).*', message='Ne peut pas commencer par @'), UniqueValidator(get_user_model().objects.all())]},
+            'phone': {'validators': [RegexValidator(r'^\+[0-9]{11,14}$', message='Doit commencer par + suivi de 11 à 14 chiffres ')]},
         }
 
     def validate(self, attrs):
@@ -56,7 +57,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         fields = ['id', 'last_login', 'is_superuser', 'username', 'first_name',
                   'last_name', 'email', 'is_staff', 'is_active', 'date_joined',
-                  'groups', 'user_permissions']
+                  'groups', 'user_permissions', 'phone', 'entity', 'type']
 
         extra_kwargs = {
             'id': {'read_only': True},
@@ -67,7 +68,9 @@ class UserSerializer(serializers.ModelSerializer):
             'is_active': {'read_only': True},
             'groups': {'read_only': True},
             'user_permissions': {'read_only': True},
-            'username': {'validators': [RegexValidator('^(?!@).*', message='Ne peut pas commencer par @'), UniqueValidator(get_user_model().objects.all())]},
+            'type': {'read_only': True},
+            'username': {'validators': [RegexValidator(r'^(?!@).*', message='Ne peut pas commencer par @'), UniqueValidator(get_user_model().objects.all())]},
+            'phone': {'validators': [RegexValidator(r'^\+[0-9]{11,14}$', message='Doit commencer par + suivi de 11 à 14 chiffres ')]},
         }
 
 
