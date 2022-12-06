@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { map, catchError, concatMap, from, concatAll, last } from 'rxjs'
 import { AuthService } from '../../services/auth.service'
@@ -8,7 +9,8 @@ import * as authActions from './auth.actions'
 export class AuthEffects {
   constructor (
     private readonly actions$: Actions,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {}
 
   login$ = createEffect(() => this.actions$.pipe(
@@ -20,8 +22,18 @@ export class AuthEffects {
       concatAll(),
       catchError((error) => from([authActions.loginError({ error })])),
       last(),
-      map(() => authActions.loginComplete()
-      ))
-    )
+      map(() => {
+        void this.router.navigate(['dashboard'])
+        return authActions.loginComplete()
+      })
+    ))
+  ))
+
+  logout$ = createEffect(() => this.actions$.pipe(
+    ofType(authActions.logout),
+    map(() => {
+      void this.router.navigate([''])
+      return authActions.logoutComplete()
+    })
   ))
 }

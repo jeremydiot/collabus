@@ -22,7 +22,7 @@ export const authReducer = createReducer(
       isLoggedIn: Object.keys(AuthService.userProfile).length > 0
     }
   }),
-  on(authActions.logout, (state) => {
+  on(authActions.logoutComplete, (state) => {
     AuthService.logout()
     return {
       ...state,

@@ -1,5 +1,5 @@
 <nav>
-    <a class="logo-link" href="/"></a>
+    <a class="logo-link" routerLink=""></a>
     <div class="flex-spacer"></div>
     <div *ngIf="!(auth$ | async)?.isLoggedIn; else loggedIn">
         <button mat-stroked-button (click)="onOpenSignInDialog()">
