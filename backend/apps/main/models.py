@@ -16,5 +16,5 @@ class User(AbstractUser):
         }
     )
 
-    phone = models.CharField(max_length=15, null=True)
-    entity = models.CharField(max_length=254, null=True)
+    phone = models.CharField(max_length=15)
+    entity = models.CharField(max_length=254)
