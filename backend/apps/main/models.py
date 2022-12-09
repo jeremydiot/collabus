@@ -5,12 +5,6 @@ from django.db import models
 
 class User(AbstractUser):
 
-    class Type(models.IntegerChoices):
-        STANDARD = 0, "standard"
-        ADMIN = 1, "administrateur"
-        SCHOOL = 2, "école"
-        COMPANY = 3, "entreprise"
-
     email = models.EmailField(
         _("email address"),
         unique=True,
@@ -24,4 +18,3 @@ class User(AbstractUser):
 
     phone = models.CharField(max_length=15, null=True)
     entity = models.CharField(max_length=254, null=True)
-    type = models.IntegerField(choices=Type.choices, default=Type.STANDARD)
