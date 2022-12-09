@@ -13,6 +13,18 @@
   "[python][html][markdown]": {
     "editor.tabSize": 4,
   },
+  "files.associations": {
+    "**/migrations/*.py": "notautoformat"
+  },
+  "[notautoformat]": {
+    "editor.formatOnSave": false,
+    // "workbench.editor.languageDetection": false
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#45B39D",
+    "activityBar.inactiveForeground": "#404040",
+    "activityBar.foreground": "#FFFFFF",
+  },
   //linter pylint
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
@@ -29,16 +41,18 @@
     "pylint_django.checkers.migrations",
     "--disable=missing-module-docstring,missing-class-docstring,missing-function-docstring,line-too-long,unsupported-binary-operation"
   ],
+  "python.linting.ignorePatterns": [
+    "**/env/**/*",
+    "**/migrations/**/*",
+    "**/site-packages/**/*.py",
+    ".vscode/*.py"
+  ],
   //formatting autopep8
   "python.formatting.provider": "autopep8",
   "python.formatting.autopep8Path": "${workspaceFolder}/env/bin/autopep8",
   "python.formatting.autopep8Args": [
     "--max-line-length",
-    "120"
+    "120",
+    "--aggressive",
   ],
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#45B39D",
-    "activityBar.inactiveForeground": "#404040",
-    "activityBar.foreground": "#FFFFFF",
-  }
 }
