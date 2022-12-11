@@ -5,10 +5,9 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_403_FORBIDDEN, HTTP_202_ACCEPTED
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import AllowAny, IsAdminUser
 
 from drf_spectacular.utils import extend_schema
-from apps.main.permissions import IsOwner
+from apps.main.permissions import IsOwner, IsAdminUser, AllowAny
 
 from apps.main.serializers import ChangePasswordUserSerializer, PingPongSerializer, UserSerializer, CreateUserSerializer
 
@@ -72,9 +71,11 @@ class UserChangePassword(APIView):
         except get_user_model().DoesNotExist as exc:
             raise NotFound from exc
 
-    @extend_schema(request=ChangePasswordUserSerializer, responses=ChangePasswordUserSerializer, summary='Change password')
+    @extend_schema(request=ChangePasswordUserSerializer,
+                   responses=ChangePasswordUserSerializer, summary='Change password')
     def put(self, request, username):
-        serializer = ChangePasswordUserSerializer(self.get_object(username), data=request.data)
+        _username = getattr(request.user, 'username', None) if username == '@me' else username
+        serializer = ChangePasswordUserSerializer(self.get_object(_username), data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

@@ -3,9 +3,38 @@ from django.core.validators import RegexValidator
 from rest_framework import serializers
 from rest_framework.fields import empty
 from rest_framework.validators import UniqueValidator
+from .models import Entity
 
 
-class CreateUserSerializer(serializers.ModelSerializer):
+class EntitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Entity
+
+        fields = ['pk', 'name', 'type', 'address', 'zip_code', 'city', 'country', 'phone', 'email']
+
+        extra_kwargs = {
+            'pk': {'read_only': True},
+            'name': {'read_only': True},
+            'type': {'read_only': True},
+            'address': {'read_only': True},
+            'zip_code': {'read_only': True},
+            'city': {'read_only': True},
+            'country': {'read_only': True},
+            'phone': {'read_only': True},
+            'email': {'read_only': True},
+        }
+
+
+class BaseUserSerializer(serializers.ModelSerializer):
+
+    PHONE_FIELD_VALIDATOR = [
+        RegexValidator(r'^\+[0-9]{11,14}$', message='Doit commencer par + suivi de 11 à 14 chiffres ')
+    ]
+
+    USERNAME_FIELD_VALIDATOR = [
+        RegexValidator(r'^(?!@).*', message='Ne peut pas commencer par @'),
+        UniqueValidator(get_user_model().objects.all())
+    ]
 
     def __init__(self, instance=None, data=empty, **kwargs):
         if data is not empty:
@@ -19,15 +48,17 @@ class CreateUserSerializer(serializers.ModelSerializer):
                 data['last_name'] = data['last_name'].upper()
         super().__init__(instance, data, **kwargs)
 
+
+class CreateUserSerializer(BaseUserSerializer):
     class Meta:
         model = get_user_model()
 
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'phone', 'entity']
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'phone']
 
         extra_kwargs = {
             'password': {'write_only': True},
-            'username': {'validators': [RegexValidator(r'^(?!@).*', message='Ne peut pas commencer par @'), UniqueValidator(get_user_model().objects.all())]},
-            'phone': {'validators': [RegexValidator(r'^\+[0-9]{11,14}$', message='Doit commencer par + suivi de 11 à 14 chiffres ')]},
+            'username': {'validators': BaseUserSerializer.USERNAME_FIELD_VALIDATOR},
+            'phone': {'validators': BaseUserSerializer.PHONE_FIELD_VALIDATOR},
         }
 
     def validate(self, attrs):
@@ -39,37 +70,27 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserSerializer(serializers.ModelSerializer):
-    def __init__(self, instance=None, data=empty, **kwargs):
-        if data is not empty:
-            if 'username' in data:
-                data['username'] = data['username'].lower()
-            if 'email' in data:
-                data['email'] = data['email'].lower()
-            if 'first_name' in data:
-                data['first_name'] = data['first_name'].capitalize()
-            if 'last_name' in data:
-                data['last_name'] = data['last_name'].upper()
-        super().__init__(instance, data, **kwargs)
+class UserSerializer(BaseUserSerializer):
+
+    entity = EntitySerializer(read_only=True)
 
     class Meta:
         model = get_user_model()
 
-        fields = ['id', 'last_login', 'is_superuser', 'username', 'first_name',
+        fields = ['pk', 'last_login', 'is_superuser', 'username', 'first_name',
                   'last_name', 'email', 'is_staff', 'is_active', 'date_joined',
-                  'groups', 'user_permissions', 'phone', 'entity']
+                  'phone', 'entity']
 
         extra_kwargs = {
-            'id': {'read_only': True},
+            'pk': {'read_only': True},
             'last_login': {'read_only': True},
             'date_joined': {'read_only': True},
             'is_superuser': {'read_only': True},
             'is_staff': {'read_only': True},
             'is_active': {'read_only': True},
-            'groups': {'read_only': True},
-            'user_permissions': {'read_only': True},
-            'username': {'validators': [RegexValidator(r'^(?!@).*', message='Ne peut pas commencer par @'), UniqueValidator(get_user_model().objects.all())]},
-            'phone': {'validators': [RegexValidator(r'^\+[0-9]{11,14}$', message='Doit commencer par + suivi de 11 à 14 chiffres ')]},
+            'entity': {'read_only': True},
+            'username': {'validators': BaseUserSerializer.USERNAME_FIELD_VALIDATOR},
+            'phone': {'validators': BaseUserSerializer.PHONE_FIELD_VALIDATOR},
         }
 
 
