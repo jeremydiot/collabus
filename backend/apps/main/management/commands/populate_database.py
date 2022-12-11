@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # populate groups table
-        with open(settings.DATA_DIR / 'groups.csv', 'r', encoding='utf-8') as file:
+        with open(settings.DATA_DIR / 'database' / 'groups.csv', 'r', encoding='utf-8') as file:
             for row in csv.DictReader(file, delimiter=','):
                 Group.objects.update_or_create(
                     pk=row['id'],

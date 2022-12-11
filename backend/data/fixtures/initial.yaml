@@ -1,0 +1,137 @@
+- model: main.entity
+  pk: 1
+  fields:
+    name: standard1
+    type: 0
+    address: standard1_address
+    zip_code: standard1_zip_code
+    city: standard1_city
+    country: standard1_coutry
+    phone: '+16854863736501'
+    email: standard1@example.com
+
+- model: main.entity
+  pk: 2
+  fields:
+    name: standard2
+    type: 0
+    address: standard2_address
+    zip_code: standard2_zip_code
+    city: standard2_city
+    country: standard2_coutry
+    phone: '+863271668333'
+    email: standard2@example.com
+
+- model: main.entity
+  pk: 3
+  fields:
+    name: school1
+    type: 1
+    address: school1_address
+    zip_code: school1_zip_code
+    city: school1_city
+    country: school1_coutry
+    phone: '+49802836995719'
+    email: school1@example.com
+
+- model: main.entity
+  pk: 4
+  fields:
+    name: school2
+    type: 1
+    address: school2_address
+    zip_code: school2_zip_code
+    city: school2_city
+    country: school2_coutry
+    phone: '+976826671716'
+    email: school2@example.com
+
+- model: main.entity
+  pk: 5
+  fields:
+    name: company1
+    type: 2
+    address: company1_address
+    zip_code: company1_zip_code
+    city: company1_city
+    country: company1_coutry
+    phone: '+82570523015'
+    email: company1@example.com
+
+- model: main.entity
+  pk: 6
+  fields:
+    name: company2
+    type: 2
+    address: company2_address
+    zip_code: company2_zip_code
+    city: company2_city
+    country: company2_coutry
+    phone: '+7828783086618'
+    email: company2@example.com
+
+- model: main.user
+  pk: 1
+  fields:
+    username: admin
+    email: admin@admin.com
+    password: admin
+    first_name: admin
+    last_name: admin
+    phone: '+5275228284147'
+    is_superuser: true
+    is_staff: true
+
+- model: main.user
+  pk: 2
+  fields:  
+    username: toto
+    email: toto@example.com
+    password: TOtoto123
+    first_name: toto_first
+    last_name: toto_last
+    phone: '+2956637120282'
+
+- model: main.user
+  pk: 3
+  fields:
+    username: titi
+    email: titi@example.com
+    password: TItiti123
+    first_name: titi_first
+    last_name: titi_last
+    phone: '+03189455969997'
+    entity: 3
+
+- model: main.user
+  pk: 4
+  fields:
+    username: tutu
+    email: tutu@example.com
+    password: TUtutu123
+    first_name: tutu_first
+    last_name: tutu_last
+    phone: '+4307536914968'
+    entity: 3
+
+- model: main.user
+  pk: 5
+  fields:
+    username: tata
+    email: tata@example.com
+    password: TAtata123
+    first_name: tata_first
+    last_name: tata_last
+    phone: '+280073071736'
+    entity: 5
+
+- model: main.user
+  pk: 6
+  fields:
+    username: tete
+    email: tete@example.com
+    password: teteta123
+    first_name: tete_first
+    last_name: tete_last
+    phone: '+028969678811'
+    entity: 1

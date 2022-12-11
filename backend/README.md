@@ -41,5 +41,8 @@ Execute following commands from django project base folder.
 docker compose up -d # start database
 
 python3 manage.py migrate
+
+python3 manage.py initdata
+# or
 python3 manage.py createsuperuser --noinput
 ```
