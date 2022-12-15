@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { environment } from 'src/environments/environment'
-import { Tokens, User } from '../models/user'
+import { Tokens, User } from '../models/auth'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -66,5 +66,18 @@ export class AuthService {
       AuthService.accessToken = token.access
       return token
     }))
+  }
+
+  updateUserProfile (user: User, username: string = '@me'): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/user/${username}/`, user).pipe(map((user) => {
+      if (username === '@me') {
+        AuthService.userProfile = user
+      }
+      return user
+    }))
+  }
+
+  changePassword (passwords: { old_password: string, new_password: string }, username: string = '@me'): Observable<never> {
+    return this.http.put<never>(`${this.apiUrl}/user/${username}/change_password/`, passwords)
   }
 }

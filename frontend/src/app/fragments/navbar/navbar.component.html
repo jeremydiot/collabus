@@ -4,7 +4,7 @@
     <div *ngIf="!(auth$ | async)?.isLoggedIn; else loggedIn">
         <button mat-stroked-button (click)="onOpenSignInDialog()">
             <div class="d-flex align-items-center">
-                <mat-icon fontIcon="login_rounded"></mat-icon><span>&nbsp;Se connecter</span>
+                <mat-icon fontIcon="login"></mat-icon><span>&nbsp;Se connecter</span>
             </div>
         </button>
     </div>
@@ -16,10 +16,10 @@
         </button>
         <mat-menu #loggedInNavbarMenu="matMenu" yPosition="below" xPosition="before">
             <a mat-menu-item routerLink="settings">
-                <mat-icon fontIcon="settings_rounded"></mat-icon><span>Paramètres</span>
+                <mat-icon fontIcon="settings"></mat-icon><span>Paramètres</span>
             </a>
             <button mat-menu-item (click)="onLogout()">
-                <mat-icon fontIcon="logout_rounded"></mat-icon><span>Se déconnecter</span>
+                <mat-icon fontIcon="logout"></mat-icon><span>Se déconnecter</span>
             </button>
         </mat-menu>
     </ng-template>

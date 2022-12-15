@@ -1,0 +1,107 @@
+<h2 mat-dialog-title>Modifier le profil</h2>
+<form [formGroup]="form" (ngSubmit)="onValid()" autocomplete="off" *ngIf="auth$ | async as authState">
+    <div mat-dialog-content>
+        <div class="line">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Prénom</mat-label>
+                <input matInput type="text" formControlName="first_name" [ngModel]="authState.profile.first_name"
+                    required>
+                <mat-error *ngIf="form.controls.first_name.status === 'INVALID'">
+                    {{(form.controls.first_name.hasError('apiError'))?
+                    form.controls.first_name.errors?.['apiError']:
+                    'Champ invalide'}}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input matInput type="text" formControlName="last_name" [ngModel]="authState.profile.last_name"
+                    required>
+                <mat-error *ngIf="form.controls.last_name.status === 'INVALID'">
+                    {{(form.controls.last_name.hasError('apiError'))?
+                    form.controls.last_name.errors?.['apiError']:
+                    'Champ invalide'}}
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Pseudo</mat-label>
+            <input matInput type="text" formControlName="username" [ngModel]="authState.profile.username" required>
+            <mat-error *ngIf="form.controls.username.status === 'INVALID'">
+                {{(form.controls.username.hasError('apiError'))?
+                form.controls.username.errors?.['apiError']:
+                'Champ invalide'}}
+            </mat-error>
+        </mat-form-field>
+
+        <div class="line">
+
+            <mat-form-field appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input matInput type="email" formControlName="email" [ngModel]="authState.profile.email" required>
+                <mat-error *ngIf="form.controls.email.status === 'INVALID'">
+                    {{(form.controls.email.hasError('apiError'))?
+                    form.controls.email.errors?.['apiError']:
+                    'Champ invalide'}}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Téléphone</mat-label>
+                <input matInput type="text" formControlName="phone" placeholder="+33601020304"
+                    [ngModel]="authState.profile.phone" required>
+                <mat-error *ngIf="form.controls.phone.status === 'INVALID'">
+                    {{(form.controls.phone.hasError('apiError'))?
+                    form.controls.phone.errors?.['apiError']:
+                    'Champ invalide'}}
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+    </div>
+
+    <mat-divider class="mb-1"></mat-divider>
+    <h2 mat-dialog-title>Modifier le mot de passe</h2>
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Ancien mot de passe</mat-label>
+            <input matInput type="password" formControlName="old_password" autocomplete="new-password">
+            <mat-error *ngIf="form.controls.old_password.status === 'INVALID'">
+                {{
+                (form.controls.old_password.hasError('apiError'))?
+                form.controls.old_password.errors?.['apiError'] :
+                (form.controls.old_password.hasError('missingPassword'))?
+                form.controls.old_password.errors?.['missingPassword'] :
+                (form.controls.old_password.hasError('samePassword'))?
+                form.controls.old_password.errors?.['samePassword'] :
+                'Champ invalide'
+                }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Nouveau mot de passe</mat-label>
+            <input matInput type="password" formControlName="new_password" autocomplete="new-password">
+            <mat-error *ngIf="form.controls.new_password.status === 'INVALID'">
+                {{
+                (form.controls.new_password.hasError('apiError'))?
+                form.controls.new_password.errors?.['apiError'] :
+                (form.controls.new_password.hasError('missingPassword'))?
+                form.controls.new_password.errors?.['missingPassword'] :
+                (form.controls.new_password.hasError('samePassword'))?
+                form.controls.new_password.errors?.['samePassword'] :
+                'Champ invalide'
+                }}
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div mat-dialog-actions>
+        <button mat-stroked-button color="primary" type="button" (click)="onCancel()">Fermer</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Valider</button>
+    </div>
+</form>

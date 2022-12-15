@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card'
 import { MatMenuModule } from '@angular/material/menu'
+import { MatDividerModule } from '@angular/material/divider'
 
 @NgModule({
   exports: [
@@ -18,7 +19,8 @@ import { MatMenuModule } from '@angular/material/menu'
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }

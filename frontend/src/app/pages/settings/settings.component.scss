@@ -1,10 +1,44 @@
 .information {
+
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+
   .profile-picture {
-    height: 95px;
-    width: 95px;
+    height: 110px;
+    width: 110px;
     border-radius: 50%;
     border-width: 1px;
     border-style: solid;
     border-color: rgba(31, 30, 36, 0.2);
+  }
+
+  .information-wrapper {
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 100%;
+    gap: 40px;
+
+    ul {
+      list-style-type: none;
+      margin-top: 0;
+      width: fit-content;
+      padding-left: 0;
+
+      li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 10px;
+
+        mat-icon {
+          margin-right: 10px;
+        }
+
+      }
+    }
+
   }
 }

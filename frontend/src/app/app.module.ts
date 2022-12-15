@@ -9,7 +9,7 @@ import { FooterComponent } from './fragments/footer/footer.component'
 import { NavbarComponent } from './fragments/navbar/navbar.component'
 import { HomeComponent } from './pages/home/home.component'
 import { DashboardComponent } from './pages/dashboard/dashboard.component'
-import { SettingsComponent } from './pages/settings/settings.component'
+import { EditUserProfileDialogComponent, SettingsComponent } from './pages/settings/settings.component'
 import { ProjectComponent } from './pages/project/project.component'
 import { AdminComponent } from './pages/admin/admin.component'
 import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialog.component'
@@ -19,7 +19,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { authReducer } from './store/auth/auth.reducer'
 import { AuthEffects } from './store/auth/auth.effects'
 import { AuthInterceptor } from './interceptors'
-
+import { ToastrModule } from 'ngx-toastr'
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +30,8 @@ import { AuthInterceptor } from './interceptors'
     SettingsComponent,
     ProjectComponent,
     AdminComponent,
-    SignInDialogComponent
+    SignInDialogComponent,
+    EditUserProfileDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +41,9 @@ import { AuthInterceptor } from './interceptors'
     MaterialModule,
     StoreModule.forRoot({ auth: authReducer }, {}),
     EffectsModule.forRoot([AuthEffects]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
+
   ],
   providers: [
     {

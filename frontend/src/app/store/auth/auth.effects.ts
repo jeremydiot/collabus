@@ -1,7 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { map, catchError, concatMap, from, concatAll, last } from 'rxjs'
+import { map, catchError, concatMap, from, concatAll, last, switchMap, of } from 'rxjs'
 import { AuthService } from '../../services/auth.service'
 import * as authActions from './auth.actions'
 
@@ -20,11 +21,14 @@ export class AuthEffects {
       this.authService.getUserProfile()
     ]).pipe(
       concatAll(),
-      catchError((error) => from([authActions.loginError({ error })])),
       last(),
       map(() => {
         void this.router.navigate(['dashboard'])
-        return authActions.loginComplete()
+        return authActions.refresh()
+      }),
+      catchError((error: HttpErrorResponse) => {
+        AuthService.logout()
+        return of(authActions.error({ error }))
       })
     ))
   ))
@@ -33,7 +37,16 @@ export class AuthEffects {
     ofType(authActions.logout),
     map(() => {
       void this.router.navigate([''])
-      return authActions.logoutComplete()
+      AuthService.logout()
+      return authActions.refresh()
     })
+  ))
+
+  updateUserProfile$ = createEffect(() => this.actions$.pipe(
+    ofType(authActions.updateUserProfile),
+    switchMap((user) => this.authService.updateUserProfile(user).pipe(
+      map(() => authActions.refresh()),
+      catchError((error: HttpErrorResponse) => of(authActions.error({ error })))
+    ))
   ))
 }

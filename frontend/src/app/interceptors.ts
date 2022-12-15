@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
           return this.handle401Error(req, next)
         }
 
-        return throwError(() => new Error(err))
+        return throwError(() => new HttpErrorResponse(err))
       }))
     }
     return next.handle(req) // no access token or no api url
@@ -54,7 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError((err) => { // refresh error
           this.refreshTokenInProgress = false
-          return throwError(() => new Error(err.message))
+          return throwError(() => new HttpErrorResponse(err))
         })
       )
     }

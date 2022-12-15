@@ -1,13 +1,35 @@
 <section class="information">
     <img class="profile-picture border" [src]="avatarUrl" srcset="" alt="">
-    <p>
-        <span>{{userData.fullname}}</span>
-        <span>{{userData.groups}}</span>
-        <span>{{userData.entity}}</span>
-        <span>{{userData.email}}</span>
-        <span>{{userData.phone}}</span>
-    </p>
+    <div class="information-wrapper" *ngIf="auth$ | async as authState">
+        <ul>
+            <li class="mat-h2">Profil&nbsp;
+                <button mat-icon-button color="accent" [disableRipple]="true" (click)="onEditProfile()">
+                    <mat-icon fontIcon="edit"></mat-icon>
+                </button>
+            </li>
+            <li><mat-icon fontIcon="person"></mat-icon>
+                {{authState.profile.first_name}} {{authState.profile.last_name}}
+            </li>
+            <li><mat-icon fontIcon="alternate_email"></mat-icon> {{authState.profile.email}}</li>
+            <li><mat-icon fontIcon="call"></mat-icon> {{authState.profile.phone}}</li>
+        </ul>
+        <ul *ngIf="authState.profile.entity !== null">
+            <li class="mat-h2">Entité</li>
+            <li *ngIf="authState.profile?.entity?.type == 1"><mat-icon fontIcon="school"></mat-icon>
+                {{authState.profile.entity.name}}</li>
+            <li *ngIf="authState.profile?.entity?.type == 2"><mat-icon fontIcon="domain"></mat-icon>
+                {{authState.profile.entity.name}}</li>
+            <li><mat-icon fontIcon="location_on"></mat-icon>
+                {{authState.profile.entity.address}},
+                {{authState.profile.entity.zip_code}}
+                {{authState.profile.entity.city}},
+                {{authState.profile.entity.country}}
+            </li>
+            <li><mat-icon fontIcon="alternate_email"></mat-icon> {{authState.profile.entity.email}}</li>
+            <li><mat-icon fontIcon="call"></mat-icon> {{authState.profile.entity.phone}}</li>
+        </ul>
+    </div>
 </section>
 <section class="details">
-    <p>detail</p>
+    <!-- <p>detail</p> -->
 </section>

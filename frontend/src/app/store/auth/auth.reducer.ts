@@ -1,42 +1,43 @@
 import { createReducer, on } from '@ngrx/store'
-import { User } from 'src/app/models/user'
+import { User } from 'src/app/models/auth'
 import * as authActions from './auth.actions'
 import { AuthService } from 'src/app/services/auth.service'
 
 export interface AuthState {
   profile: User
   isLoggedIn: boolean
+  error: { [key: string]: string[] }
 }
 
 export const initialState: AuthState = {
   profile: AuthService.userProfile,
-  isLoggedIn: Object.keys(AuthService.userProfile).length > 0
+  isLoggedIn: Object.keys(AuthService.userProfile).length > 0,
+  error: {}
 }
 
 export const authReducer = createReducer(
   initialState,
-  on(authActions.loginComplete, (state) => {
+  on(authActions.error, (state, error) => {
+    console.error(error.error.message)
     return {
       ...state,
       profile: AuthService.userProfile,
-      isLoggedIn: Object.keys(AuthService.userProfile).length > 0
+      isLoggedIn: Object.keys(AuthService.userProfile).length > 0,
+      error: error.error.error
     }
   }),
-  on(authActions.logoutComplete, (state) => {
-    AuthService.logout()
+  on(authActions.refresh, (state) => {
     return {
       ...state,
       profile: AuthService.userProfile,
-      isLoggedIn: Object.keys(AuthService.userProfile).length > 0
+      isLoggedIn: Object.keys(AuthService.userProfile).length > 0,
+      error: {}
     }
   }),
-  on(authActions.loginError, (state, { error }) => {
-    console.error(error)
-    AuthService.logout()
+  on(authActions.clearError, (state) => {
     return {
       ...state,
-      profile: AuthService.userProfile,
-      isLoggedIn: Object.keys(AuthService.userProfile).length > 0
+      error: {}
     }
   })
 )

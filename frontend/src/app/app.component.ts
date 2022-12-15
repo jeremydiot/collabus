@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { MatIconRegistry } from '@angular/material/icon'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core'
 })
 export class AppComponent {
   title = 'collabus'
+
+  constructor (private readonly matIconRegistry: MatIconRegistry) {
+    matIconRegistry.setDefaultFontSetClass(...['material-symbols-rounded'].concat(matIconRegistry.getDefaultFontSetClass()))
+  }
 }
