@@ -34,7 +34,8 @@ class UserViewSet (viewsets.ViewSet):
 
     @extend_schema(request=UserSerializer, responses=UserSerializer, summary='Update user')
     def update(self, request, username):
-        serializer = UserSerializer(self.get_object(username), data=request.data, partial=True)
+        _username = getattr(request.user, 'username', None) if username == '@me' else username
+        serializer = UserSerializer(self.get_object(_username), data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
