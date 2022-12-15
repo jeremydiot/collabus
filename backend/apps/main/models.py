@@ -35,7 +35,7 @@ class User(AbstractUser):
             "Required. 254 characters or fewer. Email format only."
         ),
         error_messages={
-            "unique": _("A user with this email already exists."),
+            "unique": _("Un utilisateur avec cet email existe déja."),
         }
     )
 
