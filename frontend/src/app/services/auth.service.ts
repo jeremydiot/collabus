@@ -77,7 +77,7 @@ export class AuthService {
     }))
   }
 
-  changePassword (passwords: { old_password: string, new_password: string }, username: string = '@me'): Observable<never> {
+  changeUserPassword (passwords: { old_password: string, new_password: string }, username: string = '@me'): Observable<never> {
     return this.http.put<never>(`${this.apiUrl}/user/${username}/change_password/`, passwords)
   }
 }

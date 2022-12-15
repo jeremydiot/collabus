@@ -49,4 +49,12 @@ export class AuthEffects {
       catchError((error: HttpErrorResponse) => of(authActions.error({ error })))
     ))
   ))
+
+  changeUserPassword$ = createEffect(() => this.actions$.pipe(
+    ofType(authActions.changeUserPassword),
+    switchMap((passwords) => this.authService.changeUserPassword(passwords).pipe(
+      map(() => authActions.refresh()),
+      catchError((error: HttpErrorResponse) => of(authActions.error({ error })))
+    ))
+  ))
 }

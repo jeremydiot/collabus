@@ -114,13 +114,15 @@ export class EditUserProfileDialogComponent implements OnInit, OnDestroy {
         first_name: false,
         last_name: false,
         email: false,
-        phone: false
+        phone: false,
+        old_password: false,
+        new_password: false
       }
 
       if (Object.keys(error).length === 0 && this.updateInProgress) this.toastr.success('Modification enregistré')
 
       Object.keys(error).forEach((key) => {
-        this.form.get(key)?.setErrors({ apiError: error[key] })
+        this.form.get(key)?.setErrors({ apiError: error[key][0] })
         formControlsCheck[key] = true
       })
 
@@ -145,8 +147,10 @@ export class EditUserProfileDialogComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       const data = Object.assign({}, this.form.value)
 
-      const oldPassword = (data.old_password !== undefined) ? data.old_password : ''
-      const newPassword = (data.new_password !== undefined) ? data.new_password : ''
+      const passwords = {
+        old_password: (data.old_password !== undefined) ? data.old_password : '',
+        new_password: (data.new_password !== undefined) ? data.new_password : ''
+      }
       delete data.old_password
       delete data.new_password
 
@@ -165,7 +169,7 @@ export class EditUserProfileDialogComponent implements OnInit, OnDestroy {
       if (Object.keys(newData).length > 0) this.store.dispatch(authActions.updateUserProfile(newData as User))
       else enableClose.formInfo = true
 
-      if (oldPassword !== '' && newPassword !== '') this.store.dispatch(authActions.changePassword({ oldPassword, newPassword }))
+      if (passwords.old_password !== '' && passwords.new_password !== '') this.store.dispatch(authActions.changeUserPassword(passwords))
       else enableClose.formPassword = true
 
       if (enableClose.formInfo && enableClose.formPassword) {

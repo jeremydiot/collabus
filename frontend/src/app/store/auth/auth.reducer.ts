@@ -18,12 +18,12 @@ export const initialState: AuthState = {
 export const authReducer = createReducer(
   initialState,
   on(authActions.error, (state, error) => {
-    console.error(error.error.message)
+    console.error(error)
     return {
       ...state,
       profile: AuthService.userProfile,
       isLoggedIn: Object.keys(AuthService.userProfile).length > 0,
-      error: error.error.error
+      error: { ...state.error, ...error.error.error }
     }
   }),
   on(authActions.refresh, (state) => {
