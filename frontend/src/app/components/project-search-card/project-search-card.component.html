@@ -1,0 +1,12 @@
+<mat-card class="search-card-wrapper">
+    <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+        <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>{{content}}</mat-card-content>
+    <mat-card-actions>
+        <a mat-raised-button color="accent" [routerLink]="['/project', projectId]">
+            <mat-icon fontIcon="arrow_forward"></mat-icon>
+        </a>
+    </mat-card-actions>
+</mat-card>

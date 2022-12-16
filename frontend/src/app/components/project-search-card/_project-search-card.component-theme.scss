@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($color-config) {
+  $palette: map.get($color-config, 'primary');
+
+  app-project-search-card {
+    mat-card.search-card-wrapper {
+      background-color: mat.get-color-from-palette($palette, 100);
+      color: mat.get-color-from-palette($palette, '100-contrast');
+    }
+  }
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+
+  @if $color-config !=null {
+    @include color($color-config);
+  }
+}

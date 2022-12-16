@@ -1,1 +1,8 @@
-<p>dashboard works!</p>
+<section class="header">
+    <button color="primary" mat-raised-button>Filtrer</button>
+</section>
+<mat-divider></mat-divider>
+<section class="content">
+    <app-project-search-card *ngFor="let project of projects" [title]="project.project" [subTitle]="project.company"
+        [projectId]="project.id" [content]="project.description"></app-project-search-card>
+</section>

@@ -30,9 +30,9 @@ export class CanActivateLoggedIn implements CanActivate {
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [CanActivateLoggedIn] },
-  { path: 'project', component: ProjectComponent, canActivate: [CanActivateLoggedIn] },
+  { path: 'project/:id', component: ProjectComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'settings', component: SettingsComponent, canActivate: [CanActivateLoggedIn] },
-  { path: '**', redirectTo: '' } // redirect 404 to home
+  { path: '**', redirectTo: '/' } // redirect 404 to home
 ]
 
 @NgModule({

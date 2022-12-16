@@ -7,6 +7,7 @@
 @use "./app/fragments/footer/footer.component-theme" as footer;
 @use "./app/pages/home/home.component-theme" as home;
 @use "./app/pages/settings/settings.component-theme" as settings;
+@use "./app/components/project-search-card/project-search-card.component-theme" as project-search-card;
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -42,6 +43,7 @@ $primary-theme: mat.define-light-theme((color: (primary: $primary-palette, accen
 @include footer.theme($primary-theme);
 @include home.theme($primary-theme);
 @include sign-in-dialog.theme($primary-theme);
+@include project-search-card.theme($primary-theme);
 
 html,
 body,
