@@ -21,6 +21,7 @@ class Entity(models.Model):
     country = models.CharField(max_length=254)
     phone = models.CharField(max_length=15)
     email = models.EmailField()
+    siret = models.CharField(max_length=14)
 
     def __str__(self):
         return f'{ Entity.Type(self.type).label} : {self.name}'
