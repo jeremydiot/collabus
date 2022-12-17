@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from apps.folder.models import Folder, Attachment, Message, FolderEntity
+from apps.main.serializers import EntitySerializer
 
 
 class FolderEntitySerializer(serializers.ModelSerializer):
+    entity = EntitySerializer(read_only=True)
+
     class Meta:
         model = FolderEntity
 
@@ -34,9 +37,9 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class FolderSerializer(serializers.ModelSerializer):
 
-    entities = FolderEntitySerializer(source='folderentity_set', many=True, read_only=True)
-    attachments = AttachmentSerializer(source='attachment_set', many=True, read_only=True)
-    messages = MessageSerializer(source='message_set', many=True, read_only=True)
+    entity = FolderEntitySerializer(source='folderentity_set', many=True, read_only=True)
+    attachment = AttachmentSerializer(source='attachment_set', many=True, read_only=True)
+    message = MessageSerializer(source='message_set', many=True, read_only=True)
 
     class Meta:
         model = Folder
@@ -50,7 +53,27 @@ class FolderSerializer(serializers.ModelSerializer):
             'is_closed',
             'is_hidden',
             'deadline',
-            'entities',
-            'attachments',
-            'messages'
+            'entity',
+            'attachment',
+            'message'
+        ]
+
+
+class FolderSerializerList(serializers.ModelSerializer):
+
+    entity = FolderEntitySerializer(source='folderentity_set', many=True, read_only=True)
+
+    class Meta:
+        model = Folder
+
+        fields = [
+            'pk',
+            'name',
+            'description',
+            'note',
+            'type',
+            'is_closed',
+            'is_hidden',
+            'deadline',
+            'entity'
         ]
