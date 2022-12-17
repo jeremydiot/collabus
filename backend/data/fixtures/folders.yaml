@@ -1,0 +1,47 @@
+- model: folder.folder
+  pk: 1
+  fields:
+    name: 'folder1'
+    description: 'folder1'
+    note: 'folder1'
+    type: 0
+    is_closed: true
+    is_hidden: true
+    deadline: null
+    created_at: '2022-12-17 00+00:00:00'
+
+- model: folder.folder
+  pk: 2
+  fields:
+    name: 'folder2'
+    description: 'folder2'
+    note: 'folder2'
+    type: 1
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00+00:00:00'
+
+- model: folder.folder
+  pk: 3
+  fields:
+    name: 'folder3'
+    description: 'folder3'
+    note: 'folder3'
+    type: 2
+    is_closed: true
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00+00:00:00'
+
+- model: folder.folder
+  pk: 4
+  fields:
+    name: 'folder4'
+    description: 'folder4'
+    note: 'folder4'
+    type: 3
+    is_closed: false
+    is_hidden: true
+    deadline: null
+    created_at: '2022-12-17 00+00:00:00'

@@ -35,7 +35,7 @@ class Folder(models.Model):
         return f'{self.name} : {Folder.Type(self.type).label}'
 
 
-# TODO delete file on delete row ? unique name file in folder storage ?
+# TODO disable file change to prevent unfollowed file storage
 class Attachment(models.Model):
     folder = models.ForeignKey('folder.folder', on_delete=models.CASCADE)
     file = models.FileField(upload_to=upload_to_file)
