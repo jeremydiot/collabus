@@ -29,7 +29,7 @@ class Folder(models.Model):
     is_closed = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    deadline = models.DateField(null=True)
+    deadline = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.name} : {Folder.Type(self.type).label}'
