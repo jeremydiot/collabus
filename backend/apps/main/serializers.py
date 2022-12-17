@@ -28,11 +28,11 @@ class EntitySerializer(serializers.ModelSerializer):
 class BaseUserSerializer(serializers.ModelSerializer):
 
     PHONE_FIELD_VALIDATOR = [
-        RegexValidator(r'^\+[0-9]{11,14}$', message='Doit commencer par + suivi de 11 à 14 chiffres.')
+        RegexValidator(r'^\+[0-9]{11,14}$', message='Must start with + followed by 11 to 14 digits.')
     ]
 
     USERNAME_FIELD_VALIDATOR = [
-        RegexValidator(r'^(?!@).*', message='Ne peut pas commencer par @.'),
+        RegexValidator(r'^(?!@).*', message='C\'ant start with @.'),
         UniqueValidator(get_user_model().objects.all())
     ]
 
@@ -105,7 +105,7 @@ class ChangePasswordUserSerializer(serializers.ModelSerializer):
 
     def validate_old_password(self, value):
         if not self.instance.check_password(value):
-            raise serializers.ValidationError('Ancien mot de passe incorrect.')
+            raise serializers.ValidationError('Wrong old password.')
         return value
 
     def validate_new_password(self, value):

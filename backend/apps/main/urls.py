@@ -1,10 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView, TokenBlacklistView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from apps.main import views
 
 urlpatterns = [
-    path('user/', views.UserViewSet.as_view({'post': 'create'}), name='user_list'),
+    path('user/', views.UserViewSet.as_view({'post': 'create'}), name='user_create'),
     path(
         'user/<str:username>/',
         views.UserViewSet.as_view({'put': 'update', 'delete': 'destroy', 'get': 'retrieve'}),
@@ -22,4 +22,7 @@ urlpatterns = [
     path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
     path('ping/', views.PingPong.as_view(), name='ping'),
+
+    path('folder/', include('apps.folder.urls')),
+
 ]

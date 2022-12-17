@@ -19,6 +19,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = BASE_DIR / 'apps'
 DATA_DIR = BASE_DIR / 'data'
 FIXTURE_DIRS = [DATA_DIR / 'fixtures']
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
+STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = 'static/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -57,7 +62,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # custom apps
-    'apps.main'
+    'apps.main',
+    'apps.folder',
 ]
 
 MIDDLEWARE = [
@@ -128,11 +134,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'fr-FR'
+LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
+
+USE_L10N = True
 
 USE_TZ = True
 

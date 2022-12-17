@@ -12,7 +12,6 @@ done
 
 # configure and run server
 python3 manage.py migrate
-python3 manage.py populate_database
 python3 manage.py createsuperuser --noinput > /dev/null 2>&1
 python3 manage.py runserver
 

@@ -6,7 +6,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        call_command('loaddata', 'initial.yaml')
+        call_command('loaddata', 'entities.yaml')
+        call_command('loaddata', 'users.yaml')
 
         for user in get_user_model().objects.all():
             if not user.password.startswith('pbkdf2_sha256'):
