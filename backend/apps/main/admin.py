@@ -8,4 +8,23 @@ UserAdmin.list_display += ('pk', 'phone', 'entity')
 UserAdmin.fieldsets += (('Additional fields', {'fields': ('phone', 'entity',)},),)
 
 admin.site.register(get_user_model(), UserAdmin)
-admin.site.register(Entity)
+
+
+class EntityAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'type',
+        'address',
+        'zip_code',
+        'city',
+        'country',
+        'phone',
+        'email',
+        'siret',
+        'pk',
+        'updated_at',
+        'created_at',
+    )
+
+
+admin.site.register(Entity, EntityAdmin)
