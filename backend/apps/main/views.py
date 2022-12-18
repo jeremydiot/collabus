@@ -43,7 +43,7 @@ class UserViewSet (viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-    @extend_schema(summary='Delete user')
+    @extend_schema(request=None, responses=None, summary='Delete user')
     def destroy(self, request, username):
         user = self.get_object(username)
 

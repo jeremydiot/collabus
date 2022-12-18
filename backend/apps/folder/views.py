@@ -113,7 +113,7 @@ class FolderEntityViewSet (viewsets.ViewSet):
         except FolderEntity.DoesNotExist as exc:
             raise NotFound from exc
 
-    @extend_schema(summary='Dissociate entity to folder')
+    @extend_schema(request=None, responses=None, summary='Dissociate entity to folder')
     def destroy(self, request, pk, fk):  # pylint: disable=invalid-name
         folder_entity = self.get_object(pk, fk)
 
@@ -124,7 +124,7 @@ class FolderEntityViewSet (viewsets.ViewSet):
             folder_entity.delete()
             return Response(status=HTTP_204_NO_CONTENT)
 
-    @extend_schema(responses=FolderEntitySerializer, summary='Associate entity to folder')
+    @extend_schema(request=None, responses=FolderEntitySerializer, summary='Associate entity to folder')
     def create(self, request, pk, fk):  # pylint: disable=invalid-name
 
         serializer = FolderEntitySerializer(
