@@ -50,7 +50,7 @@ class MessageSerializer(serializers.ModelSerializer):
         }
 
 
-class FolderSerializer(serializers.ModelSerializer):
+class FolderSerializerFull(serializers.ModelSerializer):
 
     entity = FolderEntitySerializer(source='folderentity_set', many=True, read_only=True)
     attachment = AttachmentSerializer(source='attachment_set', many=True, read_only=True)
@@ -82,7 +82,7 @@ class FolderSerializer(serializers.ModelSerializer):
         }
 
 
-class FolderSerializerList(serializers.ModelSerializer):
+class FolderSerializerPartial(serializers.ModelSerializer):
 
     entity = FolderEntitySerializer(source='folderentity_set', many=True, read_only=True)
 

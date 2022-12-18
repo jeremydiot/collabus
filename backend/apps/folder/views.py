@@ -7,9 +7,8 @@ from drf_spectacular.utils import extend_schema
 
 from apps.main.permissions import HasCompanyEntity, HasEntityFolderAuthor, IsAuthenticated, HasEntityFolderAssigned
 from apps.main.utils import request_params_to_queryset, drf_params_schema
-from apps.main.models import Entity
 from apps.folder.models import Folder, FolderEntity
-from apps.folder.serializers import FolderSerializer, FolderSerializerList
+from apps.folder.serializers import FolderSerializerFull, FolderSerializerPartial
 
 
 class FolderViewSet (viewsets.ViewSet):
@@ -31,19 +30,19 @@ class FolderViewSet (viewsets.ViewSet):
 
         return super().get_permissions()
 
-    def get_object(self, pk):
+    def get_object(self, pk, extra=None):
         try:
-            return Folder.objects.get(pk=pk)
+            return Folder.objects.get(pk=pk, **(extra if extra else {}))
         except Folder.DoesNotExist as exc:
             raise NotFound from exc
 
-    @extend_schema(request=FolderSerializer, responses=FolderSerializer, summary='Get folder')
+    @extend_schema(request=FolderSerializerFull, responses=FolderSerializerFull, summary='Get folder')
     def retrieve(self, request, pk):
-        return Response(FolderSerializer(self.get_object(pk)).data)
+        return Response(FolderSerializerFull(self.get_object(pk)).data)
 
     @extend_schema(
         parameters=drf_params_schema(
-            FolderSerializerList.Meta.fields,
+            FolderSerializerPartial.Meta.fields,
             True,
             {
                 'deadline': 'Date: YYYY-MM-DD',
@@ -52,9 +51,9 @@ class FolderViewSet (viewsets.ViewSet):
                 'is_hidden': 'Default: False',
                 'type': 'Integer choices: ' + str(Folder.Type.choices)
             }),
-        responses=FolderSerializerList, summary='List folders')
+        responses=FolderSerializerPartial, summary='List folders')
     def list(self, request):
-        serializer = FolderSerializerList(
+        serializer = FolderSerializerPartial(
             request_params_to_queryset(
                 request.GET, Folder.objects.all(),
                 {
@@ -64,19 +63,35 @@ class FolderViewSet (viewsets.ViewSet):
         )
         return Response(serializer.data)
 
-    @extend_schema(request=FolderSerializer, responses=FolderSerializer, summary='Create folder')
+    @extend_schema(request=FolderSerializerPartial, responses=FolderSerializerPartial, summary='Create folder')
     def create(self, request):
         folder = Folder()
+        user_entity = getattr(self.request.user, 'entity', None)
 
-        if request.user.entity and request.user.entity.type == Entity.Type.COMPANY:
-            entity = request.user.entity
-        else:
+        if user_entity is None:
             return Response(status=HTTP_403_FORBIDDEN)
 
-        serializer = FolderSerializer(folder, data=request.data)
+        serializer = FolderSerializerPartial(folder, data=request.data)
         if serializer.is_valid():
             folder = serializer.save()
-            FolderEntity(folder=folder, entity=entity, is_author=True).save()
-            return Response(FolderSerializer(folder).data, status=HTTP_201_CREATED)
+            FolderEntity(folder=folder, entity=user_entity, is_author=True).save()
+            return Response(FolderSerializerPartial(folder).data, status=HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+    @extend_schema(request=FolderSerializerPartial, responses=FolderSerializerPartial, summary='Update folder')
+    def update(self, request, pk):
+        user_entity = getattr(self.request.user, 'entity', None)
+
+        if user_entity is None:
+            return Response(status=HTTP_403_FORBIDDEN)
+
+        folder = self.get_object(pk, {'folderentity__entity__pk': user_entity.pk})
+
+        serializer = FolderSerializerPartial(folder, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            folder = serializer.save()
+            return Response(FolderSerializerPartial(folder).data, status=HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
