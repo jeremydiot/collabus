@@ -1,18 +1,31 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from apps.main.utils import delete_file, upload_to_file
+from apps.main.utils import ModelTimeStampMixin
+
+from apps.main.models import Entity
 
 
-class FolderEntity(models.Model):
+class FolderEntity(ModelTimeStampMixin):
     folder = models.ForeignKey('folder.folder', on_delete=models.CASCADE)
     entity = models.ForeignKey('main.entity', on_delete=models.CASCADE)
     is_author = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+
+        if getattr(self, 'entity', None):
+            if self.entity.type != Entity.Type.COMPANY:  # pylint: disable=no-member
+                self.is_author = False
+            elif not self.pk and self.entity.type == Entity.Type.COMPANY:  # pylint: disable=no-member
+                self.is_author = True
+
+        return super().save(*args, **kwargs)
 
     class Meta:
         unique_together = ('folder', 'entity',)
 
 
-class Folder(models.Model):
+class Folder(ModelTimeStampMixin):
 
     class Type(models.IntegerChoices):
         UNKNOW = 0, 'unknow'
@@ -28,7 +41,6 @@ class Folder(models.Model):
     type = models.IntegerField(choices=Type.choices, default=Type.UNKNOW)
     is_closed = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
     deadline = models.DateField(null=True, blank=True)
 
     def __str__(self):
@@ -36,7 +48,7 @@ class Folder(models.Model):
 
 
 # TODO disable file change to prevent unfollowed file storage
-class Attachment(models.Model):
+class Attachment(ModelTimeStampMixin):
     folder = models.ForeignKey('folder.folder', on_delete=models.CASCADE)
     file = models.FileField(upload_to=upload_to_file)
     name = models.CharField(max_length=254, blank=True)
@@ -61,9 +73,7 @@ class Attachment(models.Model):
         return self.name
 
 
-class Message(models.Model):
+class Message(ModelTimeStampMixin):
     folder = models.ForeignKey('folder.folder', on_delete=models.CASCADE)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     content = models.TextField()
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)

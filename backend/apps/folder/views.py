@@ -1,24 +1,34 @@
 from rest_framework import viewsets
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_403_FORBIDDEN
 
 from drf_spectacular.utils import extend_schema
 
-from apps.main.permissions import AllowAny
+from apps.main.permissions import HasCompanyEntity, HasEntityFolderAuthor, IsAuthenticated, HasEntityFolderAssigned
 from apps.main.utils import request_params_to_queryset, drf_params_schema
-from apps.folder.models import Folder
+from apps.main.models import Entity
+from apps.folder.models import Folder, FolderEntity
 from apps.folder.serializers import FolderSerializer, FolderSerializerList
 
 
 class FolderViewSet (viewsets.ViewSet):
 
-    # TODO add permissions
     def get_permissions(self):
-        self.permission_classes = [AllowAny]
-        if self.action in ['retrieve', 'update', 'destroy', 'list']:
-            self.permission_classes = [AllowAny]
+        self.permission_classes = [IsAuthenticated]
+
+        if self.action in ['list']:
+            self.permission_classes = [IsAuthenticated]
+
+        if self.action in ['retrieve']:
+            self.permission_classes = [HasEntityFolderAssigned]
+
+        if self.action in ['update']:
+            self.permission_classes = [HasEntityFolderAuthor]
+
         if self.action == 'create':
-            self.permission_classes = [AllowAny]
+            self.permission_classes = [HasCompanyEntity]
+
         return super().get_permissions()
 
     def get_object(self, pk):
@@ -50,6 +60,23 @@ class FolderViewSet (viewsets.ViewSet):
                 {
                     'entity': 'folderentity__entity__pk'
                 }
-            ), many=True
+            ).exclude(is_hidden=True, is_close=True), many=True
         )
         return Response(serializer.data)
+
+    @extend_schema(request=FolderSerializer, responses=FolderSerializer, summary='Create folder')
+    def create(self, request):
+        folder = Folder()
+
+        if request.user.entity and request.user.entity.type == Entity.Type.COMPANY:
+            entity = request.user.entity
+        else:
+            return Response(status=HTTP_403_FORBIDDEN)
+
+        serializer = FolderSerializer(folder, data=request.data)
+        if serializer.is_valid():
+            folder = serializer.save()
+            FolderEntity(folder=folder, entity=entity, is_author=True).save()
+            return Response(FolderSerializer(folder).data, status=HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

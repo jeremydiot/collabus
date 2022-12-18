@@ -9,6 +9,8 @@
     country: standard1_coutry
     phone: '+16854863736501'
     email: standard1@example.com
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: main.entity
   pk: 2
@@ -21,6 +23,8 @@
     country: standard2_coutry
     phone: '+863271668333'
     email: standard2@example.com
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: main.entity
   pk: 3
@@ -33,6 +37,8 @@
     country: school1_coutry
     phone: '+49802836995719'
     email: school1@example.com
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: main.entity
   pk: 4
@@ -45,6 +51,8 @@
     country: school2_coutry
     phone: '+976826671716'
     email: school2@example.com
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: main.entity
   pk: 5
@@ -57,6 +65,8 @@
     country: company1_coutry
     phone: '+82570523015'
     email: company1@example.com
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: main.entity
   pk: 6
@@ -69,3 +79,5 @@
     country: company2_coutry
     phone: '+7828783086618'
     email: company2@example.com
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'

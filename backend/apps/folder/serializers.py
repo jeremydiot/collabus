@@ -14,6 +14,11 @@ class FolderEntitySerializer(serializers.ModelSerializer):
             'is_author',
         ]
 
+        extra_kwargs = {
+            'entity': {'read_only': True},
+            'is_author': {'read_only': True},
+        }
+
 
 class AttachmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,6 +29,11 @@ class AttachmentSerializer(serializers.ModelSerializer):
             'name',
         ]
 
+        extra_kwargs = {
+            'file': {'read_only': True},
+            'name': {'read_only': True},
+        }
+
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,6 +43,11 @@ class MessageSerializer(serializers.ModelSerializer):
             'author',
             'content',
         ]
+
+        extra_kwargs = {
+            'author': {'read_only': True},
+            'content': {'read_only': True},
+        }
 
 
 class FolderSerializer(serializers.ModelSerializer):
@@ -55,8 +70,16 @@ class FolderSerializer(serializers.ModelSerializer):
             'deadline',
             'entity',
             'attachment',
-            'message'
+            'message',
+            'created_at',
+            'updated_at',
         ]
+
+        extra_kwargs = {
+            'pk': {'read_only': True},
+            'created_at': {'read_only': True},
+            'updated_at': {'read_only': True},
+        }
 
 
 class FolderSerializerList(serializers.ModelSerializer):
@@ -75,5 +98,13 @@ class FolderSerializerList(serializers.ModelSerializer):
             'is_closed',
             'is_hidden',
             'deadline',
-            'entity'
+            'entity',
+            'created_at',
+            'updated_at',
         ]
+
+        extra_kwargs = {
+            'pk': {'read_only': True},
+            'created_at': {'read_only': True},
+            'updated_at': {'read_only': True},
+        }

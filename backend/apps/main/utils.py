@@ -2,7 +2,16 @@ import hashlib
 import os
 from functools import partial
 from django.conf import settings
+from django.db import models
 from drf_spectacular.utils import OpenApiParameter
+
+
+class ModelTimeStampMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 def hash_file(file, block_size=65536):

@@ -8,7 +8,8 @@
     is_closed: true
     is_hidden: true
     deadline: null
-    created_at: '2022-12-17 00+00:00:00'
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: folder.folder
   pk: 2
@@ -20,7 +21,8 @@
     is_closed: false
     is_hidden: false
     deadline: null
-    created_at: '2022-12-17 00+00:00:00'
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: folder.folder
   pk: 3
@@ -32,7 +34,8 @@
     is_closed: true
     is_hidden: false
     deadline: null
-    created_at: '2022-12-17 00+00:00:00'
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
 
 - model: folder.folder
   pk: 4
@@ -44,4 +47,5 @@
     is_closed: false
     is_hidden: true
     deadline: null
-    created_at: '2022-12-17 00+00:00:00'
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
