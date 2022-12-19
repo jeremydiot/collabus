@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from apps.folder.models import Folder, Attachment, Message, FolderEntity, Entity
-from apps.main.serializers import EntitySerializer
+from apps.main.serializers import EntitySerializer, UserSerializer
 
 
 class FolderEntitySerializer(serializers.ModelSerializer):
@@ -45,17 +45,23 @@ class AttachmentSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    author = UserSerializer(read_only=True)
+
     class Meta:
         model = Message
 
         fields = [
             'author',
             'content',
+            'created_at',
+            'updated_at',
         ]
 
         extra_kwargs = {
             'author': {'read_only': True},
             'content': {'read_only': True},
+            'created_at': {'read_only': True},
+            'updated_at': {'read_only': True},
         }
 
 
@@ -63,7 +69,6 @@ class FolderSerializerFull(serializers.ModelSerializer):
 
     entity = FolderEntitySerializer(source='folderentity_set', many=True, read_only=True)
     attachment = AttachmentSerializer(source='attachment_set', many=True, read_only=True)
-    message = MessageSerializer(source='message_set', many=True, read_only=True)
 
     class Meta:
         model = Folder
@@ -79,7 +84,6 @@ class FolderSerializerFull(serializers.ModelSerializer):
             'deadline',
             'entity',
             'attachment',
-            'message',
             'created_at',
             'updated_at',
         ]

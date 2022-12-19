@@ -21,3 +21,9 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     ports:
       - 5050:80
+
+  redis:
+    container_name: collabus_dev_redis
+    image: redis:7
+    ports:
+      - ${DJANGO_REDIS_PORT}:6379

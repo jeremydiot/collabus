@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Websocket chat view</title>
+</head>
+
+<body>
+    <input id="token-input" placeholder="jwt acces token" type="text" size="93">
+    <input id="login-btn" type="button" value="Login"><br><br>
+    <div id="chat-wrapper">
+
+    </div>
+
+    {{ chat_kind|json_script:"chat_kind" }}
+    {{ chat_pk|json_script:"chat_pk" }}
+    {{ ws_url|json_script:"ws_url" }}
+
+    <script>
+        const chatKind = JSON.parse(document.getElementById('chat_kind').textContent)
+        const chatPk = JSON.parse(document.getElementById('chat_pk').textContent)
+        const wsUrl = JSON.parse(document.getElementById('ws_url').textContent)
+
+        let count = 0
+
+        document.querySelector('#token-input').onkeyup = function (e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#login-btn').click()
+            }
+        }
+
+        document.querySelector('#login-btn').onclick = function (e) {
+
+            const id = count++
+            const div = document.createElement('div')
+            document.querySelector('#chat-wrapper').appendChild(div)
+
+            div.innerHTML =
+                `<div><textarea id="chat-log-${id}" cols="100" rows="10"></textarea><br>
+                <input id="chat-message-input-${id}" type="text" size="91">
+                <input id="chat-message-submit-${id}" type="button" value="Send(${id})"></div><br>`
+
+
+            const token = document.querySelector('#token-input').value
+
+            const chatSocket = new WebSocket(`ws://${window.location.host}/${wsUrl}${chatKind}/${chatPk}/${(token !== '') ? '?token=' + token : ''}`)
+
+            chatSocket.onopen = function (e) {
+                document.querySelector(`#chat-log-${id}`).value += ('-- connected --' + '\n')
+            }
+
+            chatSocket.onmessage = function (e) {
+                const data = JSON.parse(e.data)
+                if (data.messages) {
+                    console.log(data.messages)
+                    data.messages.forEach(message => {
+                        document.querySelector(`#chat-log-${id}`).value += (message.content + '\n')
+                    });
+                } else {
+                    document.querySelector(`#chat-log-${id}`).value += (data.message + '\n')
+                }
+            }
+
+            chatSocket.onclose = function (e) {
+                document.querySelector(`#chat-log-${id}`).value += ('-- disconnected --' + '\n')
+                console.error('Chat socket closed unexpectedly')
+            }
+
+            chatSocket.onerror = function (e) {
+                document.querySelector(`#chat-log-${id}`).value += (`-- error --` + '\n')
+                console.error(e)
+            }
+
+            document.querySelector(`#chat-message-input-${id}`).focus()
+
+            document.querySelector(`#chat-message-input-${id}`).onkeyup = function (e) {
+                if (e.keyCode === 13) {  // enter, return
+                    document.querySelector(`#chat-message-submit-${id}`).click()
+                }
+            }
+
+            document.querySelector(`#chat-message-submit-${id}`).onclick = function (e) {
+                const messageInputDom = document.querySelector(`#chat-message-input-${id}`)
+                const message = messageInputDom.value
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }))
+                messageInputDom.value = ''
+            }
+        }
+    </script>
+</body>
+
+</html>

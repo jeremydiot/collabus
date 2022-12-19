@@ -9,12 +9,12 @@ class Entity(ModelTimeStampMixin):
         verbose_name_plural = "entities"
 
     class Type(models.IntegerChoices):
-        UNKNOW = 0, 'unknow'
+        UNKNOWN = 0, 'unknown'
         SCHOOL = 1, 'school'
         COMPANY = 2, 'company'
 
     name = models.CharField(max_length=254)
-    type = models.IntegerField(choices=Type.choices, default=Type.UNKNOW)
+    type = models.IntegerField(choices=Type.choices, default=Type.UNKNOWN)
     address = models.CharField(max_length=254)
     zip_code = models.CharField(max_length=254)
     city = models.CharField(max_length=254)

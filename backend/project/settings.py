@@ -24,6 +24,9 @@ MEDIA_URL = 'media/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = 'static/'
 
+EXECUTION_ENVIRONMENT = os.environ.get('DJANGO_EXECUTION_ENVIRONMENT')
+
+WEBSOCKET_CHAT_URL = os.environ.get('DJANGO_WEBSOCKET_CHAT_URL', 'websocket/consumer/chat/')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -32,20 +35,23 @@ STATIC_URL = 'static/'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_EXECUTION_ENVIRONMENT') == 'development'
+DEBUG = EXECUTION_ENVIRONMENT == 'development'
 
-ALLOWED_HOSTS = ['*'] if os.environ.get('DJANGO_EXECUTION_ENVIRONMENT') == 'production' else []
+ALLOWED_HOSTS = ['*'] if EXECUTION_ENVIRONMENT == 'production' else []
 CORS_ALLOWED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
 # CSRF_TRUSTED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
 # CORS_ALLOW_CREDENTIALS = True
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
 }
 
 # Application definition
 INSTALLED_APPS = [
+    # websocket
+    'daphne',
+
     # base
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,13 +63,13 @@ INSTALLED_APPS = [
     # additional libraries
     'rest_framework',
     'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
     'corsheaders',
 
     # custom apps
     'apps.main',
     'apps.folder',
+    'apps.websocket',
 ]
 
 MIDDLEWARE = [
@@ -96,6 +102,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
+ASGI_APPLICATION = 'project.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [(os.environ.get('DJANGO_REDIS_HOST'), os.environ.get('DJANGO_REDIS_PORT'))],
+        }
+    }
+}
 
 
 # Database
