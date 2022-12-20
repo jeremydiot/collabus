@@ -14,7 +14,9 @@
         "8000"
       ],
       "django": true,
-      "justMyCode": true
+      "justMyCode": true,
+      "preLaunchTask": "Start docker",
+      "postDebugTask": "Stop docker"
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start docker",
+      "type": "shell",
+      "command": "cd ${workspaceFolder} && ./scripts/dockerUp.sh",
+    },
+    {
+      "label": "Stop docker",
+      "type": "shell",
+      "command": "cd ${workspaceFolder} && ./scripts/dockerStop.sh",
+    }
+  ]
+}
