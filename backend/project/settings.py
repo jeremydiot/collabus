@@ -18,11 +18,9 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = BASE_DIR / 'apps'
 DATA_DIR = BASE_DIR / 'data'
-FIXTURE_DIRS = [DATA_DIR / 'fixtures']
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = 'media/'
 STATIC_ROOT = BASE_DIR / 'static'
-STATIC_URL = 'static/'
+FIXTURE_DIRS = [DATA_DIR / 'fixtures']
 
 EXECUTION_ENVIRONMENT = os.environ.get('DJANGO_EXECUTION_ENVIRONMENT')
 
@@ -37,8 +35,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = EXECUTION_ENVIRONMENT == 'development'
 
-ALLOWED_HOSTS = ['*'] if EXECUTION_ENVIRONMENT == 'production' else []
-CORS_ALLOWED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
+ALLOWED_HOSTS = os.environ.get('DJANGO_BACKEND_HOST', 'localhost,127.0.0.1').split(',')
+CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_FRONTEND_URL', 'http://localhost,http://127.0.0.1').split(',')
 # CSRF_TRUSTED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
 # CORS_ALLOW_CREDENTIALS = True
 
@@ -88,7 +86,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -165,6 +163,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

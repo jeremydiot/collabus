@@ -17,7 +17,7 @@ Example of **.env** file, to be created in django project folder root
 > In production context, use **'production'** value fo key **DJANGO_EXECUTION_ENVIRONMENT** else use **'development'** value.
 
 ```bash
-# rewrite values in production context
+# rewrite in production context
 DJANGO_EXECUTION_ENVIRONMENT='development'
 DJANGO_SETTINGS_MODULE='project.settings'
 DJANGO_SECRET_KEY='django-insecure-+8d51zrhytbw=s6+oh)4p$ghje@l#&k9f664cw4u8s)2w*zxgb'
@@ -29,7 +29,10 @@ DJANGO_DATABASE_USER='postgres'
 DJANGO_DATABASE_PSWD='postgres'
 DJANGO_DATABASE_HOST='localhost'
 DJANGO_DATABASE_PORT='5432'
-DJANGO_FRONT_URL='http://localhost:4200'
+DJANGO_REDIS_HOST='127.0.0.1'
+DJANGO_REDIS_PORT='6379'
+DJANGO_BACKEND_HOST='localhost,127.0.0.1'
+DJANGO_FRONTEND_URL='http://localhost,http://127.0.0.1'
 ```
 
 ## Commands
