@@ -19,7 +19,7 @@ Example of **.env** file, to be created in django project folder root
 
 ```bash
 # rewrite in production context
-DJANGO_EXECUTION_ENVIRONMENT=production
+DJANGO_EXECUTION_ENVIRONMENT=development # or production
 DJANGO_SETTINGS_MODULE=config.settings
 DJANGO_SECRET_KEY=z7BHm1iQxQihGH2pplHUIhPbexbjjvNau4tsvMP9WkD4cUGANkQj76aOS1nn
 DJANGO_SUPERUSER_PASSWORD=admin
@@ -30,7 +30,7 @@ DJANGO_DATABASE_USER=postgres
 DJANGO_DATABASE_PSWD=postgres
 DJANGO_BACKEND_HOST=localhost,127.0.0.1
 DJANGO_FRONTEND_URL=http://localhost,http://127.0.0.1
-COMPOSE_FILE=docker-compose.prod.yml
+COMPOSE_FILE=docker-compose.dev.yml # or docker-compose.prod.yml
 ```
 
 ## Commands
