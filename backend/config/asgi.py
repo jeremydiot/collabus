@@ -16,7 +16,7 @@ from apps.websocket.routing import websocket_urlpatterns
 from apps.websocket.middleware import JwtAuthMiddleware
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 application = ProtocolTypeRouter({
     'http': get_asgi_application(),
