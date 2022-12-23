@@ -1,0 +1,20 @@
+FROM python:3.10-alpine
+USER root
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV VIRTUAL_ENV /app/env
+ENV PATH $VIRTUAL_ENV/bin:$PATH
+
+COPY ./requirements/common.txt ./requirements/common.txt
+
+RUN python3.10 -m venv $VIRTUAL_ENV
+RUN python3.10 -m pip install --upgrade pip --require-virtualenv --no-cache-dir
+RUN python3.10 -m pip install -r requirements/common.txt --require-virtualenv --no-cache-dir
+
+COPY . .
+
+EXPOSE 8000
+
+ENTRYPOINT [ "sh","./scripts/entrypoint.sh" ]

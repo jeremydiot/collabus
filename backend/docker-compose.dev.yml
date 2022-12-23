@@ -1,8 +1,8 @@
+version: '3'
 services:
   postgres:
     container_name: collabus_dev_postgres
     image: postgres:15
-    hostname: postgres
     environment:
       POSTGRES_PASSWORD: ${DJANGO_DATABASE_PSWD}
       POSTGRES_USER: ${DJANGO_DATABASE_USER}
@@ -10,7 +10,7 @@ services:
       PGPORT: 5432
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - ${DJANGO_DATABASE_PORT}:5432
+      - 5432:5432
 
   pgadmin:
     container_name: collabus_dev_pgadmin
@@ -26,4 +26,4 @@ services:
     container_name: collabus_dev_redis
     image: redis:7
     ports:
-      - ${DJANGO_REDIS_PORT}:6379
+      - 6379:6379

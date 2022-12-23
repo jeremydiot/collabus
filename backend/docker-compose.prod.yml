@@ -1,0 +1,40 @@
+version: '3'
+services:
+  django:
+    container_name: collabus_prod_django
+    image: collabus_backend
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    ports:
+      - 8000:8000
+    volumes:
+      - static:/app/static
+      - media:/app/media
+    env_file:
+      - .env
+
+  postgres:
+    container_name: collabus_prod_postgres
+    image: postgres:15
+    hostname: postgres
+    environment:
+      POSTGRES_PASSWORD: ${DJANGO_DATABASE_PSWD}
+      POSTGRES_USER: ${DJANGO_DATABASE_USER}
+      POSTGRES_DB: ${DJANGO_DATABASE_NAME}
+      PGPORT: 5432
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata:/var/lib/postgresql/data/pgdata
+
+  redis:
+    container_name: collabus_prod_redis
+    image: redis:7
+    hostname: redis
+
+volumes:
+  static:
+  media:
+  pgdata:
+
+

@@ -7,9 +7,9 @@ source env/bin/activate
 ./scripts/dockerStart.sh
 
 # configure and run server
-python3 manage.py migrate
-python3 manage.py createsuperuser --noinput > /dev/null 2>&1
-python3 manage.py runserver
+python3.10 manage.py migrate
+python3.10 manage.py createsuperuser --noinput > /dev/null 2>&1
+python3.10 manage.py runserver
 
 # stop docker
 ./scripts/dockerStop.sh

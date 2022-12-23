@@ -1,0 +1,10 @@
+.vscode
+.git
+.gitignore
+.env
+docker*
+Docker*
+README.md
+static
+media
+env
