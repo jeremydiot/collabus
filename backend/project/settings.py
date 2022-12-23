@@ -50,6 +50,11 @@ INSTALLED_APPS = [
     # websocket
     'daphne',
 
+    # custom apps
+    'apps.main',
+    'apps.folder',
+    'apps.websocket',
+
     # base
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,13 +66,10 @@ INSTALLED_APPS = [
     # additional libraries
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_spectacular',
     'corsheaders',
-
-    # custom apps
-    'apps.main',
-    'apps.folder',
-    'apps.websocket',
+    *([
+        'drf_spectacular'
+    ] if EXECUTION_ENVIRONMENT == 'development' else [])
 ]
 
 MIDDLEWARE = [
@@ -86,7 +88,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
