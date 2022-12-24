@@ -22,7 +22,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = BASE_DIR / 'static'
 FIXTURE_DIRS = [DATA_DIR / 'fixtures']
 
-EXECUTION_ENVIRONMENT = os.environ.get('DJANGO_EXECUTION_ENVIRONMENT')
+EXECUTION_ENVIRONMENT = os.environ.get('DJANGO_EXECUTION_ENVIRONMENT', 'development')
 
 WEBSOCKET_CHAT_URL = os.environ.get('DJANGO_WEBSOCKET_CHAT_URL', 'websocket/consumer/chat/')
 
@@ -33,7 +33,7 @@ WEBSOCKET_CHAT_URL = os.environ.get('DJANGO_WEBSOCKET_CHAT_URL', 'websocket/cons
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = EXECUTION_ENVIRONMENT == 'development'
+DEBUG = EXECUTION_ENVIRONMENT in ['development', 'staging']
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_BACKEND_HOST', 'localhost,127.0.0.1').split(',')
 CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_FRONTEND_URL', 'http://localhost,http://127.0.0.1').split(',')
@@ -69,7 +69,7 @@ INSTALLED_APPS = [
     'corsheaders',
     *([
         'drf_spectacular'
-    ] if EXECUTION_ENVIRONMENT == 'development' else [])
+    ] if EXECUTION_ENVIRONMENT in ['development', 'staging'] else [])
 ]
 
 MIDDLEWARE = [
@@ -109,7 +109,7 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             'hosts': [(
-                'redis' if EXECUTION_ENVIRONMENT == 'production' else 'localhost',
+                'redis' if EXECUTION_ENVIRONMENT in ['production', 'staging'] else 'localhost',
                 '6379'
             )],
         }
@@ -126,7 +126,7 @@ DATABASES = {
         'NAME': os.environ.get('DJANGO_DATABASE_NAME'),
         'USER': os.environ.get('DJANGO_DATABASE_USER'),
         'PASSWORD': os.environ.get('DJANGO_DATABASE_PSWD'),
-        'HOST': 'postgres' if EXECUTION_ENVIRONMENT == 'production' else 'localhost',
+        'HOST': 'postgres' if EXECUTION_ENVIRONMENT in ['production', 'staging'] else 'localhost',
         'PORT': '5432',
     }
 }

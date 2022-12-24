@@ -2,9 +2,14 @@
 .git
 .gitignore
 .env
-docker*
-Docker*
+.dockerignore
 README.md
 static
 media
 env
+init.sh
+start.sh
+Dockerfile.prod
+docker-compose.dev.yml
+docker-compose.prod.yml
+scripts

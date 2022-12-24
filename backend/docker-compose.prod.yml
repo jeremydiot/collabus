@@ -1,23 +1,28 @@
 version: '3'
 services:
+
   django:
     container_name: collabus_prod_django
     image: collabus_backend
+    hostname: django
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile.prod
-    ports:
-      - 8000:8000
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - static:/app/static:rw
+      - media:/app/media:rw
     env_file:
       - .env
+    depends_on:
+      - postgres
+      - redis
 
   postgres:
     container_name: collabus_prod_postgres
     image: postgres:15
     hostname: postgres
+    restart: always
     environment:
       POSTGRES_PASSWORD: ${DJANGO_DATABASE_PSWD}
       POSTGRES_USER: ${DJANGO_DATABASE_USER}
@@ -25,12 +30,24 @@ services:
       PGPORT: 5432
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - pgdata:/var/lib/postgresql/data/pgdata
+      - pgdata:/var/lib/postgresql/data/pgdata:rw
 
   redis:
     container_name: collabus_prod_redis
     image: redis:7
     hostname: redis
+    restart: always
+
+  nginx:
+    container_name: collabus_prod_nginx
+    image: nginx:1.23-alpine
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - static:/app/static:ro
+      - media:/app/media:ro
+      - ./docker:/etc/nginx/conf.d:ro
 
 volumes:
   static:

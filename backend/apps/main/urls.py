@@ -13,7 +13,7 @@ urlpatterns = [
         path('schema/', SpectacularAPIView.as_view(), name='schema'),
         path('schema/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
         path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    ] if settings.EXECUTION_ENVIRONMENT == 'development'else []),
+    ] if settings.EXECUTION_ENVIRONMENT in ['development', 'staging'] else []),
 
     path('user/', views.UserViewSet.as_view({'post': 'create'}), name='user_create'),
     path(
