@@ -1,0 +1,15 @@
+FROM node:16-alpine AS build
+USER root
+WORKDIR /app
+
+COPY package.json /app/package.json
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:1.23-alpine
+USER root
+EXPOSE 80
+
+COPY ./docker/nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY --from=build /app/dist/collabus /usr/share/nginx/html

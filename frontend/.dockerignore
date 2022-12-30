@@ -1,0 +1,11 @@
+.vscode
+.angular
+.browserslistrc
+.editorconfig
+.git
+.gitignore
+.dockerignore
+node_modules
+Dockerfile.prod
+package-lock.json
+README.md
