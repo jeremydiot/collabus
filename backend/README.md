@@ -28,7 +28,7 @@ DJANGO_DATABASE_NAME=postgres
 DJANGO_DATABASE_USER=postgres
 DJANGO_DATABASE_PSWD=postgres
 DJANGO_BACKEND_HOST=localhost,127.0.0.1
-DJANGO_FRONTEND_URL=http://localhost,http://127.0.0.1
+DJANGO_FRONTEND_URL=http://localhost:4200,http://127.0.0.1:4200
 COMPOSE_FILE=docker-compose.dev.yml # for development environment
 COMPOSE_FILE=docker-compose.prod.yml # for production or staging environment
 ```
