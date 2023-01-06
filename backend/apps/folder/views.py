@@ -55,11 +55,12 @@ class FolderViewSet (viewsets.ViewSet):
     def list(self, request):
         serializer = FolderSerializerPartial(
             request_params_to_queryset(
-                request.GET, Folder.objects.all(),
-                {
+                params=request.GET,
+                queryset=Folder.objects.all().exclude(is_hidden=True).exclude(is_closed=True),
+                custom_keyword={
                     'entity': 'folderentity__entity__pk'
                 }
-            ).exclude(is_hidden=True).exclude(is_closed=True), many=True
+            ), many=True
         )
         return Response(serializer.data)
 

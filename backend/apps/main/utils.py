@@ -32,7 +32,7 @@ def upload_to_file(instance, filename):
     return f'folder/{hash_file(instance.file)}{filename_ext}'
 
 
-def request_params_to_queryset(params, queryset, custom_keyword=None):
+def request_params_to_queryset(params, queryset, custom_keyword=None, authorized_keys=None):
     _params = params.dict()
 
     order = _params.pop('order', None)
@@ -43,6 +43,9 @@ def request_params_to_queryset(params, queryset, custom_keyword=None):
     _default_method = 'icontains'
 
     for key, value in _params.items():
+        if authorized_keys and key not in authorized_keys:
+            continue
+
         method = _default_method
 
         if value[0] == '^':
