@@ -49,3 +49,94 @@
     deadline: null
     created_at: '2022-12-17 00:00:00+00'
     updated_at: '2022-12-17 00:00:00+00'
+
+- model: folder.folder
+  pk: 5
+  fields:
+    name: 'folder5'
+    description: 'folder5'
+    note: 'folder5'
+    type: 1
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
+
+- model: folder.folder
+  pk: 6
+  fields:
+    name: 'folder6'
+    description: 'folder6'
+    note: 'folder6'
+    type: 2
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
+
+- model: folder.folder
+  pk: 7
+  fields:
+    name: 'folder7'
+    description: 'folder7'
+    note: 'folder7'
+    type: 3
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
+
+- model: folder.folder
+  pk: 8
+  fields:
+    name: 'folder8'
+    description: 'folder8'
+    note: 'folder8'
+    type: 4
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
+
+- model: folder.folder
+  pk: 9
+  fields:
+    name: 'folder9'
+    description: 'folder9'
+    note: 'folder9'
+    type: 5
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
+
+- model: folder.folder
+  pk: 10
+  fields:
+    name: 'folder10'
+    description: 'folder10'
+    note: 'folder10'
+    type: 1
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
+
+- model: folder.folder
+  pk: 11
+  fields:
+    name: 'folder11'
+    description: 'folder11'
+    note: 'folder11'
+    type: 2
+    is_closed: false
+    is_hidden: false
+    deadline: null
+    created_at: '2022-12-17 00:00:00+00'
+    updated_at: '2022-12-17 00:00:00+00'
