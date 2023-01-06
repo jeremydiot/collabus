@@ -59,7 +59,7 @@ class FolderViewSet (viewsets.ViewSet):
                 {
                     'entity': 'folderentity__entity__pk'
                 }
-            ).exclude(is_hidden=True, is_close=True), many=True
+            ).exclude(is_hidden=True).exclude(is_closed=True), many=True
         )
         return Response(serializer.data)
 
