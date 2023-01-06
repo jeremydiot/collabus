@@ -3,6 +3,7 @@
 </section>
 <mat-divider></mat-divider>
 <section class="content">
-    <app-project-search-card *ngFor="let project of projects" [title]="project.project" [subTitle]="project.company"
-        [projectId]="project.id" [content]="project.description"></app-project-search-card>
+    <app-project-search-card *ngFor="let project of projects" [title]="project.name"
+        [subTitle]="getProjectAuthorEntity(project)?.name || ''" [projectId]="project.pk"
+        [content]="project.description"></app-project-search-card>
 </section>
