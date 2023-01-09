@@ -14,11 +14,11 @@
 
 ## Env file
 
-Example of **.env** file, to be created in django project folder root
+Example of **.env** file, to be created in django project root folder
 
 ```bash
 # rewrite in production context
-DJANGO_EXECUTION_ENVIRONMENT=development # development or production or staging
+DJANGO_EXECUTION_ENVIRONMENT=development # development, production or staging
 DJANGO_SETTINGS_MODULE=config.settings
 DJANGO_SECRET_KEY=z7BHm1iQxQihGH2pplHUIhPbexbjjvNau4tsvMP9WkD4cUGANkQj76aOS1nn
 DJANGO_SUPERUSER_PASSWORD=admin
@@ -45,7 +45,3 @@ docker build -t collabus_backend -f Dockerfile.prod . # build prod docker image
 docker compose -f docker-compose.prod.yml up -d # rund prod docker compose stack
 docker compose -f docker-compose.dev.yml up -d # rund dev docker compose stack
 ```
-
-## TODO
-
-- hidde NGINX header info

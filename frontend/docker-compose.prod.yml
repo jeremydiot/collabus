@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   angular:
     container_name: collabus_prod_angular
     image: collabus_frontend
@@ -9,4 +10,4 @@ services:
       context: ./
       dockerfile: Dockerfile.prod
     ports:
-      - 80:80
+      - ${COLLABUS_FRONTEND_PORT:-80}:80

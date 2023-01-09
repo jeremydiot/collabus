@@ -6,6 +6,6 @@ export const environment = {
   USER_PROFILE: 'user_profile',
   // VAR
   production: true,
-  backendUrl: 'http://localhost:8000/api',
+  backendUrl: 'https://backend.collabus.fr/api',
   avatarUrl: 'https://secure.gravatar.com/avatar'
 }

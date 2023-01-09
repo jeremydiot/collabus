@@ -15,5 +15,5 @@ Execute following commands from angular project base folder.
 ```bash 
 npm install # install project dependencies
 npm run lint # project code formatting
-npm run start # run server
+npm run start # run development server
 ```
