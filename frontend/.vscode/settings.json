@@ -5,6 +5,7 @@
   "standard.usePackageJson": true,
   "standard.engine": "ts-standard",
   "standard.enable": true,
+  "standard.enableGlobally": true,
   // general
   "files.autoSave": "off",
   "editor.insertSpaces": true,

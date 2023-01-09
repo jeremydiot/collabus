@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>Filtrer les projets</h1>
+<form [formGroup]="form" (ngSubmit)="onValid()">
+    <div mat-dialog-content>
+        <div class="line">
+
+            <mat-form-field appearance="outline" (click)="pickerCreatedAt.open()">
+                <mat-label>Date de publication</mat-label>
+                <mat-date-range-input [rangePicker]="pickerCreatedAt">
+                    <input matStartDate formControlName="startCreatedAt" placeholder="JJ/MM/AAAA">
+                    <input matEndDate formControlName="endCreatedAt" placeholder="JJ/MM/AAAA">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="pickerCreatedAt"></mat-datepicker-toggle>
+                <mat-date-range-picker #pickerCreatedAt></mat-date-range-picker>
+                <mat-error
+                    *ngIf="form.controls.startCreatedAt.status == 'INVALID' || form.controls.endCreatedAt.status == 'INVALID'">
+                    Champ invalide
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" (click)="pickerDeadline.open()">
+                <mat-label>Date de livraison</mat-label>
+                <mat-date-range-input [rangePicker]="pickerDeadline">
+                    <input matStartDate formControlName="startDeadline" placeholder="JJ/MM/AAAA">
+                    <input matEndDate formControlName="endDeadline" placeholder="JJ/MM/AAAA">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="pickerDeadline"></mat-datepicker-toggle>
+                <mat-date-range-picker #pickerDeadline></mat-date-range-picker>
+                <mat-error
+                    *ngIf="form.controls.startDeadline.status == 'INVALID' || form.controls.endDeadline.status == 'INVALID'">
+                    Champ invalide
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>Entité</mat-label>
+            <mat-chip-list #entityChipList>
+                <mat-chip *ngFor="let entity of selectedProjectEntities" (removed)="removeEntity(entity.id)">
+                    {{entity?.name}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip>
+                <input #entityInput matInput formControlName="entity" [matAutocomplete]="auto"
+                    [matChipInputFor]="entityChipList" type="text">
+            </mat-chip-list>
+
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addEntity($event)">
+                <mat-option *ngFor="let entity of filteredProjectEntities"
+                    [value]="entity.id">{{entity.name}}</mat-option>
+            </mat-autocomplete>
+
+            <mat-error *ngIf="form.controls.entity.status == 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="type" multiple>
+                <mat-option *ngFor="let type of projectTypes" [value]="type.id">{{type.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.type.status == 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Nom</mat-label>
+            <input matInput type="text" formControlName="name">
+            <mat-error *ngIf="form.controls.name.status == 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput type="text" formControlName="description">
+            <mat-error *ngIf="form.controls.description.status == 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Valider</button>
+    </div>
+</form>

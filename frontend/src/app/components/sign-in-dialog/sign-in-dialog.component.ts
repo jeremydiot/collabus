@@ -32,8 +32,8 @@ export class SignInDialogComponent {
   callbackConnectionData = CALLBACK_CONNECTION_DATA
 
   form = new FormGroup({
-    email: new FormControl('admin@admin.com', { nonNullable: true, validators: [Validators.email, Validators.required] }),
-    password: new FormControl('admin', { nonNullable: true, validators: [Validators.required] })
+    email: new FormControl('', { nonNullable: true, validators: [Validators.email, Validators.required] }),
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   })
 
   constructor (

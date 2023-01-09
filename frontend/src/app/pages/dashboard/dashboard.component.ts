@@ -3,6 +3,8 @@ import { ProjectService } from 'src/app/services/project.service'
 import { Subscription } from 'rxjs'
 import { Project } from 'src/app/models/project'
 import { Entity } from 'src/app/models/auth'
+import { MatDialog } from '@angular/material/dialog'
+import { ProjectFilterDialogComponent } from 'src/app/components/project-filter-dialog/project-filter-dialog.component'
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +15,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   subscription?: Subscription
   projects: Project[] = []
 
-  constructor (private readonly projectService: ProjectService) {}
+  constructor (
+    private readonly projectService: ProjectService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit (): void {
-    this.subscription = this.projectService.list({}).subscribe((projects) => {
+    this.subscription = this.projectService.list({ size: 9 }).subscribe((projects) => {
       this.projects = projects
     })
   }
@@ -27,5 +32,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getProjectAuthorEntity (project: Project): Entity | undefined {
     return project.entity.find(e => e.is_author)?.entity
+  }
+
+  onFilter (): void {
+    this.dialog.open(ProjectFilterDialogComponent)
   }
 }

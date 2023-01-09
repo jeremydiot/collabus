@@ -19,8 +19,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { authReducer } from './store/auth/auth.reducer'
 import { AuthEffects } from './store/auth/auth.effects'
 import { AuthInterceptor } from './interceptors'
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr'
 import { ProjectSearchCardComponent } from './components/project-search-card/project-search-card.component'
+import { ProjectFilterDialogComponent } from './components/project-filter-dialog/project-filter-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { ProjectSearchCardComponent } from './components/project-search-card/pro
     AdminComponent,
     SignInDialogComponent,
     EditUserProfileDialogComponent,
-    ProjectSearchCardComponent
+    ProjectSearchCardComponent,
+    ProjectFilterDialogComponent
   ],
   imports: [
     BrowserModule,
