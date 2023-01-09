@@ -37,8 +37,8 @@ DEBUG = EXECUTION_ENVIRONMENT in ['development', 'staging']
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_BACKEND_HOST', 'localhost,127.0.0.1').split(',')
 CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_FRONTEND_URL', 'http://localhost:4200,http://127.0.0.1:4200').split(',')
-# CSRF_TRUSTED_ORIGINS = [os.environ.get('DJANGO_FRONT_URL')]
-# CORS_ALLOW_CREDENTIALS = True
+if EXECUTION_ENVIRONMENT == 'production':
+    CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),
