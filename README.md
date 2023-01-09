@@ -16,6 +16,34 @@ COLLABUS_FRONTEND_PORT=8001 # port example
 
 > Stop containers ```./stop.prod.sh ```
 
+### NGINX example configuration
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name backend.collabus.fr;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+    }
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name collabus.fr;
+
+    location / {
+        proxy_pass http://localhost:8001;
+    }
+}
+```
+
 ## Commit 
 
 ```
