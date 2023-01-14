@@ -46,7 +46,7 @@ class _UserAdmin(UserAdmin):
 class EntityAdmin(admin.ModelAdmin):
     list_display = (
         'name',
-        'type',
+        'kind',
         'address',
         'zip_code',
         'city',

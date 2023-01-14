@@ -21,7 +21,7 @@ class FolderEntityInline(admin.TabularInline):
 
 
 class FolderAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'is_closed', 'is_hidden', 'deadline', 'created_at', 'pk')
+    list_display = ('name', 'kind', 'is_closed', 'is_hidden', 'deadline', 'created_at', 'pk')
     inlines = [FolderEntityInline, AttachmentInline, MessageInline]
 
 

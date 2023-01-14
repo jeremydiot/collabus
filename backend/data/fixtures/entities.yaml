@@ -2,7 +2,7 @@
   pk: 1
   fields:
     name: standard1
-    type: 0
+    kind: 0
     address: standard1_address
     zip_code: standard1_zip_code
     city: standard1_city
@@ -16,7 +16,7 @@
   pk: 2
   fields:
     name: standard2
-    type: 0
+    kind: 0
     address: standard2_address
     zip_code: standard2_zip_code
     city: standard2_city
@@ -30,7 +30,7 @@
   pk: 3
   fields:
     name: school1
-    type: 1
+    kind: 1
     address: school1_address
     zip_code: school1_zip_code
     city: school1_city
@@ -44,7 +44,7 @@
   pk: 4
   fields:
     name: school2
-    type: 1
+    kind: 1
     address: school2_address
     zip_code: school2_zip_code
     city: school2_city
@@ -58,7 +58,7 @@
   pk: 5
   fields:
     name: company1
-    type: 2
+    kind: 2
     address: company1_address
     zip_code: company1_zip_code
     city: company1_city
@@ -72,7 +72,7 @@
   pk: 6
   fields:
     name: company2
-    type: 2
+    kind: 2
     address: company2_address
     zip_code: company2_zip_code
     city: company2_city

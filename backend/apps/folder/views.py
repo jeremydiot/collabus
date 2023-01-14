@@ -49,7 +49,7 @@ class FolderViewSet (viewsets.ViewSet):
                 'entity': 'Entity primary key',
                 'is_closed': 'Default: False',
                 'is_hidden': 'Default: False',
-                'type': 'Integer choices: ' + str(Folder.Type.choices)
+                'kind': 'Integer choices: ' + str(Folder.Kind.choices)
             }),
         responses=FolderSerializerPartial, summary='List folders')
     def list(self, request):

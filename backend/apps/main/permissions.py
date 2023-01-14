@@ -36,7 +36,7 @@ class HasCompanyEntity(BasePermission):
         return bool(
             IsAuthenticated().has_permission(request, view)
             and getattr(request.user, 'entity', None)
-            and request.user.entity.type == Entity.Type.COMPANY
+            and request.user.entity.kind == Entity.Kind.COMPANY
         )
 
 

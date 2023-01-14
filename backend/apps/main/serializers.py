@@ -10,12 +10,12 @@ class EntitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entity
 
-        fields = ['pk', 'name', 'type', 'address', 'zip_code', 'city', 'country', 'phone', 'email']
+        fields = ['pk', 'name', 'kind', 'address', 'zip_code', 'city', 'country', 'phone', 'email']
 
         extra_kwargs = {
             'pk': {'read_only': True},
             'name': {'read_only': True},
-            'type': {'read_only': True},
+            'kind': {'read_only': True},
             'address': {'read_only': True},
             'zip_code': {'read_only': True},
             'city': {'read_only': True},
