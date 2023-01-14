@@ -9,6 +9,6 @@ ENV_PATH="env/"
 
 # install python dependencies in virtual environment
 source env/bin/activate
-python3.10 -m pip install --upgrade pip
-python3.10 -m pip install -r requirements/common.txt
-python3.10 -m pip install -r requirements/development.txt
+python3.10 -m pip install --upgrade pip --require-virtualenv
+python3.10 -m pip install -r requirements/common.txt --require-virtualenv
+python3.10 -m pip install -r requirements/development.txt --require-virtualenv
