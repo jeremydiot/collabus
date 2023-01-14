@@ -28,7 +28,6 @@ class FolderEntity(ModelTimeStampMixin):
 class Folder(ModelTimeStampMixin):
 
     class Type(models.IntegerChoices):
-        UNKNOWN = 0, 'unknown'
         WEBSITE_DEVELOPMENT = 1, 'website development'
         WEBSITE_DESIGN = 2, 'website design'
         GRAPHIC_CHARTER = 3, 'graphic charter'
@@ -38,7 +37,7 @@ class Folder(ModelTimeStampMixin):
     name = models.CharField(max_length=254)
     description = models.TextField()
     note = models.TextField()
-    type = models.IntegerField(choices=Type.choices, default=Type.UNKNOWN)
+    type = models.IntegerField(choices=Type.choices)
     is_closed = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)
     deadline = models.DateField(null=True, blank=True)

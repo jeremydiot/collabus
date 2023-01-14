@@ -2,6 +2,7 @@ import json
 import enum
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
+from django.conf import settings
 from apps.folder.models import Folder, Message
 from apps.folder.serializers import MessageSerializer
 
@@ -26,12 +27,15 @@ class AsyncChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = f'chat_{self.chat_kind}_{self.chat_pk}'
 
         if self.scope['user'].is_anonymous:
-            await self.close(code=403)  # anonymous users unauthorized
+            await self.close(code=401)  # anonymous users unauthorized
+
         elif ChatKind(self.chat_kind) == ChatKind.FOLDER:
             try:
                 self.kind_instance = await Folder.objects.aget(pk=int(self.chat_pk), folderentity__entity__id=self.scope['user'].entity_id)
+
             except Folder.DoesNotExist:
                 await self.close(code=404)  # folder not found or wrong entity
+
             else:
                 # Join room group
                 await self.channel_layer.group_add(self.room_group_name, self.channel_name)
@@ -46,7 +50,7 @@ class AsyncChatConsumer(AsyncWebsocketConsumer):
                     return serializer.data
                 await self.send(text_data=json.dumps({"messages": await data()}))
 
-        elif ChatKind(self.chat_kind) == ChatKind.UNKNOWN:
+        elif ChatKind(self.chat_kind) == ChatKind.UNKNOWN and settings.EXECUTION_ENVIRONMENT != 'production':
             # Join room group
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)
             await self.accept()
