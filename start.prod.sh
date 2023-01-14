@@ -18,7 +18,7 @@ set -a && source .env && set +a
 [ ! -v DJANGO_DATABASE_NAME ] && echo "ERROR (backend/.env): missing 'DJANGO_DATABASE_NAME' environment variable" && exit 1
 [ ! -v DJANGO_DATABASE_USER ] && echo "ERROR (backend/.env): missing 'DJANGO_DATABASE_USER' environment variable" && exit 1
 [ ! -v DJANGO_DATABASE_PSWD ] && echo "ERROR (backend/.env): missing 'DJANGO_DATABASE_PSWD' environment variable" && exit 1
-[ ! -v DJANGO_BACKEND_HOST ] && echo "ERROR (backend/.env): missing 'DJANGO_BACKEND_HOST' environment variable" && exit 1
+[ ! -v DJANGO_BACKEND_URL ] && echo "ERROR (backend/.env): missing 'DJANGO_BACKEND_URL' environment variable" && exit 1
 [ ! -v DJANGO_FRONTEND_URL ] && echo "ERROR (backend/.env): missing 'DJANGO_FRONTEND_URL' environment variable" && exit 1
 
 

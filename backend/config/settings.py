@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from urllib.parse import urlparse
+from pathlib import Path
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,13 +36,16 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = EXECUTION_ENVIRONMENT in ['development', 'staging']
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_BACKEND_HOST', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = [
+    urlparse(url).hostname
+    for url
+    in os.environ.get('DJANGO_BACKEND_URL', 'http://localhost:8000,http://127.0.0.1:8000').split(',')
+]
 CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_FRONTEND_URL', 'http://localhost:4200,http://127.0.0.1:4200').split(',')
-if EXECUTION_ENVIRONMENT == 'production':
-    CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
+CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_BACKEND_URL', 'http://localhost:8000,http://127.0.0.1:8000').split(',')
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=5) if EXECUTION_ENVIRONMENT == 'development' else timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
 }
 
