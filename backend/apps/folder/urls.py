@@ -2,11 +2,10 @@ from django.urls import path
 from apps.folder import views
 
 urlpatterns = [
-    path('', views.FolderViewSet.as_view({'get': 'list', 'post': 'create'}), name='folder'),
-    path('<int:id>/', views.FolderViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='folder_detail'),
+    path('', views.FolderViewSet.as_view({'get': 'list'}), name='folder'),
 
     path(
-        '<int:id>/attachment/',
+        '<int:id_folder>/attachment/',
         views.FolderAttachmentViewSet.as_view({'get': 'list', 'post': 'create'}),
         name='folder_attachment'
     ),

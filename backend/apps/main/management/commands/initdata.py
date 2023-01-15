@@ -8,6 +8,7 @@ class Command(BaseCommand):
 
         call_command('loaddata', 'entities.yaml')
         call_command('loaddata', 'users.yaml')
+        call_command('loaddata', 'folders.yaml')
 
         for user in get_user_model().objects.all():
             if not user.password.startswith('pbkdf2_sha256'):

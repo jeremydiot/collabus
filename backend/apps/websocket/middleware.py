@@ -33,7 +33,7 @@ class JwtAuthMiddleware(BaseMiddleware):
 
             try:
                 user = await sync_to_async(JWTAuthentication().authenticate)(request)
-            except BaseException as exc:
+            except Exception as exc:
                 raise exc
             else:
                 scope['user'] = user[0]

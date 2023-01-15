@@ -1,6 +1,7 @@
 import hashlib
 import os
 from functools import partial
+from datetime import datetime
 from django.conf import settings
 from django.db import models
 from drf_spectacular.utils import OpenApiParameter
@@ -32,7 +33,7 @@ def upload_to_file(instance, filename):
     return f'folder/{hash_file(instance.file)}{filename_ext}'
 
 
-def request_params_to_queryset(params, queryset, custom_keyword=None, authorized_keys=None):
+def request_params_to_queryset(params, queryset, custom_keyword=None, custom_method=None, authorized_keys=None):
     _params = params.dict()
 
     order = _params.pop('order', None)
@@ -59,8 +60,12 @@ def request_params_to_queryset(params, queryset, custom_keyword=None, authorized
             value = value[1:]
 
         keyword = custom_keyword and custom_keyword.get(key, None)
+        _method = custom_method and custom_method.get(key, None)
 
-        _filter[f'{keyword or key}__{method}'] = value
+        if (_method == 'range'):
+            value = tuple(datetime.strptime(element, '%Y-%m-%d').date() for element in value.split(' - '))
+
+        _filter[f'{keyword or key}__{_method or method}'] = value
 
     return queryset.filter(
         **_filter
@@ -69,12 +74,12 @@ def request_params_to_queryset(params, queryset, custom_keyword=None, authorized
     )[None if (size < 0) else page * size:None if (size < 0) else page * size + size]
 
 
-def drf_params_schema(fields, schema_list=False, description=None):
+def schema_parameters_builder(fields, schema_list=False, description=None):
     _fields = [*fields]
     if schema_list:
         _fields += ['order', 'size', 'page']
         description = {
-            'order': 'Key list separated by comma, ASC: default, DESC: add \'-\' ahead of key \n\nAvailable keys: ' + ', '.join(fields),
+            'order': 'Key list separated by comma, ASC: default, DESC: add \'-\' ahead of key \n\nAvailable keys: [' + ', '.join(fields) + ']',
             'size': 'Default: -1 (no limit if < 0)',
             'page': 'Default: 0 (no effect if size < 0)',
             **(description if description else {})}

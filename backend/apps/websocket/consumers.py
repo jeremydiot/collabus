@@ -5,6 +5,7 @@ from asgiref.sync import sync_to_async
 from django.conf import settings
 from apps.folder.models import Folder, Message
 # from apps.folder.serializers import MessageSerializer
+# TODO uncomment Message serializer
 
 
 class ChatKind(enum.Enum):

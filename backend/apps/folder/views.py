@@ -1,44 +1,56 @@
 from rest_framework import viewsets
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_403_FORBIDDEN, HTTP_204_NO_CONTENT
 
 from drf_spectacular.utils import extend_schema
 
-# from apps.main.permissions import HasCompanyEntity, HasEntityFolderAuthor, IsAuthenticated, HasEntityFolderAssigned
-from apps.main.utils import request_params_to_queryset, drf_params_schema
+from apps.main.permissions import HasCompanyEntity, HasSchoolEntity
+from apps.main.utils import request_params_to_queryset, schema_parameters_builder
 from apps.folder.models import Folder, FolderEntity
-# from apps.folder.serializers import FolderSerializerFull, FolderSerializerPartial, FolderEntitySerializer
+from apps.folder.serializers import FolderPublicSerializer
 
 
 class FolderViewSet (viewsets.ViewSet):
-    def list(self, request): ...
-    def create(self, request): ...
-    def retrieve(self, request, id): ...
-    def update(self, request, id): ...
 
-   # def get_permissions(self):
-   #     self.permission_classes = [IsAuthenticated]
+    def get_permissions(self):
+        if self.action == 'list':
+            self.permission_classes = [HasSchoolEntity | HasCompanyEntity]
 
-   #     if self.action == 'list':
-   #         self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
 
-   #     if self.action == 'retrieve':
-   #         self.permission_classes = [HasEntityFolderAssigned]
+    @extend_schema(parameters=schema_parameters_builder(
+        fields=FolderPublicSerializer.Meta.fields,
+        schema_list=True,
+        description={
+            'deadline': 'Date: YYYY-MM-DD - YYYY-MM-DD',
+            'kind': 'Aviable integers: ' + str(Folder.Kind.choices)
+        }
+    ), responses=FolderPublicSerializer, summary='Get list of folders')
+    def list(self, request):
 
-   #     if self.action == 'update':
-   #         self.permission_classes = [HasEntityFolderAuthor]
+        try:
 
-   #     if self.action == 'create':
-   #         self.permission_classes = [HasCompanyEntity]
+            queryset = request_params_to_queryset(
+                params=request.GET,
+                queryset=Folder.objects.all().exclude(
+                    is_closed=True).exclude(
+                    is_hidden=True).exclude(
+                    is_verified=False),
+                authorized_keys=FolderPublicSerializer.Meta.fields,
+                custom_method={
+                    'deadline': 'range'
+                }
+            )
 
-   #     return super().get_permissions()
+        except Exception as exc:
+            raise ParseError from exc
 
-   # def get_object(self, pk, extra=None):  # pylint: disable=invalid-name
-   #     try:
-   #         return Folder.objects.get(pk=pk, **(extra if extra else {}))
-   #     except Folder.DoesNotExist as exc:
-   #         raise NotFound from exc
+        serializer = FolderPublicSerializer(
+            queryset,
+            many=True
+        )
+        return Response(serializer.data)
 
    # @extend_schema(request=FolderSerializerFull, responses=FolderSerializerFull, summary='Get folder')
    # def retrieve(self, request, pk):  # pylint: disable=invalid-name
@@ -103,8 +115,8 @@ class FolderViewSet (viewsets.ViewSet):
 
 
 class FolderAttachmentViewSet (viewsets.ViewSet):
-    def list(self, request): ...
-    def create(self, request): ...
+    def list(self, request, id_folder): ...
+    def create(self, request, id_folder): ...
     def retrieve(self, request, id_folder, id_attachment): ...
     def update(self, request, id_folder, id_attachment): ...
     def destroy(self, request, id_folder, id_attachment): ...

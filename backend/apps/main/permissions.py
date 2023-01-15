@@ -34,6 +34,7 @@ class HasCompanyEntity(BasePermission):
     def has_permission(self, request, view):
         return bool(
             IsAuthenticated().has_permission(request, view)
+            and request.user.entity
             and request.user.entity.kind == Entity.Kind.COMPANY
         )
 
@@ -42,6 +43,7 @@ class HasSchoolEntity(BasePermission):
     def has_permission(self, request, view):
         return bool(
             IsAuthenticated().has_permission(request, view)
+            and request.user.entity
             and request.user.entity.kind == Entity.Kind.SCHOOL
         )
 
