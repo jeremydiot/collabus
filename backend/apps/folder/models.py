@@ -6,7 +6,7 @@ from apps.main.utils import ModelTimeStampMixin
 from apps.main.models import Entity
 
 
-# TODO maximum 2 entity per folder, author can't be removed, minimum 1 entity per folder
+# TODO maximum 2 entity accepted per folder, author can't be removed, minimum 1 entity per folder
 class FolderEntity(ModelTimeStampMixin):
     folder = models.ForeignKey('folder.folder', on_delete=models.CASCADE)
     entity = models.ForeignKey('main.entity', on_delete=models.CASCADE)

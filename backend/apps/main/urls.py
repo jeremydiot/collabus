@@ -15,13 +15,11 @@ urlpatterns = [
         path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     ] if settings.EXECUTION_ENVIRONMENT in ['development', 'staging'] else []),
 
-    path('user/', views.UserViewSet.as_view({'post': 'create'}), name='user_create'),
-    path(
-        'user/<str:username>/',
-        views.UserViewSet.as_view({'put': 'update', 'delete': 'destroy', 'get': 'retrieve'}),
-        name='user'
-    ),
-    path('user/<str:username>/change_password/', views.UserChangePassword.as_view(), name='user_change_password'),
+    path('user/', views.UserViewSet.as_view({'post': 'create'}), name='user'),
+    path('user/<str:username>/', views.UserViewSet.as_view({'put': 'update', 'get': 'retrieve'}), name='user_detail'),
+    path('user/<str:username>/password/', views.UserViewSet.as_view({'put': 'password'}), name='user_password'),
+
+    path('entity/folder/', views.EntityFolderViewSet.as_view({'get': 'list'}), name='entity_folder'),
 
     path('ping/', views.PingPong.as_view(), name='ping'),
 

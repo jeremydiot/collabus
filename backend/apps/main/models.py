@@ -9,12 +9,12 @@ class Entity(ModelTimeStampMixin):
         verbose_name_plural = "entities"
 
     class Kind(models.IntegerChoices):
-        STAFF = 0, 'staff'
-        SCHOOL = 1, 'school'
-        COMPANY = 2, 'company'
+        UNKNOWN = 1, 'unknown'
+        SCHOOL = 2, 'school'
+        COMPANY = 3, 'company'
 
     name = models.CharField(max_length=254)
-    kind = models.IntegerField(choices=Kind.choices)
+    kind = models.IntegerField(choices=Kind.choices, default=Kind.UNKNOWN)
     address = models.CharField(max_length=254)
     zip_code = models.CharField(max_length=254)
     city = models.CharField(max_length=254)
@@ -22,22 +22,15 @@ class Entity(ModelTimeStampMixin):
     phone = models.CharField(max_length=15)
     email = models.EmailField()
     siret = models.CharField(max_length=14)
-    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{ Entity.Kind(self.kind).label} : {self.name}'
 
 
+# TODO set is_entity_staff to false when entity is null
 class User(AbstractUser):
 
-    email = models.EmailField(
-        "email address",
-        unique=True,
-        error_messages={
-            "unique": "A user with this email already exists.",
-        }
-    )
-
+    email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15)
-    entity = models.ForeignKey('main.entity', on_delete=models.CASCADE)
-    is_verified = models.BooleanField(default=False)
+    entity = models.ForeignKey('main.entity', on_delete=models.SET_NULL, null=True)
+    is_entity_staff = models.BooleanField(default=False)

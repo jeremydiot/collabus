@@ -4,7 +4,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from django.conf import settings
 from apps.folder.models import Folder, Message
-from apps.folder.serializers import MessageSerializer
+# from apps.folder.serializers import MessageSerializer
 
 
 class ChatKind(enum.Enum):
@@ -43,11 +43,11 @@ class AsyncChatConsumer(AsyncWebsocketConsumer):
 
                 # send previous messages
                 queryset = self.kind_instance.message_set.all()
-                serializer = MessageSerializer(queryset, many=True)
+                # serializer = MessageSerializer(queryset, many=True)
 
                 @sync_to_async
-                def data():
-                    return serializer.data
+                def data(): ...
+                # return serializer.data
                 await self.send(text_data=json.dumps({"messages": await data()}))
 
         elif ChatKind(self.chat_kind) == ChatKind.UNKNOWN and settings.EXECUTION_ENVIRONMENT != 'production':

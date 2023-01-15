@@ -10,10 +10,9 @@ class EntitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entity
 
-        fields = ['pk', 'name', 'kind', 'address', 'zip_code', 'city', 'country', 'phone', 'email']
+        fields = ['name', 'kind', 'address', 'zip_code', 'city', 'country', 'phone', 'email']
 
         extra_kwargs = {
-            'pk': {'read_only': True},
             'name': {'read_only': True},
             'kind': {'read_only': True},
             'address': {'read_only': True},
@@ -25,16 +24,9 @@ class EntitySerializer(serializers.ModelSerializer):
         }
 
 
-class BaseUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
-    PHONE_FIELD_VALIDATOR = [
-        RegexValidator(r'^\+[0-9]{11,14}$', message='Must start with + followed by 11 to 14 digits.')
-    ]
-
-    USERNAME_FIELD_VALIDATOR = [
-        RegexValidator(r'^(?!@).*', message='C\'ant start with @.'),
-        UniqueValidator(get_user_model().objects.all())
-    ]
+    entity = EntitySerializer(read_only=True)
 
     def __init__(self, instance=None, data=empty, **kwargs):
         if data is not empty:
@@ -48,53 +40,46 @@ class BaseUserSerializer(serializers.ModelSerializer):
                 data['last_name'] = data['last_name'].upper()
         super().__init__(instance, data, **kwargs)
 
-
-class CreateUserSerializer(BaseUserSerializer):
-    class Meta:
-        model = get_user_model()
-
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'phone']
-
-        extra_kwargs = {
-            'password': {'write_only': True},
-            'username': {'validators': BaseUserSerializer.USERNAME_FIELD_VALIDATOR},
-            'phone': {'validators': BaseUserSerializer.PHONE_FIELD_VALIDATOR},
-        }
-
-    def validate(self, attrs):
-        password_validation.validate_password(attrs['password'], self.instance)
-        return attrs
+    def validate_password(self, value):
+        if value:
+            password_validation.validate_password(value, self.instance)
+        return value
 
     def create(self, validated_data):
         user = get_user_model().objects.create_user(**validated_data)
         return user
 
-
-class UserSerializer(BaseUserSerializer):
-
-    entity = EntitySerializer(read_only=True)
+    def update(self, instance, validated_data):
+        validated_data.pop('password', None)
+        return super().update(instance, validated_data)
 
     class Meta:
         model = get_user_model()
 
-        fields = ['pk', 'last_login', 'is_superuser', 'username', 'first_name',
-                  'last_name', 'email', 'is_staff', 'is_active', 'date_joined',
-                  'phone', 'entity']
+        fields = ['last_login', 'date_joined', 'username', 'email', 'phone',
+                  'first_name', 'last_name', 'entity', 'is_entity_staff', 'password']
 
         extra_kwargs = {
-            'pk': {'read_only': True},
             'last_login': {'read_only': True},
             'date_joined': {'read_only': True},
-            'is_superuser': {'read_only': True},
-            'is_staff': {'read_only': True},
-            'is_active': {'read_only': True},
             'entity': {'read_only': True},
-            'username': {'validators': BaseUserSerializer.USERNAME_FIELD_VALIDATOR},
-            'phone': {'validators': BaseUserSerializer.PHONE_FIELD_VALIDATOR},
+            'is_entity_staff': {'read_only': True},
+            'password': {'write_only': True},
+            'username': {
+                'validators': [
+                    RegexValidator(r'^(?!@).*', message='C\'ant start with @.'),
+                    UniqueValidator(get_user_model().objects.all())
+                ]
+            },
+            'phone': {
+                'validators': [
+                    RegexValidator(r'^\+[0-9]{11,14}$', message='Must start with + followed by 11 to 14 digits.')
+                ]
+            },
         }
 
 
-class ChangePasswordUserSerializer(serializers.ModelSerializer):
+class UserPaswordSerializer(serializers.ModelSerializer):
 
     new_password = serializers.CharField(required=True, write_only=True)
     old_password = serializers.CharField(required=True, write_only=True)
@@ -110,6 +95,7 @@ class ChangePasswordUserSerializer(serializers.ModelSerializer):
 
     def validate_new_password(self, value):
         password_validation.validate_password(value, self.instance)
+        return value
 
     def save(self, **kwargs):
         self.instance.set_password(self.validated_data['new_password'])
@@ -118,16 +104,16 @@ class ChangePasswordUserSerializer(serializers.ModelSerializer):
 
 
 class PingPongSerializer(serializers.Serializer):
-    result = serializers.CharField(allow_blank=True, default="pong", max_length=4)
+    result = serializers.CharField(allow_blank=True, default='pong', max_length=4)
 
-    def validate(self, attrs):
-        if attrs['result'] != 'pong':
+    def validate_result(self, value):
+        if value != 'pong':
             raise serializers.ValidationError('What\'s in your head ?')
 
-        return attrs
+        return value
 
     def create(self, validated_data):
-        return validated_data
+        ...
 
     def update(self, instance, validated_data):
-        return instance, validated_data
+        ...

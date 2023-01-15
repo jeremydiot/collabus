@@ -1,65 +1,59 @@
 - model: main.user
-  pk: 1
-  fields:
-    username: admin
-    email: admin@admin.com
-    password: admin
-    first_name: admin
-    last_name: admin
-    phone: '+5275228284147'
-    is_superuser: true
-    is_staff: true
-
-- model: main.user
   pk: 2
   fields:  
     username: toto
     email: toto@example.com
-    password: TOtoto123
+    password: toto
     first_name: toto_first
     last_name: toto_last
     phone: '+2956637120282'
+    entity: null
+    is_entity_staff: false
 
 - model: main.user
   pk: 3
   fields:
     username: titi
     email: titi@example.com
-    password: TItiti123
+    password: titi
     first_name: titi_first
     last_name: titi_last
     phone: '+03189455969997'
-    entity: 3
+    entity: 1
+    is_entity_staff: true
 
 - model: main.user
   pk: 4
   fields:
     username: tutu
     email: tutu@example.com
-    password: TUtutu123
+    password: tutu
     first_name: tutu_first
     last_name: tutu_last
     phone: '+4307536914968'
     entity: 3
+    is_entity_staff: true
 
 - model: main.user
   pk: 5
   fields:
     username: tata
     email: tata@example.com
-    password: TAtata123
+    password: tata
     first_name: tata_first
     last_name: tata_last
     phone: '+280073071736'
     entity: 5
+    is_entity_staff: true
 
 - model: main.user
   pk: 6
   fields:
     username: tete
     email: tete@example.com
-    password: TEtete123
+    password: tete
     first_name: tete_first
     last_name: tete_last
     phone: '+028969678811'
-    entity: 1
+    entity: 5
+    is_entity_staff: false

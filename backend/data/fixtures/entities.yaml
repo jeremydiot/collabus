@@ -1,36 +1,38 @@
 - model: main.entity
   pk: 1
   fields:
-    name: standard1
-    kind: 0
-    address: standard1_address
-    zip_code: standard1_zip_code
-    city: standard1_city
-    country: standard1_coutry
+    name: unknown1
+    kind: 1
+    address: unknown1_address
+    zip_code: unknown1_zip_code
+    city: unknown1_city
+    country: unknown1_coutry
     phone: '+16854863736501'
-    email: standard1@example.com
+    email: unknown1@example.com
     created_at: '2022-12-17 00:00:00+00'
     updated_at: '2022-12-17 00:00:00+00'
+    siret: '12345678901234'
 
 - model: main.entity
   pk: 2
   fields:
-    name: standard2
-    kind: 0
-    address: standard2_address
-    zip_code: standard2_zip_code
-    city: standard2_city
-    country: standard2_coutry
-    phone: '+863271668333'
-    email: standard2@example.com
+    name: unknown2
+    kind: 1
+    address: unknown2_address
+    zip_code: unknown2_zip_code
+    city: unknown2_city
+    country: unknown2_coutry
+    phone: '+16854863736502'
+    email: unknown2@example.com
     created_at: '2022-12-17 00:00:00+00'
     updated_at: '2022-12-17 00:00:00+00'
+    siret: '12345678901235'
 
 - model: main.entity
   pk: 3
   fields:
     name: school1
-    kind: 1
+    kind: 2
     address: school1_address
     zip_code: school1_zip_code
     city: school1_city
@@ -39,12 +41,13 @@
     email: school1@example.com
     created_at: '2022-12-17 00:00:00+00'
     updated_at: '2022-12-17 00:00:00+00'
+    siret: '12345678901236'
 
 - model: main.entity
   pk: 4
   fields:
     name: school2
-    kind: 1
+    kind: 2
     address: school2_address
     zip_code: school2_zip_code
     city: school2_city
@@ -53,12 +56,13 @@
     email: school2@example.com
     created_at: '2022-12-17 00:00:00+00'
     updated_at: '2022-12-17 00:00:00+00'
+    siret: '12345678901237'
 
 - model: main.entity
   pk: 5
   fields:
     name: company1
-    kind: 2
+    kind: 3
     address: company1_address
     zip_code: company1_zip_code
     city: company1_city
@@ -67,12 +71,13 @@
     email: company1@example.com
     created_at: '2022-12-17 00:00:00+00'
     updated_at: '2022-12-17 00:00:00+00'
+    siret: '12345678901238'
 
 - model: main.entity
   pk: 6
   fields:
     name: company2
-    kind: 2
+    kind: 3
     address: company2_address
     zip_code: company2_zip_code
     city: company2_city
@@ -81,3 +86,4 @@
     email: company2@example.com
     created_at: '2022-12-17 00:00:00+00'
     updated_at: '2022-12-17 00:00:00+00'
+    siret: '12345678901239'
