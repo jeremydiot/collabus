@@ -14,6 +14,7 @@ class _UserAdmin(UserAdmin):
             {
                 'fields': (
                     'is_active',
+                    'is_entity_staff',
                     'is_staff',
                     'is_superuser',
                 ),
@@ -25,25 +26,29 @@ class _UserAdmin(UserAdmin):
         'email',
         'first_name',
         'last_name',
-        'is_staff',
+        'is_entity_staff',
+        'entity',
         'is_active',
-        'is_superuser',
         'pk',
         'phone',
-        'entity',
         'last_login',
         'date_joined',
+        'is_staff',
+        'is_superuser'
     )
-    list_filter = ('is_staff', 'is_superuser', 'is_active', 'entity',)
-    search_fields = ('username', 'first_name', 'last_name', 'email',)
+    list_filter = ('is_entity_staff', 'is_active', 'entity',)
+    search_fields = ('username', 'first_name', 'last_name', 'email', 'entity__name', 'entity__email')
     ordering = ('username',)
-    filter_horizontal = (
-        'groups',
-        'user_permissions',
-    )
+
+
+admin.site.register(get_user_model(), _UserAdmin)
+admin.site.unregister(Group)
 
 
 class EntityAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('name', 'kind', 'address', 'zip_code', 'city', 'country', 'phone', 'email', 'siret',)}),
+    )
     list_display = (
         'name',
         'kind',
@@ -58,8 +63,9 @@ class EntityAdmin(admin.ModelAdmin):
         'updated_at',
         'created_at',
     )
+    list_filter = ('kind', 'city', 'country',)
+    search_fields = ('name', 'email', 'siret', 'phone', 'address',)
+    ordering = ('name',)
 
 
-admin.site.register(get_user_model(), _UserAdmin)
 admin.site.register(Entity, EntityAdmin)
-admin.site.unregister(Group)
