@@ -6,6 +6,7 @@ from apps.main.utils import ModelTimeStampMixin
 from apps.main.models import Entity
 
 
+# TODO restrict school entities queryset in admin
 # TODO maximum 2 entity accepted per folder, author can't be removed, minimum 1 entity per folder
 class FolderEntity(ModelTimeStampMixin):
     folder = models.ForeignKey('folder.folder', on_delete=models.CASCADE)
@@ -16,9 +17,7 @@ class FolderEntity(ModelTimeStampMixin):
     def save(self, *args, **kwargs):
 
         if getattr(self, 'entity', None):
-            if self.entity.kind != Entity.Kind.COMPANY:  # pylint: disable=no-member
-                self.is_author = False
-            elif not self.pk and self.entity.kind == Entity.Kind.COMPANY:  # pylint: disable=no-member
+            if not self.pk and self.entity.kind == Entity.Kind.COMPANY:  # pylint: disable=no-member
                 self.is_author = True
                 self.is_accepted = True
 
@@ -26,6 +25,7 @@ class FolderEntity(ModelTimeStampMixin):
 
     class Meta:
         unique_together = ('folder', 'entity',)
+        verbose_name_plural = "folderentities"
 
 
 class Folder(ModelTimeStampMixin):
@@ -38,13 +38,13 @@ class Folder(ModelTimeStampMixin):
         DIGITAL_STRATEGY = 5, 'digital strategy'
 
     name = models.CharField(max_length=254)
-    description = models.TextField()
-    note = models.TextField()
     kind = models.IntegerField(choices=Kind.choices)
     is_closed = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)
-    deadline = models.DateField(null=True, blank=True)
     is_verified = models.BooleanField(default=False)
+    deadline = models.DateField(null=True, blank=True)
+    description = models.TextField()
+    note = models.TextField()
 
     def __str__(self):
         return f'{self.name} : {Folder.Kind(self.kind).label}'
@@ -76,6 +76,7 @@ class Attachment(ModelTimeStampMixin):
         return self.name
 
 
+# TODO restrict to associated author queryset in admin
 class Message(ModelTimeStampMixin):
     folder = models.ForeignKey('folder.folder', on_delete=models.CASCADE)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)

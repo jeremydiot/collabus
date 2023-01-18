@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
-from apps.folder.models import Folder, Attachment, Message, FolderEntity, Entity
+from apps.folder.models import Folder, Attachment, Message, FolderEntity
 from apps.main.serializers import EntitySerializer, UserSerializer
 
 
@@ -84,6 +83,7 @@ class FolderPrivateSerializer(serializers.ModelSerializer):
 
 # TODO disable update folder and file
 class AttachmentSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Attachment
 
@@ -100,6 +100,8 @@ class AttachmentSerializer(serializers.ModelSerializer):
             'pk': {'read_only': True},
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True},
+            'folder': {'required': False},
+            'file': {'required': False},
         }
 
 

@@ -4,7 +4,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from django.conf import settings
 from apps.folder.models import Folder, Message
-# from apps.folder.serializers import MessageSerializer
+from apps.folder.serializers import MessageSerializer
 # TODO uncomment Message serializer
 
 
@@ -32,7 +32,7 @@ class AsyncChatConsumer(AsyncWebsocketConsumer):
 
         elif ChatKind(self.chat_kind) == ChatKind.FOLDER:
             try:
-                self.kind_instance = await Folder.objects.aget(pk=int(self.chat_pk), folderentity__entity__id=self.scope['user'].entity_id)
+                self.kind_instance = await Folder.objects.aget(pk=int(self.chat_pk), folderentity__entity__id=self.scope['user'].entity_id, folderentity__is_accepted=True)
 
             except Folder.DoesNotExist:
                 await self.close(code=404)  # folder not found or wrong entity
@@ -44,11 +44,11 @@ class AsyncChatConsumer(AsyncWebsocketConsumer):
 
                 # send previous messages
                 queryset = self.kind_instance.message_set.all()
-                # serializer = MessageSerializer(queryset, many=True)
+                serializer = MessageSerializer(queryset, many=True)
 
                 @sync_to_async
-                def data(): ...
-                # return serializer.data
+                def data():
+                    return serializer.data
                 await self.send(text_data=json.dumps({"messages": await data()}))
 
         elif ChatKind(self.chat_kind) == ChatKind.UNKNOWN and settings.EXECUTION_ENVIRONMENT != 'production':
@@ -76,7 +76,7 @@ class AsyncChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to room group
         await self.channel_layer.group_send(
-            self.room_group_name, {"kind": "chat_message", "message": message}
+            self.room_group_name, {"type": "chat_message", "message": message}
         )
 
     # Receive message from room group

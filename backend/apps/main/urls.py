@@ -19,7 +19,10 @@ urlpatterns = [
     path('user/<str:username>/', views.UserViewSet.as_view({'put': 'update', 'get': 'retrieve'}), name='user_detail'),
     path('user/<str:username>/password/', views.UserViewSet.as_view({'put': 'password'}), name='user_password'),
 
-    path('entity/folder/', views.EntityFolderViewSet.as_view({'get': 'list'}), name='entity_folder'),
+    path('entity/folder/', views.EntityFolderViewSet.as_view({'get': 'list', 'post': 'create'}), name='entity_folder'),
+    path('entity/folder/<int:id_folder>/', views.EntityFolderViewSet.as_view(
+        {'get': 'retrieve', 'put': 'update'}
+    ), name='entity_folder_detail'),
 
     path('ping/', views.PingPong.as_view(), name='ping'),
 

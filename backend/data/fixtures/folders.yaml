@@ -4,7 +4,7 @@
     name: 'folder1'
     description: 'folder1'
     note: 'folder1'
-    kind: 0
+    kind: 1
     is_closed: true
     is_hidden: true
     deadline: null
