@@ -17,12 +17,17 @@ urlpatterns = [
 
     path(
         '<int:id_folder>/entity/<int:id_entity>/',
-        views.FolderEntityViewSet.as_view({'put': 'update', 'delete': 'destroy'}),
+        views.FolderEntityAuthorViewSet.as_view({'put': 'update', 'delete': 'destroy'}),
         name='folder_entity_detail'
     ),
     path(
         '<int:id_folder>/entity/',
-        views.FolderEntityViewSet.as_view({'post': 'create', 'delete': 'destroy'}),
+        views.FolderEntityContributorViewSet.as_view({'post': 'create', 'delete': 'destroy'}),
         name='folder_entity'
+    ),
+    path(
+        'entity/',
+        views.FolderEntityContributorViewSet.as_view({'get': 'list'}),
+        name='folder_entity_list'
     ),
 ]

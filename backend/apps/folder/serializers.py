@@ -3,7 +3,7 @@ from apps.folder.models import Folder, Attachment, Message, FolderEntity
 from apps.main.serializers import EntitySerializer, UserSerializer
 
 
-class FolderEntitySerializer(serializers.ModelSerializer):
+class FolderEntitySerializerDetailEntity(serializers.ModelSerializer):
     entity = EntitySerializer(read_only=True)
 
     # def validate(self, attrs):
@@ -55,7 +55,8 @@ class FolderPublicSerializer(serializers.ModelSerializer):
 
 class FolderPrivateSerializer(serializers.ModelSerializer):
 
-    entities = FolderEntitySerializer(source='folderentity_set', many=True, read_only=True)
+    # TODO get only accepted relation entities
+    entities = FolderEntitySerializerDetailEntity(source='folderentity_set', many=True, read_only=True)
 
     class Meta:
         model = Folder
@@ -78,6 +79,36 @@ class FolderPrivateSerializer(serializers.ModelSerializer):
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True},
             'entities': {'read_only': True},
+        }
+
+
+class FolderEntitySerializerDetailFolder(serializers.ModelSerializer):
+    folder = FolderPublicSerializer(read_only=True)
+
+    # def validate(self, attrs):
+    #     try:
+    #         attrs['entity'] = Entity.objects.get(pk=self.initial_data['entity'])
+    #     except Entity.DoesNotExist as exc:
+    #         raise ValidationError({'entity': 'Entity does not exist.'}) from exc
+
+    #     attrs['is_author'] = False
+    #     return attrs
+
+    class Meta:
+        model = FolderEntity
+        fields = [
+            'folder',
+            'entity',
+            'is_author',
+            'is_accepted',
+            'created_at',
+            'updated_at',
+        ]
+
+        extra_kwargs = {
+            'is_author': {'read_only': True},
+            'created_at': {'read_only': True},
+            'updated_at': {'read_only': True},
         }
 
 

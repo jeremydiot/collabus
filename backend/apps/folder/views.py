@@ -6,11 +6,11 @@ from rest_framework.parsers import MultiPartParser
 
 from drf_spectacular.utils import extend_schema
 
-from apps.main.permissions import HasCompanyEntity, HasSchoolEntity, HasEntityAssociatedToFolder
+from apps.main.permissions import HasCompanyEntity, HasSchoolEntity, HasEntityAssociatedToFolder, IsEntityStaff
 from apps.main.utils import request_params_to_queryset, schema_parameters_builder
 from apps.main.models import Entity
-from apps.folder.models import Folder, Attachment
-from apps.folder.serializers import FolderPublicSerializer, AttachmentSerializer
+from apps.folder.models import Folder, Attachment, FolderEntity
+from apps.folder.serializers import FolderPublicSerializer, AttachmentSerializer, FolderEntitySerializerDetailFolder
 
 
 class FolderViewSet (viewsets.ViewSet):
@@ -175,50 +175,140 @@ class FolderAttachmentViewSet (viewsets.ViewSet):
         return Response(status=HTTP_204_NO_CONTENT)
 
 
-# TODO prevent create existed relation, delete author
-class FolderEntityViewSet (viewsets.ViewSet):
+# TODO prevent create already existed relation
+class FolderEntityContributorViewSet (viewsets.ViewSet):
+
+    def get_permissions(self):
+        if self.action == 'list':
+            self.permission_classes = [HasCompanyEntity | HasSchoolEntity]
+
+        if self.action == 'create':
+            self.permission_classes = [HasSchoolEntity & IsEntityStaff]
+
+        if self.action == 'destroy':
+            self.permission_classes = [HasSchoolEntity & IsEntityStaff]
+
+        return super().get_permissions()
+
+    def get_object(self, id_folder):
+        try:
+            return Folder.objects.get(pk=id_folder)
+        except Folder.DoesNotExist as exc:
+            raise NotFound from exc
+
+    # TODO get list of associated entityfolder with public folder data, add custom params
+    @extend_schema(request=schema_parameters_builder(
+        fields=FolderEntitySerializerDetailFolder.Meta.fields,
+        schema_list=True,
+        description={
+            'created_at': 'Date: YYYY-MM-DD - YYYY-MM-DD',
+            'updated_at': 'Date: YYYY-MM-DD - YYYY-MM-DD',
+        }
+    ), responses=FolderEntitySerializerDetailFolder, summary='Get associated folder list')
+    def list(self, request):
+
+        queryset = FolderEntity.objects.filter(entity=request.user.entity)
+        if request.user.entity.kind != Entity.Kind.COMPANY:
+            queryset = queryset.exclude(is_hidden=True).exclude(is_verified=False)
+
+        try:
+            queryset = request_params_to_queryset(
+                params=request.GET,
+                queryset=queryset,
+                authorized_keys=FolderEntitySerializerDetailFolder.Meta.fields,
+                custom_keyword={
+                    'created_at': 'range',
+                    'updated_at': 'range'
+                }
+            )
+        except Exception as exc:
+            raise ParseError from exc
+
+        serializer = FolderEntitySerializerDetailFolder(queryset, many=True)
+
+        return Response(serializer.data)
+
+    # TODO create entityfolder with public folder data
+
+    @extend_schema(request=None, responses=None, summary='Create folder association')
     def create(self, request, id_folder): ...
+
+    # TODO deleted entity folder association
+    @extend_schema(request=None, responses=None, summary='Delete folder association')
+    def destroy(self, request, id_folder): ...
+
+
+# TODO prevent delete author, only author
+class FolderEntityAuthorViewSet (viewsets.ViewSet):
+
+    def get_permissions(self):
+        if self.action in ['update', 'destroy']:
+            self.permission_classes = [HasCompanyEntity & HasEntityAssociatedToFolder]
+        return super().get_permissions()
+
+    def get_object(self, id_folder):
+        try:
+            return Folder.objects.get(pk=id_folder)
+        except Folder.DoesNotExist as exc:
+            raise NotFound from exc
+
+    @extend_schema(request=None, responses=None, summary='Accept or restrict association')
     def update(self, request, id_folder, id_entity): ...
+
+    @extend_schema(request=None, responses=None, summary='Delete association')
     def destroy(self, request, id_folder, id_entity): ...
 
    # def get_permissions(self):
-   #     self.permission_classes = [IsAuthenticated]
-
-   #     if self.action in ['destroy', 'create']:
-   #         self.permission_classes = [HasEntityFolderAuthor]
-
+   #     if self.action == 'create':
+   #         self.permission_classes = [HasSchoolEntity | HasCompanyEntity]
+   #     if self.action == 'update':
+   #         self.permission_classes = [HasSchoolEntity | HasCompanyEntity]
+   #     if self.action == 'destroy':
+   #         self.permission_classes = [HasSchoolEntity | HasCompanyEntity]
    #     return super().get_permissions()
 
-   # def get_object(self, pk, fk, extra=None):  # pylint: disable=invalid-name
-   #     try:
-   #         return FolderEntity.objects.get(folder__pk=pk, entity__pk=fk, **(extra if extra else {}))
-   #     except FolderEntity.DoesNotExist as exc:
-   #         raise NotFound from exc
+   # def create(self, request, id_folder): ...
+   # def update(self, request, id_folder, id_entity): ...
+   # def destroy(self, request, id_folder, id_entity): ...
 
-   # @extend_schema(request=None, responses=None, summary='Dissociate entity to folder')
-   # def destroy(self, request, pk, fk):  # pylint: disable=invalid-name
-   #     folder_entity = self.get_object(pk, fk)
+  # def get_permissions(self):
+  #     self.permission_classes = [IsAuthenticated]
 
-   #     if folder_entity.is_author:
-   #         return Response(status=HTTP_400_BAD_REQUEST)
+  #     if self.action in ['destroy', 'create']:
+  #         self.permission_classes = [HasEntityFolderAuthor]
 
-   #     else:
-   #         folder_entity.delete()
-   #         return Response(status=HTTP_204_NO_CONTENT)
+  #     return super().get_permissions()
 
-   # @extend_schema(request=None, responses=FolderEntitySerializer, summary='Associate entity to folder')
-   # def create(self, request, pk, fk):  # pylint: disable=invalid-name
+  # def get_object(self, pk, fk, extra=None):  # pylint: disable=invalid-name
+  #     try:
+  #         return FolderEntity.objects.get(folder__pk=pk, entity__pk=fk, **(extra if extra else {}))
+  #     except FolderEntity.DoesNotExist as exc:
+  #         raise NotFound from exc
 
-   #     serializer = FolderEntitySerializer(
-   #         data={
-   #             'folder': str(pk),
-   #             'entity': str(fk)
-   #         })
+  # @extend_schema(request=None, responses=None, summary='Dissociate entity to folder')
+  # def destroy(self, request, pk, fk):  # pylint: disable=invalid-name
+  #     folder_entity = self.get_object(pk, fk)
 
-   #     if FolderEntity.objects.filter(folder__pk=pk, entity__pk=fk).exists():
-   #         return Response({'detail': 'Relation already exist.'}, status=HTTP_400_BAD_REQUEST)
-   #     elif serializer.is_valid():
-   #         folder_entity = serializer.save()
-   #         return Response(FolderEntitySerializer(folder_entity).data, status=HTTP_201_CREATED)
-   #     else:
-   #         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+  #     if folder_entity.is_author:
+  #         return Response(status=HTTP_400_BAD_REQUEST)
+
+  #     else:
+  #         folder_entity.delete()
+  #         return Response(status=HTTP_204_NO_CONTENT)
+
+  # @extend_schema(request=None, responses=FolderEntitySerializer, summary='Associate entity to folder')
+  # def create(self, request, pk, fk):  # pylint: disable=invalid-name
+
+  #     serializer = FolderEntitySerializer(
+  #         data={
+  #             'folder': str(pk),
+  #             'entity': str(fk)
+  #         })
+
+  #     if FolderEntity.objects.filter(folder__pk=pk, entity__pk=fk).exists():
+  #         return Response({'detail': 'Relation already exist.'}, status=HTTP_400_BAD_REQUEST)
+  #     elif serializer.is_valid():
+  #         folder_entity = serializer.save()
+  #         return Response(FolderEntitySerializer(folder_entity).data, status=HTTP_201_CREATED)
+  #     else:
+  #         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

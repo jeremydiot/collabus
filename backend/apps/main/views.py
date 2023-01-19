@@ -67,6 +67,7 @@ class UserViewSet(viewsets.ViewSet):
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
+# TODO protect to non author company
 class EntityFolderViewSet(viewsets.ViewSet):
     def get_permissions(self):
         if self.action == 'list':
