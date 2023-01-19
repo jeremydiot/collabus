@@ -1,6 +1,7 @@
 # Collabus
 
-Website for Collabus project
+Website for Collabus project  
+[www.collabus.fr](https://www.collabus.fr)
 
 ## Deployment
 
