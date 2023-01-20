@@ -3,7 +3,6 @@ services:
 
   angular:
     container_name: collabus_prod_angular
-    image: collabus_frontend
     hostname: angular
     restart: always
     build:
@@ -13,3 +12,5 @@ services:
         - execution_environment=${EXECUTION_ENVIRONMENT:-production}
     ports:
       - ${COLLABUS_FRONTEND_PORT:-80}:80
+    volumes:
+      - ./log/nginx:/var/log/nginx

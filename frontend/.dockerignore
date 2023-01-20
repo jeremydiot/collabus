@@ -11,3 +11,4 @@ docker-compose.prod.yml
 package-lock.json
 README.md
 karma.conf.js
+log

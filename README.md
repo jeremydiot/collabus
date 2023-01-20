@@ -11,6 +11,7 @@ Website for Collabus project
 ```bash
 COLLABUS_BACKEND_PORT=8000 # port example
 COLLABUS_FRONTEND_PORT=8001 # port example
+EXECUTION_ENVIRONMENT=production # staging or production
 ```
 
 3. Start containers ```./start.prod.sh ```
@@ -20,6 +21,8 @@ COLLABUS_FRONTEND_PORT=8001 # port example
 ### NGINX example configuration
 
 ```
+server_tokens off;
+
 server {
     listen 80;
     listen [::]:80;
@@ -28,8 +31,18 @@ server {
 
     location / {
         proxy_pass http://localhost:8000;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
         proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_redirect off;
+        proxy_buffering off;
+        proxy_store off;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $http_connection;
     }
 }
 
