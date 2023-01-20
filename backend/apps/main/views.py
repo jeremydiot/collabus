@@ -96,7 +96,7 @@ class EntityFolderViewSet(viewsets.ViewSet):
             'updated_at': 'Date: YYYY-MM-DD - YYYY-MM-DD',
             'kind': 'Aviable integers: ' + str(Folder.Kind.choices)
         }
-    ), responses=FolderPrivateSerializer, summary='Get folder list of user entity')
+    ), responses=FolderPrivateSerializer, summary='Get folder list of user entity', tags=['entity folder'])
     def list(self, request):
         id_entity = request.user.entity.pk
         queryset = Folder.objects.filter(folderentity__entity__pk=id_entity, folderentity__is_accepted=True)
@@ -123,7 +123,7 @@ class EntityFolderViewSet(viewsets.ViewSet):
 
     @extend_schema(request=FolderPrivateSerializer,
                    responses=FolderPrivateSerializer,
-                   summary='Create new entity project')
+                   summary='Create new entity project', tags=['entity folder'])
     def create(self, request):
         serializer = FolderPrivateSerializer(data=request.data)
         if serializer.is_valid():
@@ -135,7 +135,7 @@ class EntityFolderViewSet(viewsets.ViewSet):
 
     @extend_schema(request=FolderPrivateSerializer,
                    responses=FolderPrivateSerializer,
-                   summary='Get entity project')
+                   summary='Get entity project', tags=['entity folder'])
     def retrieve(self, request, id_folder):
         folder = self.get_object(request.user.entity.pk, id_folder)
 
@@ -147,7 +147,7 @@ class EntityFolderViewSet(viewsets.ViewSet):
 
     @extend_schema(request=FolderPrivateSerializer,
                    responses=FolderPrivateSerializer,
-                   summary='Update entity project')
+                   summary='Update entity project', tags=['entity folder'])
     def update(self, request, id_folder):
         _data = {**request.data}
         folder = self.get_object(request.user.entity.pk, id_folder)

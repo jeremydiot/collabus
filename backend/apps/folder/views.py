@@ -78,7 +78,7 @@ class FolderAttachmentViewSet (viewsets.ViewSet):
             'created_at': 'Date: YYYY-MM-DD - YYYY-MM-DD',
             'updated_at': 'Date: YYYY-MM-DD - YYYY-MM-DD',
         }
-    ), responses=AttachmentSerializer, summary='Get folder attachments list')
+    ), responses=AttachmentSerializer, summary='Get folder attachments list', tags=['folder attachment'])
     def list(self, request, id_folder):
         folder = self.get_object(id_folder)
 
@@ -99,7 +99,8 @@ class FolderAttachmentViewSet (viewsets.ViewSet):
         return Response(AttachmentSerializer(queryset, many=True).data)
 
     # TODO limit size
-    @extend_schema(request=AttachmentSerializer, responses=AttachmentSerializer, summary='Add attachment in folder')
+    @extend_schema(request=AttachmentSerializer, responses=AttachmentSerializer,
+                   summary='Add attachment in folder', tags=['folder attachment'])
     def create(self, request, id_folder):
         folder = self.get_object(id_folder)
 
@@ -127,7 +128,8 @@ class FolderAttachmentViewSet (viewsets.ViewSet):
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     # TODO limit size
-    @extend_schema(request=AttachmentSerializer, responses=AttachmentSerializer, summary='Update folder attachment')
+    @extend_schema(request=AttachmentSerializer, responses=AttachmentSerializer,
+                   summary='Update folder attachment', tags=['folder attachment'])
     def update(self, request, id_folder, id_attachment):
         folder = self.get_object(id_folder)
 
@@ -159,7 +161,7 @@ class FolderAttachmentViewSet (viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-    @extend_schema(request=None, responses=None, summary='Delete folder attachment')
+    @extend_schema(request=None, responses=None, summary='Delete folder attachment', tags=['folder attachment'])
     def destroy(self, request, id_folder, id_attachment):
         folder = self.get_object(id_folder)
 
@@ -204,12 +206,10 @@ class FolderEntityContributorViewSet (viewsets.ViewSet):
             'created_at': 'Date: YYYY-MM-DD - YYYY-MM-DD',
             'updated_at': 'Date: YYYY-MM-DD - YYYY-MM-DD',
         }
-    ), responses=FolderEntitySerializerDetailFolder, summary='Get associated folder list')
+    ), responses=FolderEntitySerializerDetailFolder, summary='Get associated folder list', tags=['folder entity'])
     def list(self, request):
 
         queryset = FolderEntity.objects.filter(entity=request.user.entity)
-        if request.user.entity.kind != Entity.Kind.COMPANY:
-            queryset = queryset.exclude(is_hidden=True).exclude(is_verified=False)
 
         try:
             queryset = request_params_to_queryset(
@@ -229,13 +229,39 @@ class FolderEntityContributorViewSet (viewsets.ViewSet):
         return Response(serializer.data)
 
     # TODO create entityfolder with public folder data
+    # TODO restrict for folder with two entity enabled association, and already existed relation
+    @extend_schema(request=None, responses=FolderEntitySerializerDetailFolder,
+                   summary='Create folder association', tags=['folder entity contributor'])
+    def create(self, request, id_folder):
+        folder = self.get_object(id_folder)
+        if bool(folder.is_closed or folder.is_hidden or not folder.is_verified):
+            raise PermissionDenied
 
-    @extend_schema(request=None, responses=None, summary='Create folder association')
-    def create(self, request, id_folder): ...
+        serializer = FolderEntitySerializerDetailFolder(data={
+            'folder': str(id_folder),
+            'is_author': str(False),
+            'is_accepted': str(False),
+            'entity': str(request.user.entity.pk)
+        })
+
+        if serializer.is_valid():
+            folder_entity = serializer.save()
+            return Response(FolderEntitySerializerDetailFolder(folder_entity).data, status=HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     # TODO deleted entity folder association
-    @extend_schema(request=None, responses=None, summary='Delete folder association')
-    def destroy(self, request, id_folder): ...
+    @extend_schema(request=None, responses=None, summary='Delete folder association',
+                   tags=['folder entity contributor'])
+    def destroy(self, request, id_folder):
+        folder = self.get_object(id_folder)
+
+        try:
+            FolderEntity.objects.get(folder=folder, entity=request.user.entity).delete()
+        except FolderEntity.DoesNotExist as exc:
+            raise NotFound from exc
+
+        return Response(status=HTTP_204_NO_CONTENT)
 
 
 # TODO prevent delete author, only author
@@ -252,10 +278,11 @@ class FolderEntityAuthorViewSet (viewsets.ViewSet):
         except Folder.DoesNotExist as exc:
             raise NotFound from exc
 
-    @extend_schema(request=None, responses=None, summary='Accept or restrict association')
+    @extend_schema(request=None, responses=None, summary='Accept or restrict association',
+                   tags=['folder entity author'])
     def update(self, request, id_folder, id_entity): ...
 
-    @extend_schema(request=None, responses=None, summary='Delete association')
+    @extend_schema(request=None, responses=None, summary='Delete association', tags=['folder entity author'])
     def destroy(self, request, id_folder, id_entity): ...
 
    # def get_permissions(self):

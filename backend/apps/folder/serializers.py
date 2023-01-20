@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 from apps.folder.models import Folder, Attachment, Message, FolderEntity
 from apps.main.serializers import EntitySerializer, UserSerializer
 
@@ -85,14 +86,13 @@ class FolderPrivateSerializer(serializers.ModelSerializer):
 class FolderEntitySerializerDetailFolder(serializers.ModelSerializer):
     folder = FolderPublicSerializer(read_only=True)
 
-    # def validate(self, attrs):
-    #     try:
-    #         attrs['entity'] = Entity.objects.get(pk=self.initial_data['entity'])
-    #     except Entity.DoesNotExist as exc:
-    #         raise ValidationError({'entity': 'Entity does not exist.'}) from exc
+    def validate(self, attrs):
+        try:
+            attrs['folder'] = Folder.objects.get(pk=self.initial_data['folder'])
+        except Folder.DoesNotExist as exc:
+            raise ValidationError({'folder': 'Entity does not exist.'}) from exc
 
-    #     attrs['is_author'] = False
-    #     return attrs
+        return attrs
 
     class Meta:
         model = FolderEntity
