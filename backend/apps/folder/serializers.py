@@ -87,10 +87,11 @@ class FolderEntitySerializerDetailFolder(serializers.ModelSerializer):
     folder = FolderPublicSerializer(read_only=True)
 
     def validate(self, attrs):
-        try:
-            attrs['folder'] = Folder.objects.get(pk=self.initial_data['folder'])
-        except Folder.DoesNotExist as exc:
-            raise ValidationError({'folder': 'Entity does not exist.'}) from exc
+        if 'folder' in attrs:
+            try:
+                attrs['folder'] = Folder.objects.get(pk=self.initial_data['folder'])
+            except Folder.DoesNotExist as exc:
+                raise ValidationError({'folder': 'Entity does not exist.'}) from exc
 
         return attrs
 
@@ -109,6 +110,7 @@ class FolderEntitySerializerDetailFolder(serializers.ModelSerializer):
             'is_author': {'read_only': True},
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True},
+            # 'required': False
         }
 
 

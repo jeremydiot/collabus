@@ -269,18 +269,31 @@ class FolderEntityAuthorViewSet (viewsets.ViewSet):
 
     def get_permissions(self):
         if self.action in ['update', 'destroy']:
-            self.permission_classes = [HasCompanyEntity & HasEntityAssociatedToFolder]
+            self.permission_classes = [HasCompanyEntity & HasEntityAssociatedToFolder & IsEntityStaff]
         return super().get_permissions()
 
-    def get_object(self, id_folder):
+    def get_object(self, id_folder, id_entity, user_entity):
         try:
-            return Folder.objects.get(pk=id_folder)
-        except Folder.DoesNotExist as exc:
+            return FolderEntity.objects.filter(
+                folder__pk=id_folder, entity__pk=id_entity, is_author=False
+            ).get(folder__folderentity__entity=user_entity, folder__folderentity__is_author=True)
+        except FolderEntity.DoesNotExist as exc:
             raise NotFound from exc
 
-    @extend_schema(request=None, responses=None, summary='Accept or restrict association',
+    @extend_schema(request=FolderEntitySerializerDetailFolder, responses=FolderEntitySerializerDetailFolder, summary='Accept or restrict association',
                    tags=['folder entity author'])
-    def update(self, request, id_folder, id_entity): ...
+    def update(self, request, id_folder, id_entity):
+        folder_entity = self.get_object(id_folder, id_entity, request.user.entity)
+
+        _data = {k: v for k, v in request.data.items() if k == 'is_accepted'}
+
+        serializer = FolderEntitySerializerDetailFolder(folder_entity, data=_data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     @extend_schema(request=None, responses=None, summary='Delete association', tags=['folder entity author'])
     def destroy(self, request, id_folder, id_entity): ...
