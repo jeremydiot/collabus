@@ -9,5 +9,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.prod
+      args:
+        - execution_environment=${EXECUTION_ENVIRONMENT:-production}
     ports:
       - ${COLLABUS_FRONTEND_PORT:-80}:80
