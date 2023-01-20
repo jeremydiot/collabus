@@ -1,11 +1,13 @@
 .vscode
 .angular
-.browserslistrc
 .editorconfig
 .git
 .gitignore
 .dockerignore
+dist
 node_modules
 Dockerfile.prod
+docker-compose.prod.yml
 package-lock.json
 README.md
+karma.conf.js

@@ -1,11 +1,13 @@
 FROM node:16-alpine AS build
 USER root
 WORKDIR /app
+ARG execution_environment=production
+ENV ANGULAR_EXECUTION_ENVIRONMENT=${execution_environment}
 
 COPY package.json /app/package.json
-RUN npm install
+RUN if [ "${ANGULAR_EXECUTION_ENVIRONMENT}" == "production" ]; then npm install --only=prod --no-optional --no-package-lock; else npm install --no-optional --no-package-lock; fi
 COPY . .
-RUN npm run build
+RUN npx ng build --configuration ${ANGULAR_EXECUTION_ENVIRONMENT} --output-path=/app/dist/collabus
 
 FROM nginx:1.23-alpine
 USER root

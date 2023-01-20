@@ -22,6 +22,7 @@ import { AuthInterceptor } from './interceptors'
 import { ToastrModule } from 'ngx-toastr'
 import { ProjectSearchCardComponent } from './components/project-search-card/project-search-card.component'
 import { ProjectFilterDialogComponent } from './components/project-filter-dialog/project-filter-dialog.component'
+import { extModules } from './build-specifics'
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { ProjectFilterDialogComponent } from './components/project-filter-dialog
     StoreModule.forRoot({ auth: authReducer }, {}),
     EffectsModule.forRoot([AuthEffects]),
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ...extModules
 
   ],
   providers: [
