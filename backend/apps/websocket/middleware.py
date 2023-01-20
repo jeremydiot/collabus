@@ -24,17 +24,19 @@ class JwtAuthMiddleware(BaseMiddleware):
     async def __call__(self, scope, receive, send):
         close_old_connections()
 
-        token = parse_qs(str(scope['query_string'], 'UTF-8')).get('token', None)
+        token = parse_qs(
+            str(scope['query_string'], 'UTF-8')).get('token', None)
 
         if (token is None):
             scope['user'] = AnonymousUser()
         else:
-            request = AsyncRequestFactory().get('/', Authorization=f'Bearer {token[0]}')
+            request = AsyncRequestFactory().get(
+                '/', Authorization=f'Bearer {token[0]}')
 
             try:
                 user = await sync_to_async(JWTAuthentication().authenticate)(request)
-            except Exception as exc:
-                raise exc
+            except Exception:
+                pass
             else:
                 scope['user'] = user[0]
 
