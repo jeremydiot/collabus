@@ -296,59 +296,9 @@ class FolderEntityAuthorViewSet (viewsets.ViewSet):
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     @extend_schema(request=None, responses=None, summary='Delete association', tags=['folder entity author'])
-    def destroy(self, request, id_folder, id_entity): ...
+    def destroy(self, request, id_folder, id_entity):
+        folder_entity = self.get_object(id_folder, id_entity, request.user.entity)
 
-   # def get_permissions(self):
-   #     if self.action == 'create':
-   #         self.permission_classes = [HasSchoolEntity | HasCompanyEntity]
-   #     if self.action == 'update':
-   #         self.permission_classes = [HasSchoolEntity | HasCompanyEntity]
-   #     if self.action == 'destroy':
-   #         self.permission_classes = [HasSchoolEntity | HasCompanyEntity]
-   #     return super().get_permissions()
+        folder_entity.delete()
 
-   # def create(self, request, id_folder): ...
-   # def update(self, request, id_folder, id_entity): ...
-   # def destroy(self, request, id_folder, id_entity): ...
-
-  # def get_permissions(self):
-  #     self.permission_classes = [IsAuthenticated]
-
-  #     if self.action in ['destroy', 'create']:
-  #         self.permission_classes = [HasEntityFolderAuthor]
-
-  #     return super().get_permissions()
-
-  # def get_object(self, pk, fk, extra=None):  # pylint: disable=invalid-name
-  #     try:
-  #         return FolderEntity.objects.get(folder__pk=pk, entity__pk=fk, **(extra if extra else {}))
-  #     except FolderEntity.DoesNotExist as exc:
-  #         raise NotFound from exc
-
-  # @extend_schema(request=None, responses=None, summary='Dissociate entity to folder')
-  # def destroy(self, request, pk, fk):  # pylint: disable=invalid-name
-  #     folder_entity = self.get_object(pk, fk)
-
-  #     if folder_entity.is_author:
-  #         return Response(status=HTTP_400_BAD_REQUEST)
-
-  #     else:
-  #         folder_entity.delete()
-  #         return Response(status=HTTP_204_NO_CONTENT)
-
-  # @extend_schema(request=None, responses=FolderEntitySerializer, summary='Associate entity to folder')
-  # def create(self, request, pk, fk):  # pylint: disable=invalid-name
-
-  #     serializer = FolderEntitySerializer(
-  #         data={
-  #             'folder': str(pk),
-  #             'entity': str(fk)
-  #         })
-
-  #     if FolderEntity.objects.filter(folder__pk=pk, entity__pk=fk).exists():
-  #         return Response({'detail': 'Relation already exist.'}, status=HTTP_400_BAD_REQUEST)
-  #     elif serializer.is_valid():
-  #         folder_entity = serializer.save()
-  #         return Response(FolderEntitySerializer(folder_entity).data, status=HTTP_201_CREATED)
-  #     else:
-  #         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        return Response(status=HTTP_204_NO_CONTENT)
