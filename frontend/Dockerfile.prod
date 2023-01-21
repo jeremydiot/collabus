@@ -13,5 +13,6 @@ FROM nginx:1.23-alpine
 USER root
 EXPOSE 80
 
+RUN rm /etc/nginx/conf.d/*
 COPY ./docker/nginx.conf /etc/nginx/conf.d/nginx.conf
-COPY --from=build /app/dist/collabus /usr/share/nginx/html
+COPY --from=build /app/dist/collabus /app
