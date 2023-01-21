@@ -2,12 +2,12 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
-@use "./app/components/sign-in-dialog/sign-in-dialog.component-theme" as sign-in-dialog;
-@use "./app/fragments/navbar/navbar.component-theme" as navbar;
-@use "./app/fragments/footer/footer.component-theme" as footer;
-@use "./app/pages/home/home.component-theme" as home;
-@use "./app/pages/settings/settings.component-theme" as settings;
-@use "./app/components/project-search-card/project-search-card.component-theme" as project-search-card;
+// @use "./app/components/sign-in-dialog/sign-in-dialog.component-theme" as sign-in-dialog;
+// @use "./app/fragments/navbar/navbar.component-theme" as navbar;
+// @use "./app/fragments/footer/footer.component-theme" as footer;
+// @use "./app/pages/home/home.component-theme" as home;
+// @use "./app/pages/settings/settings.component-theme" as settings;
+// @use "./app/components/project-search-card/project-search-card.component-theme" as project-search-card;
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -38,12 +38,12 @@ $primary-theme: mat.define-light-theme((color: (primary: $primary-palette, accen
 @include mat.all-component-themes($primary-theme);
 
 /* You can add global styles to this file, and also import other style files */
-@include settings.theme($primary-theme);
-@include navbar.theme($primary-theme);
-@include footer.theme($primary-theme);
-@include home.theme($primary-theme);
-@include sign-in-dialog.theme($primary-theme);
-@include project-search-card.theme($primary-theme);
+// @include settings.theme($primary-theme);
+// @include navbar.theme($primary-theme);
+// @include footer.theme($primary-theme);
+// @include home.theme($primary-theme);
+// @include sign-in-dialog.theme($primary-theme);
+// @include project-search-card.theme($primary-theme);
 
 html,
 body,

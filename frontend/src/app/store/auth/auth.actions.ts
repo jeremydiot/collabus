@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http'
 import { createAction, props } from '@ngrx/store'
-import { Credentials, User } from 'src/app/models/auth'
+import { Credentials, User } from 'src/app/interfaces'
 
 export const login = createAction('[Auth] Login', props<Credentials>())
 export const logout = createAction('[Auth] Logout')

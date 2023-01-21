@@ -1,9 +1,0 @@
-<section class="header">
-    <button color="primary" (click)="onFilter()" mat-raised-button>Filtrer</button>
-</section>
-<mat-divider></mat-divider>
-<section class="content">
-    <app-project-search-card *ngFor="let project of projects" [title]="project.name"
-        [subTitle]="getProjectAuthorEntity(project)?.name || ''" [projectId]="project.pk"
-        [content]="project.description"></app-project-search-card>
-</section>

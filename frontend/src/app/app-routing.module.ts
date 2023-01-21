@@ -2,10 +2,11 @@ import { Injectable, NgModule } from '@angular/core'
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterModule, RouterStateSnapshot, Routes, UrlTree } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { map, Observable } from 'rxjs'
-import { DashboardComponent } from './pages/dashboard/dashboard.component'
-import { HomeComponent } from './pages/home/home.component'
-import { ProjectComponent } from './pages/project/project.component'
-import { SettingsComponent } from './pages/settings/settings.component'
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component'
+import { HomePageComponent } from './pages/home-page/home-page.component'
+import { LoginPageComponent } from './pages/login-page/login-page.component'
+import { ProjectPageComponent } from './pages/project-page/project-page.component'
+import { SearchPageComponent } from './pages/search-page/search-page.component'
 import { AuthState } from './store/auth/auth.reducer'
 
 @Injectable()
@@ -28,11 +29,11 @@ export class CanActivateLoggedIn implements CanActivate {
 }
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [CanActivateLoggedIn] },
-  { path: 'project/:id', component: ProjectComponent, canActivate: [CanActivateLoggedIn] },
-  { path: 'settings', component: SettingsComponent, canActivate: [CanActivateLoggedIn] },
-  { path: '**', redirectTo: '/' } // redirect 404 to home
+  { path: '', component: HomePageComponent },
+  { path: 'dashboard', component: DashboardPageComponent, canActivate: [CanActivateLoggedIn] },
+  { path: 'project/:id', component: ProjectPageComponent, canActivate: [CanActivateLoggedIn] },
+  { path: 'login', component: LoginPageComponent, canActivate: [CanActivateLoggedIn] },
+  { path: 'search', component: SearchPageComponent, canActivate: [CanActivateLoggedIn] }
 ]
 
 @NgModule({

@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { environment } from 'src/environments/environment'
-import { Tokens, User } from '../models/auth'
+import { ACCES_TOKEN, REFRESH_TOKEN, USER_PROFILE } from '../constants'
+import { Tokens, User } from '../interfaces'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -12,36 +13,36 @@ export class AuthService {
   constructor (private readonly http: HttpClient) { }
 
   static get userProfile (): User {
-    const _profile = localStorage.getItem(environment.USER_PROFILE)
+    const _profile = localStorage.getItem(USER_PROFILE)
     return (_profile !== null) ? JSON.parse(_profile) : {}
   }
 
   static set userProfile (profile: User) {
-    localStorage.setItem(environment.USER_PROFILE, JSON.stringify(profile))
+    localStorage.setItem(USER_PROFILE, JSON.stringify(profile))
   }
 
   static get accessToken (): string {
-    const _token = localStorage.getItem(environment.ACCES_TOKEN)
+    const _token = localStorage.getItem(ACCES_TOKEN)
     return (_token !== null) ? _token : ''
   }
 
   static set accessToken (token: string) {
-    localStorage.setItem(environment.ACCES_TOKEN, token)
+    localStorage.setItem(ACCES_TOKEN, token)
   }
 
   static get refreshToken (): string {
-    const _token = localStorage.getItem(environment.REFRESH_TOKEN)
+    const _token = localStorage.getItem(REFRESH_TOKEN)
     return (_token !== null) ? _token : ''
   }
 
   static set refreshToken (token: string) {
-    localStorage.setItem(environment.REFRESH_TOKEN, token)
+    localStorage.setItem(REFRESH_TOKEN, token)
   }
 
   static logout (): void {
-    localStorage.removeItem(environment.ACCES_TOKEN)
-    localStorage.removeItem(environment.REFRESH_TOKEN)
-    localStorage.removeItem(environment.USER_PROFILE)
+    localStorage.removeItem(ACCES_TOKEN)
+    localStorage.removeItem(REFRESH_TOKEN)
+    localStorage.removeItem(USER_PROFILE)
   }
 
   login (email: string, password: string): Observable<Tokens> {

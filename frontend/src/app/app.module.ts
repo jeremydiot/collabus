@@ -5,14 +5,6 @@ import { AppRoutingModule, CanActivateLoggedIn } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MaterialModule } from './modules/material.module'
-import { FooterComponent } from './fragments/footer/footer.component'
-import { NavbarComponent } from './fragments/navbar/navbar.component'
-import { HomeComponent } from './pages/home/home.component'
-import { DashboardComponent } from './pages/dashboard/dashboard.component'
-import { EditUserProfileDialogComponent, SettingsComponent } from './pages/settings/settings.component'
-import { ProjectComponent } from './pages/project/project.component'
-import { AdminComponent } from './pages/admin/admin.component'
-import { SignInDialogComponent } from './components/sign-in-dialog/sign-in-dialog.component'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
@@ -20,23 +12,24 @@ import { authReducer } from './store/auth/auth.reducer'
 import { AuthEffects } from './store/auth/auth.effects'
 import { AuthInterceptor } from './interceptors'
 import { ToastrModule } from 'ngx-toastr'
-import { ProjectSearchCardComponent } from './components/project-search-card/project-search-card.component'
-import { ProjectFilterDialogComponent } from './components/project-filter-dialog/project-filter-dialog.component'
 import { extModules } from './build-specifics'
+import { HomePageComponent } from './pages/home-page/home-page.component'
+import { LoginPageComponent } from './pages/login-page/login-page.component'
+import { ProjectPageComponent } from './pages/project-page/project-page.component'
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component'
+import { SearchPageComponent } from './pages/search-page/search-page.component'
+import { NavbarFragmentComponent } from './fragments/navbar-fragment/navbar-fragment.component'
+import { FooterFragmentComponent } from './fragments/footer-fragment/footer-fragment.component'
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    NavbarComponent,
-    HomeComponent,
-    DashboardComponent,
-    SettingsComponent,
-    ProjectComponent,
-    AdminComponent,
-    SignInDialogComponent,
-    EditUserProfileDialogComponent,
-    ProjectSearchCardComponent,
-    ProjectFilterDialogComponent
+    HomePageComponent,
+    LoginPageComponent,
+    ProjectPageComponent,
+    DashboardPageComponent,
+    SearchPageComponent,
+    NavbarFragmentComponent,
+    FooterFragmentComponent
   ],
   imports: [
     BrowserModule,
