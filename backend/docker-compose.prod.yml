@@ -11,8 +11,8 @@ services:
       args:
         - execution_environment=${EXECUTION_ENVIRONMENT:-production}
     volumes:
-      - ./static:/app/static:rw
-      - ./media:/app/media:rw
+      - ../data.keep/static:/app/static:rw
+      - ../data.keep/media:/app/media:rw
     env_file:
       - .env
     depends_on:
@@ -31,7 +31,7 @@ services:
       PGPORT: 5432
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata:rw
+      - ../data.keep/pgdata:/var/lib/postgresql/data/pgdata:rw
 
   redis:
     container_name: collabus_prod_redis
@@ -46,7 +46,7 @@ services:
     ports:
       - ${COLLABUS_BACKEND_PORT:-80}:80
     volumes:
-      - ./static:/app/static:ro
-      - ./media:/app/media:ro
+      - ../data.keep/static:/app/static:ro
+      - ../data.keep/media:/app/media:ro
       - ./docker:/etc/nginx/conf.d:ro
-      - ./log/nginx:/var/log/nginx
+      - ../data.keep/log/nginx_backend:/var/log/nginx

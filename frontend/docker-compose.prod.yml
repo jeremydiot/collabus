@@ -13,4 +13,4 @@ services:
     ports:
       - ${COLLABUS_FRONTEND_PORT:-80}:80
     volumes:
-      - ./log/nginx:/var/log/nginx
+      - ../data.keep/log/nginx_frontend:/var/log/nginx
