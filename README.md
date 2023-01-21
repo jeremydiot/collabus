@@ -10,7 +10,7 @@ Website for Collabus project
 
 ```bash
 COLLABUS_BACKEND_PORT=8000 # port example
-COLLABUS_FRONTEND_PORT=8001 # port example
+COLLABUS_FRONTEND_PORT=4200 # port example
 EXECUTION_ENVIRONMENT=production # staging or production
 ```
 
@@ -50,10 +50,10 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name collabus.fr;
+    server_name www.collabus.fr;
 
     location / {
-        proxy_pass http://localhost:8001;
+        proxy_pass http://localhost:4200;
     }
 }
 ```
