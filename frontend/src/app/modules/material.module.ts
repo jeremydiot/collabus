@@ -13,6 +13,8 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatSelectModule } from '@angular/material/select'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatChipsModule } from '@angular/material/chips'
+import { MatTabsModule } from '@angular/material/tabs'
+import { MatRadioModule } from '@angular/material/radio'
 
 @NgModule({
   exports: [
@@ -30,7 +32,9 @@ import { MatChipsModule } from '@angular/material/chips'
     MatNativeDateModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTabsModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }

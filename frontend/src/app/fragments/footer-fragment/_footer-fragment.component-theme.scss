@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  $primary-palette: map.get($theme, 'primary');
+  $accent-palette: map.get($theme, 'accent');
+
+  app-footer-fragment {
+    footer {
+      background-color: mat.get-color-from-palette($accent-palette, 500);
+    }
+  }
+
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+
+  @if $color-config !=null {
+    @include color($theme);
+  }
+}

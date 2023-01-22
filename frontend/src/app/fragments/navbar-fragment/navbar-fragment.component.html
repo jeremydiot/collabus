@@ -1,1 +1,15 @@
-<p>navbar-fragment works!</p>
+<header class="d-flex flex-row p-3 pl-5 pr-5">
+    <nav class="d-flex flex-row align-items-center">
+        <a class="d-flex flex-row align-items-center g-3" routerLink="">
+            <img class="logo" src="/assets/images/logo_orange.svg" alt="logo">
+            <img class="name" src="/assets/images/name_black.svg" alt="name">
+        </a>
+    </nav>
+    <div class="flex-spacer"></div>
+    <nav class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row g-3">
+            <a mat-flat-button class="signin" routerLink="login">Connexion</a>
+            <a mat-flat-button class="signup" routerLink="register">S'inscrire</a>
+        </div>
+    </nav>
+</header>

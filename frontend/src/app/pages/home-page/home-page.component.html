@@ -1,1 +1,209 @@
-<p>home-page works!</p>
+<section class="intro d-flex flex-row p-5">
+    <div class="left d-flex flex-column g-5 p-5">
+        <span class="title mb-0 mat-display-2 ">S'inspirer des talents du futur</span>
+        <p class="mat-headline mb-0">
+            Besoins d'un regard neuf ? De dynamiser vos projets digitaux ?
+            <br />
+            Donnez aux étudiants l'opportunité de développer leur expertise !
+        </p>
+        <p class="mat-title mb-0">
+            Découvrez notre plateforme de mise en relation entre écoles et entreprises
+            <br />
+            qui vous permet d'intégrer des projets réels dans les cursus de formation.
+        </p>
+    </div>
+    <div class="right d-flex flex-column p-5">
+        <button mat-flat-button class="iamschool mat-title mb-0">Je suis une école</button>
+        <button mat-flat-button class="iamcompany mat-title mb-0">Je suis une entreprise</button>
+    </div>
+</section>
+<section class="presentation d-flex flex-column pl-5 pr-5 pt-5">
+    <span class=" title mat-headline">Collabus c'est le début d'une collaboration 2.0 !</span>
+    <mat-tab-group mat-align-tabs="center" class="mr-5 ml-5">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span class="mat-title mb-0">
+                    Pour les entreprises
+                </span>
+            </ng-template>
+            <div class="tab-content d-flex flex-row">
+                <div>
+                    <img src="/assets/images/home/company.jpg" alt="">
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                    <span class="mat-headline p-5">
+                        Expérimentez de nouveaux projets et aidez des étudiants à se former sur des cas réels.
+                    </span>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span class=" mat-title mb-0">
+                    Pour les écoles
+                </span>
+            </ng-template>
+            <div class="tab-content d-flex flex-row">
+                <div>
+                    <img src="/assets/images/home/school.jpg" alt="">
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                    <span class="mat-headline p-5">
+                        Valoriser vos formations, professionnalisez les élèves et gagnez en attractivité.
+                    </span>
+                </div>
+            </div>
+
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span class="mat-title mb-0">
+                    Pour les étudiants
+                </span>
+            </ng-template>
+            <div class="tab-content d-flex flex-row">
+                <div>
+                    <img src="/assets/images/home/student.jpg" alt="">
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                    <span class="mat-headline p-5">
+                        Mettez à l'épreuve votre expertise sur des cas concret et boostez votre employabilité.
+                    </span>
+                </div>
+            </div>
+
+        </mat-tab>
+    </mat-tab-group>
+</section>
+<div class="mb-5 pl-5 pr-5">
+    <mat-divider class="mr-5 ml-5"></mat-divider>
+</div>
+<section class="contact d-flex flex-row justify-content-center g-5 pr-5 pl-5 mb-3">
+    <div class="d-flex flex-column pr-5 pl-5">
+        <span class="mat-headline">
+            Collabus c'est simple !
+        </span>
+        <ul class="pr-5 pl-5">
+            <li class="mat-title">
+                <span class="mat-display-2 mr-3">1.</span>S'inscrire sur la
+                plateforme
+            </li>
+            <li class="mat-title">
+                <span class="mat-display-2 mr-2">2.</span>Trouver une entreprise / Déposer votre projet
+            </li>
+            <li class="mat-title">
+                <span class="mat-display-2 mr-2">3.</span>Collaborez !
+            </li>
+        </ul>
+    </div>
+    <div class="d-flex flex-row g-5 justify-content-center align-items-center pr-5 pl-5">
+        <a mat-flat-button class="register mat-subheading-2 d-flex align-items-center justify-content-center"
+            routerLink="register">Nous
+            rejoindre</a>
+        <a mat-flat-button class="contact mat-subheading-2 d-flex align-items-center justify-content-center"
+            routerLink="" fragment="contact-form" [scrollTop]="true">En savoir plus</a>
+    </div>
+</section>
+<div class="mb-5 pl-5 pr-5">
+    <mat-divider class="mr-5 ml-5"></mat-divider>
+</div>
+<section class="project d-flex flex-column pl-5 pr-5">
+    <span class="mat-headline">
+        Les projets disponibles
+    </span>
+    <div class="projects-wrapper p-5 pt-4 d-flex flex-row g-5">
+        <div class="project-card p-3">
+            <span class="mat-title">Interfaces et expérience utilisateur</span>
+            <mat-divider></mat-divider>
+            <ul>
+                <li class="mat-subheading-2">Identité visuelle</li>
+                <li class="mat-subheading-2">Charte graphique</li>
+                <li class="mat-subheading-2">Création de logo</li>
+                <li class="mat-subheading-2">Parcours utilisateur</li>
+                <li class="mat-subheading-2">Maquettage graphique</li>
+            </ul>
+        </div>
+        <div class="project-card p-3">
+            <span class="mat-title">Développement et solution digitale</span>
+            <mat-divider></mat-divider>
+            <ul>
+                <li class="mat-subheading-2">Développement de site</li>
+                <li class="mat-subheading-2">Développement d'application</li>
+                <li class="mat-subheading-2">Développement de logiciel</li>
+                <li class="mat-subheading-2">Spécifications technique et fonctionnelle</li>
+                <li class="mat-subheading-2">Gestion et organisation de projet</li>
+            </ul>
+        </div>
+        <div class="project-card p-3">
+            <span class="mat-title">Marketing et relation client</span>
+            <mat-divider></mat-divider>
+            <ul>
+                <li class="mat-subheading-2">Stratégie de communication</li>
+                <li class="mat-subheading-2">Stratégie digitale</li>
+                <li class="mat-subheading-2">Analyse de marché</li>
+                <li class="mat-subheading-2">Campagne publicitaire</li>
+                <li class="mat-subheading-2">Stratégie de prix et de distribution</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<div class="mb-5 pl-5 pr-5">
+    <mat-divider class="mr-5 ml-5"></mat-divider>
+</div>
+<section class="form d-flex flex-row pl-5 pr-5" id="contact-form">
+    <div class="form ml-5 mb-5 p-5 ">
+        <form (ngSubmit)="onSubmit()" [formGroup]="fromGroup">
+            <div class="row d-flex flex-row g-5 mb-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nom</mat-label>
+                    <input matInput formControlName="lastName">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Prénom</mat-label>
+                    <input matInput formControlName="firstName">
+                </mat-form-field>
+            </div>
+            <div class="row d-flex flex-row g-5 mb-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="email">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Téléphone</mat-label>
+                    <input matInput formControlName="phone" type="tel">
+                </mat-form-field>
+            </div>
+            <div class="row d-flex flex-row g-5 mb-2">
+                <div class="radio-button-group d-flex flex-column g-3">
+                    <label>Entité : </label>
+                    <mat-radio-group formControlName="entity">
+                        <mat-radio-button class="mr-3 mb-3" value="school">Ecole</mat-radio-button>
+                        <mat-radio-button class="mr-3 mb-3" value="company">Entreprise</mat-radio-button>
+                        <mat-radio-button class="mr-3 mb-3" value="other">Autre</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nom de votre entité </mat-label>
+                    <input matInput formControlName="entityName">
+                </mat-form-field>
+            </div>
+            <div class="row d-flex flex-row g-5 mb-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Message</mat-label>
+                    <textarea matInput formControlName="message" rows="10"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="row d-flex flex-row g-5">
+                <button mat-flat-button type="submit" [disabled]="!fromGroup.valid">Envoyer</button>
+            </div>
+        </form>
+    </div>
+    <div class="pl-5 pr-5 mb-5 d-flex flex-column align-items-center">
+        <span class="mat-headline">
+            Besoins d'information ? Contactez nous !
+        </span>
+        <p class="mat-title">
+            Et collaborez avec nos écoles et entreprises partenaires.
+        </p>
+    </div>
+</section>

@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { FooterFragmentComponent } from './footer-fragment.component';
+import { FooterFragmentComponent } from './footer-fragment.component'
 
 describe('FooterFragmentComponent', () => {
-  let component: FooterFragmentComponent;
-  let fixture: ComponentFixture<FooterFragmentComponent>;
+  let component: FooterFragmentComponent
+  let fixture: ComponentFixture<FooterFragmentComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FooterFragmentComponent ]
+      declarations: [FooterFragmentComponent]
     })
-    .compileComponents();
+      .compileComponents()
 
-    fixture = TestBed.createComponent(FooterFragmentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(FooterFragmentComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

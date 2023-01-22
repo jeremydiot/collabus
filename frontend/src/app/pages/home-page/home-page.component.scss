@@ -1,0 +1,166 @@
+section.intro {
+  div.left {
+    flex: 2;
+
+    span.title {
+      font-family: 'Limelight', cursive;
+    }
+  }
+
+  div.right {
+    flex: 1;
+    justify-content: space-between;
+
+    button {
+      border-radius: 0;
+      height: 30%;
+      font-weight: 500;
+    }
+  }
+}
+
+section.presentation {
+
+  span.title {
+    text-align: center;
+  }
+
+  mat-tab-group {
+    height: calc(33.2vw);
+
+    div.tab-content {
+      div {
+        flex: 1;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+
+        span {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+section.contact {
+  div {
+    flex: 1;
+
+    a {
+      border-radius: 0;
+      height: 45px;
+      width: 170px;
+    }
+
+    span {
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+
+      li {
+        span {
+          font-family: 'Limelight', cursive;
+        }
+      }
+    }
+  }
+}
+
+section.project {
+  span {
+    text-align: center;
+  }
+
+  div.projects-wrapper {
+    justify-content: space-between;
+
+
+    div.project-card {
+      flex: 1;
+
+      ul {
+        list-style-type: circle;
+      }
+    }
+  }
+}
+
+section.form {
+  span {
+    text-align: center;
+  }
+
+  div {
+    flex: 1;
+  }
+
+  div.form div.row {
+    justify-content: space-evenly;
+
+    mat-form-field,
+    div.radio-button-group {
+      flex: 1;
+    }
+
+    mat-radio-group {
+      ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+        background-color: black !important;
+        /*inner circle color change*/
+      }
+
+      ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+        border-color: black !important;
+        /*outer ring color change*/
+      }
+
+      ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+        /*click effect color change*/
+        background-color: black !important;
+      }
+    }
+
+    textarea {
+      resize: none;
+      overflow: hidden;
+    }
+
+    button {
+      border-radius: 0 !important;
+      height: 45px;
+      width: 170px;
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+      border-radius: 0 !important;
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+      border-radius: 0 !important;
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+      /*change border focused color*/
+      color: black;
+    }
+
+    ::ng-deep .mat-focused .mat-form-field-label {
+      /*change color of label*/
+      color: black !important;
+    }
+
+    ::ng-deep.mat-form-field-underline {
+      /*change color of underline*/
+      background-color: black !important;
+    }
+
+    ::ng-deep.mat-form-field-ripple {
+      /*change color of underline when focused*/
+      background-color: black !important;
+    }
+  }
+}

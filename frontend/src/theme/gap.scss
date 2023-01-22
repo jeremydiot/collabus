@@ -1,0 +1,32 @@
+@mixin build($spacer, $spacer-multiplicator-0,
+  $spacer-multiplicator-1,
+  $spacer-multiplicator-2,
+  $spacer-multiplicator-3,
+  $spacer-multiplicator-4,
+  $spacer-multiplicator-5) {
+
+  .g-0 {
+    gap: ($spacer * $spacer-multiplicator-0) !important;
+  }
+
+  .g-1 {
+    gap: ($spacer * $spacer-multiplicator-1) !important;
+  }
+
+  .g-2 {
+    gap: ($spacer * $spacer-multiplicator-2) !important;
+  }
+
+  .g-3 {
+    gap: ($spacer * $spacer-multiplicator-3) !important;
+  }
+
+  .g-4 {
+    gap: ($spacer * $spacer-multiplicator-4) !important;
+  }
+
+  .g-5 {
+    gap: ($spacer * $spacer-multiplicator-5) !important;
+  }
+
+}

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms'
 
 @Component({
   selector: 'app-home-page',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+  fromGroup = new FormGroup({
+    lastName: new FormControl(),
+    firstName: new FormControl(),
+    email: new FormControl(),
+    phone: new FormControl(),
+    entity: new FormControl(),
+    entityName: new FormControl(),
+    message: new FormControl()
+  })
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
+  onSubmit (): void {
+  }
 }

@@ -1,49 +1,72 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
-// @use "./app/components/sign-in-dialog/sign-in-dialog.component-theme" as sign-in-dialog;
-// @use "./app/fragments/navbar/navbar.component-theme" as navbar;
-// @use "./app/fragments/footer/footer.component-theme" as footer;
-// @use "./app/pages/home/home.component-theme" as home;
-// @use "./app/pages/settings/settings.component-theme" as settings;
-// @use "./app/components/project-search-card/project-search-card.component-theme" as project-search-card;
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+@use './theme/palettes.scss' as palette;
+@use './theme/typography.scss' as typography;
+@use './theme/themes.scss' as theme;
+
+@use './theme/padding.scss' as padding;
+@use './theme/margin.scss' as margin;
+@use './theme/gap.scss' as gap;
+
+@use'./app/fragments/navbar-fragment/navbar-fragment.component-theme' as navbar;
+@use'./app/fragments/footer-fragment/footer-fragment.component-theme' as footer;
+
+@use'./app/pages/home-page/home-page.component-theme' as home;
 
 @import 'ngx-toastr/toastr';
 
-@include mat.core();
+// component
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$primary-palette: mat.define-palette(mat.$indigo-palette);
-$accent-pelette: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$primary-palette : mat.define-palette(palette.$primary-palette);
+$accent-palette: mat.define-palette(palette.$accent-palette);
+$warn-palette: mat.define-palette(palette.$warn-palette);
+$success-palette: mat.define-palette(palette.$success-palette);
+$grey-palette: mat.define-palette(palette.$grey-palette);
 
-// The warn palette is optional (defaults to red).
-$warn-palette: mat.define-palette(mat.$red-palette);
+// https://v14.material.angular.io/guide/typography#using-typography-styles-in-your-application
+$theme-typography: mat.define-typography-config($display-4: typography.$display-4-level,
+    $display-3: typography.$display-3-level,
+    $display-2: typography.$display-2-level,
+    $display-1: typography.$display-1-level,
+    $headline: typography.$headline-level,
+    $title: typography.$title-level,
+    $subheading-2: typography.$subheading-2-level,
+    $subheading-1: typography.$subheading-1-level,
+    $body-2: typography.$body-2-level,
+    $body-1: typography.$body-1-level,
+    $caption: typography.$caption-level,
+    $button: typography.$button-level,
+    $input: typography.$input-level,
+  );
 
+$light-theme: theme.define-light-theme($theme-typography, $primary-palette, $accent-palette, $warn-palette, $success-palette, $grey-palette);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$primary-theme: mat.define-light-theme((color: (primary: $primary-palette, accent: $accent-pelette, warn: $warn-palette)));
+@include mat.core($theme-typography);
+@include mat.all-component-themes($light-theme);
 
+@include navbar.theme($light-theme);
+@include footer.theme($light-theme);
+@include home.theme($light-theme);
 
+// style
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($primary-theme);
+$spacer : 14px;
+$spacer-multiplicator-0 : 0;
+$spacer-multiplicator-1 : .25;
+$spacer-multiplicator-2 : .5;
+$spacer-multiplicator-3 : 1;
+$spacer-multiplicator-4 : 1.5;
+$spacer-multiplicator-5 : 3;
 
-/* You can add global styles to this file, and also import other style files */
-// @include settings.theme($primary-theme);
-// @include navbar.theme($primary-theme);
-// @include footer.theme($primary-theme);
-// @include home.theme($primary-theme);
-// @include sign-in-dialog.theme($primary-theme);
-// @include project-search-card.theme($primary-theme);
+@include padding.build($spacer, $spacer-multiplicator-0, $spacer-multiplicator-1,
+  $spacer-multiplicator-2, $spacer-multiplicator-3, $spacer-multiplicator-4, $spacer-multiplicator-5);
+
+@include gap.build($spacer, $spacer-multiplicator-0, $spacer-multiplicator-1,
+  $spacer-multiplicator-2, $spacer-multiplicator-3, $spacer-multiplicator-4, $spacer-multiplicator-5);
+
+@include margin.build($spacer, $spacer-multiplicator-0, $spacer-multiplicator-1,
+  $spacer-multiplicator-2, $spacer-multiplicator-3, $spacer-multiplicator-4, $spacer-multiplicator-5);
+
+// global
 
 html,
 body,
@@ -52,23 +75,32 @@ app-root {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-app-root {
-  .d-flex {
-    display: flex;
-  }
+.d-block {
+  display: block !important;
+}
 
-  .align-items-center {
-    align-items: center;
-  }
+.d-flex {
+  display: flex !important;
+}
 
-  .justify-content-center {
-    justify-content: center;
-  }
+.flex-column {
+  flex-direction: column !important;
+}
 
-  .flex-direction-column {
-    flex-direction: column;
-  }
+.flex-row {
+  flex-direction: row !important;
+}
+
+.flex-spacer {
+  flex-grow: 1 !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
 }

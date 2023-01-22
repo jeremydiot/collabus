@@ -1,0 +1,94 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  $primary-palette: map.get($theme, 'primary');
+  $accent-palette: map.get($theme, 'accent');
+
+  app-home-page {
+    section.intro {
+      background-color: mat.get-color-from-palette($primary-palette, 500);
+      color: mat.get-color-from-palette($primary-palette, '500-contrast');
+
+      button.iamschool {
+        background-color: mat.get-color-from-palette($primary-palette, A100);
+        color: mat.get-color-from-palette($primary-palette, 'A100-contrast');
+      }
+
+      button.iamcompany {
+        background-color: mat.get-color-from-palette($primary-palette, 500);
+        color: mat.get-color-from-palette($primary-palette, '500-contrast');
+        border: solid 3px mat.get-color-from-palette($primary-palette, '500-contrast');
+      }
+
+    }
+
+    section.contact {
+      a.register {
+        background-color: mat.get-color-from-palette($primary-palette, 500);
+        color: mat.get-color-from-palette($primary-palette, '500-contrast');
+      }
+
+      a.contact {
+        color: mat.get-color-from-palette($primary-palette, 500);
+        border: solid 1px mat.get-color-from-palette($primary-palette, 500);
+
+      }
+
+      li>span:first-child {
+        color: mat.get-color-from-palette($primary-palette, 500);
+      }
+    }
+
+    section.project {
+      div.project-card {
+        border: solid 2px mat.get-color-from-palette($accent-palette, 500);
+
+        mat-divider {
+          border-top: solid 2px mat.get-color-from-palette($accent-palette, 500);
+        }
+
+        span {
+          color: mat.get-color-from-palette($accent-palette, 500);
+        }
+      }
+
+      div.project-card.primary {
+        border: solid 2px mat.get-color-from-palette($primary-palette, 500);
+
+        mat-divider {
+          border-top: solid 2px mat.get-color-from-palette($primary-palette, 500);
+        }
+
+        span {
+          color: mat.get-color-from-palette($primary-palette, 500);
+        }
+      }
+    }
+
+    section.form {
+      div.form {
+        border: solid 2px mat.get-color-from-palette($primary-palette, 500);
+      }
+
+      button {
+
+        color: mat.get-color-from-palette($primary-palette, 500);
+        border: solid 1px mat.get-color-from-palette($primary-palette, 500);
+      }
+
+      button:hover {
+        background-color: mat.get-color-from-palette($primary-palette, 500);
+        color: mat.get-color-from-palette($primary-palette, '500-contrast');
+      }
+    }
+  }
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+
+  @if $color-config !=null {
+    @include color($theme);
+  }
+}

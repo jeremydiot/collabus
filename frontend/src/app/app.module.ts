@@ -20,6 +20,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { SearchPageComponent } from './pages/search-page/search-page.component'
 import { NavbarFragmentComponent } from './fragments/navbar-fragment/navbar-fragment.component'
 import { FooterFragmentComponent } from './fragments/footer-fragment/footer-fragment.component'
+import { RegisterPageComponent } from './pages/register-page/register-page.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { FooterFragmentComponent } from './fragments/footer-fragment/footer-frag
     DashboardPageComponent,
     SearchPageComponent,
     NavbarFragmentComponent,
-    FooterFragmentComponent
+    FooterFragmentComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,

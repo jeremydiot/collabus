@@ -1,0 +1,25 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  $primary-palette: map.get($theme, 'shade');
+
+  app-navbar-fragment {
+    a.signup {
+      background-color: mat.get-color-from-palette($primary-palette, 900);
+      color: mat.get-color-from-palette($primary-palette, '900-contrast');
+    }
+
+    a.signin {
+      border: solid 1px mat.get-color-from-palette($primary-palette, 900);
+    }
+  }
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+
+  @if $color-config !=null {
+    @include color($theme);
+  }
+}

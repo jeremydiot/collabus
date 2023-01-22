@@ -1,0 +1,18 @@
+header {
+  img.logo {
+    height: 45px;
+  }
+
+  img.name {
+    height: 20px;
+  }
+
+  a.signin,
+  a.signup {
+    border-radius: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+  }
+}

@@ -6,6 +6,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { LoginPageComponent } from './pages/login-page/login-page.component'
 import { ProjectPageComponent } from './pages/project-page/project-page.component'
+import { RegisterPageComponent } from './pages/register-page/register-page.component'
 import { SearchPageComponent } from './pages/search-page/search-page.component'
 import { AuthState } from './store/auth/auth.reducer'
 
@@ -30,14 +31,15 @@ export class CanActivateLoggedIn implements CanActivate {
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'register', component: RegisterPageComponent },
   { path: 'dashboard', component: DashboardPageComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'project/:id', component: ProjectPageComponent, canActivate: [CanActivateLoggedIn] },
-  { path: 'login', component: LoginPageComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'search', component: SearchPageComponent, canActivate: [CanActivateLoggedIn] }
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload', anchorScrolling: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
