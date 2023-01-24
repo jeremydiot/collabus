@@ -152,7 +152,7 @@
 </div>
 <section class="form d-flex flex-row pl-5 pr-5" id="contact-form">
     <div class="form ml-5 mb-5 p-5 ">
-        <form (ngSubmit)="onSubmit()" [formGroup]="fromGroup">
+        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
             <div class="row d-flex flex-row g-5 mb-2">
                 <mat-form-field appearance="outline">
                     <mat-label>Nom</mat-label>
@@ -194,7 +194,7 @@
                 </mat-form-field>
             </div>
             <div class="row d-flex flex-row g-5">
-                <button mat-flat-button type="submit" [disabled]="!fromGroup.valid">Envoyer</button>
+                <button mat-flat-button type="submit" [disabled]="!formGroup.valid">Envoyer</button>
             </div>
         </form>
     </div>

@@ -7,7 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms'
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  fromGroup = new FormGroup({
+  formGroup = new FormGroup({
     lastName: new FormControl(),
     firstName: new FormControl(),
     email: new FormControl(),
