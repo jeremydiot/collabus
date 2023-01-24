@@ -1,1 +1,21 @@
-<p>login-page works!</p>
+<div class="d-flex flex-row">
+    <div class="flex-spacer"></div>
+    <div class="form-wrapper p-5 d-flex flex-column">
+        <span class="mat-display-1 mb-5">Connexion</span>
+        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex flex-column p-4 g-2" autocomplete="off">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" type="email" matInput required>
+                <mat-error *ngIf="formGroup.controls.email.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Mot de passe</mat-label>
+                <input formControlName="password" type="password" matInput autocomplete="new-password" required>
+                <mat-error *ngIf="formGroup.controls.password.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <button type="submit" mat-flat-button color="primary">Connexion</button>
+            <a mat-flat-button disableRipple="true" routerLink="/register">Pas encore inscrit ?</a>
+        </form>
+    </div>
+    <div class="flex-spacer"></div>
+</div>

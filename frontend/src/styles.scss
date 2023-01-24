@@ -11,6 +11,7 @@
 @use'./app/fragments/footer-fragment/footer-fragment.component-theme' as footer;
 
 @use'./app/pages/home-page/home-page.component-theme' as home;
+@use'./app/pages/login-page/login-page.component-theme' as login;
 
 @import 'ngx-toastr/toastr';
 
@@ -45,7 +46,9 @@ $light-theme: theme.define-light-theme($theme-typography, $primary-palette, $acc
 
 @include navbar.theme($light-theme);
 @include footer.theme($light-theme);
+
 @include home.theme($light-theme);
+@include login.theme($light-theme);
 
 // style
 
