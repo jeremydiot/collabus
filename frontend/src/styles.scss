@@ -68,6 +68,11 @@ $spacer-multiplicator-5 : 3;
 
 // global
 
+::selection {
+  color: white;
+  background: black;
+}
+
 html,
 body,
 app-root {
@@ -75,6 +80,7 @@ app-root {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .d-block {

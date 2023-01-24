@@ -8,6 +8,7 @@
   app-footer-fragment {
     footer {
       background-color: mat.get-color-from-palette($accent-palette, 500);
+      color: mat.get-color-from-palette($primary-palette, '500-contrast');
     }
   }
 

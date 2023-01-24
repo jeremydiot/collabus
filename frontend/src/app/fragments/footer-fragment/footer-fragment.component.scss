@@ -1,6 +1,38 @@
 footer {
 
+  a:link {
+    text-decoration: none;
+  }
+
+
+  a:visited {
+    text-decoration: none;
+  }
+
+
+  a:hover {
+    text-decoration: none;
+  }
+
+
+  a:active {
+    text-decoration: none;
+  }
+
   a {
-    height: 70px;
+    color: inherit;
+
+    img.logo {
+      height: 45px;
+    }
+
+    img.name {
+      height: 20px;
+    }
+  }
+
+  img.social-network {
+    height: 45px;
+    filter: brightness(0) invert(1);
   }
 }

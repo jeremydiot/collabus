@@ -1,5 +1,9 @@
-<app-navbar-fragment class="d-block mat-elevation-z6"></app-navbar-fragment>
-<main class="d-block">
-    <router-outlet></router-outlet>
-</main>
-<app-footer-fragment class="d-block"></app-footer-fragment>
+<div id="page" class="d-flex flex-column">
+    <app-navbar-fragment class="d-block mat-elevation-z3"></app-navbar-fragment>
+    <div class="d-flex flex-column flex-spacer">
+        <main class="d-block flex-spacer">
+            <router-outlet></router-outlet>
+        </main>
+        <app-footer-fragment class="d-block"></app-footer-fragment>
+    </div>
+</div>
