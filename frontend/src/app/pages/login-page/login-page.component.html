@@ -13,7 +13,7 @@
                 <input formControlName="password" type="password" matInput autocomplete="new-password" required>
                 <mat-error *ngIf="formGroup.controls.password.status === 'INVALID'">Champ invalide</mat-error>
             </mat-form-field>
-            <button type="submit" mat-flat-button color="primary">Connexion</button>
+            <button type="submit" [disabled]="!formGroup.valid" mat-flat-button color="primary">Connexion</button>
             <a mat-flat-button disableRipple="true" routerLink="/register">Pas encore inscrit ?</a>
         </form>
     </div>

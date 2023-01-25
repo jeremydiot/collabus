@@ -23,8 +23,9 @@ export class CanActivateLoggedIn implements CanActivate {
 
   canActivate (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.auth$.pipe(map(authState => {
-      if (!authState.isLoggedIn) void this.router.navigate([''])
-      return authState.isLoggedIn
+      const isLoggedIn = authState.accessToken !== ''
+      if (!isLoggedIn) void this.router.navigate([''])
+      return isLoggedIn
     }))
   }
 }

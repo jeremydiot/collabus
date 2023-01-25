@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import * as authActions from 'src/app/store/auth/auth.actions'
 
 @Component({
   selector: 'app-login-page',
@@ -12,14 +14,19 @@ export class LoginPageComponent implements OnInit {
     password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   })
 
-  constructor () { }
+  constructor (
+    private readonly store: Store
+  ) {}
 
   ngOnInit (): void {
   }
 
   onSubmit (): void {
     if (this.formGroup.valid) {
-      console.log('ok')
+      this.store.dispatch(authActions.login({
+        email: this.formGroup.controls.email.value,
+        password: this.formGroup.controls.password.value
+      }))
     }
   }
 }

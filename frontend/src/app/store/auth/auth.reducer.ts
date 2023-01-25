@@ -1,43 +1,61 @@
 import { createReducer, on } from '@ngrx/store'
 import { User } from 'src/app/interfaces'
 import * as authActions from './auth.actions'
-import { AuthService } from 'src/app/services/auth.service'
+import { USER_PROFILE, ACCESS_TOKEN, REFRESH_TOKEN } from 'src/app/constants'
 
 export interface AuthState {
-  profile: User
-  isLoggedIn: boolean
-  error: { [key: string]: string[] }
+  user: User | {}
+  accessToken: string
+  refreshToken: string
 }
 
 export const initialState: AuthState = {
-  profile: AuthService.userProfile,
-  isLoggedIn: Object.keys(AuthService.userProfile).length > 0,
-  error: {}
+  user: JSON.parse(localStorage.getItem(USER_PROFILE) ?? '{}'),
+  accessToken: localStorage.getItem(ACCESS_TOKEN) ?? '',
+  refreshToken: localStorage.getItem(REFRESH_TOKEN) ?? ''
 }
 
 export const authReducer = createReducer(
   initialState,
-  on(authActions.error, (state, error) => {
-    console.error(error)
+
+  on(authActions.loginComplete, (state, { accessToken, refreshToken }) => {
+    localStorage.setItem(ACCESS_TOKEN, accessToken)
+    localStorage.setItem(REFRESH_TOKEN, refreshToken)
+
     return {
       ...state,
-      profile: AuthService.userProfile,
-      isLoggedIn: Object.keys(AuthService.userProfile).length > 0,
-      error: { ...state.error, ...error.error.error }
+      accessToken,
+      refreshToken
     }
   }),
-  on(authActions.refresh, (state) => {
+
+  on(authActions.refreshTokenComplete, (state, { accessToken }) => {
+    localStorage.setItem(ACCESS_TOKEN, accessToken)
+
     return {
       ...state,
-      profile: AuthService.userProfile,
-      isLoggedIn: Object.keys(AuthService.userProfile).length > 0,
-      error: {}
+      accessToken
     }
   }),
-  on(authActions.clearError, (state) => {
+
+  on(authActions.getUserProfileComplete, (state, { user }) => {
+    localStorage.setItem(USER_PROFILE, JSON.stringify(user))
+
     return {
       ...state,
-      error: {}
+      user
+    }
+  }),
+
+  on(authActions.logout, () => {
+    localStorage.removeItem(USER_PROFILE)
+    localStorage.removeItem(ACCESS_TOKEN)
+    localStorage.removeItem(REFRESH_TOKEN)
+
+    return {
+      user: {},
+      accessToken: '',
+      refreshToken: ''
     }
   })
 )
