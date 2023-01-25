@@ -30,10 +30,30 @@ export class CanActivateLoggedIn implements CanActivate {
   }
 }
 
+@Injectable()
+export class CanActivateNotLoggedIn implements CanActivate {
+  auth$: Observable<AuthState>
+
+  constructor (
+    private readonly router: Router,
+    private readonly store: Store<{ auth: AuthState }>
+  ) {
+    this.auth$ = this.store.select('auth')
+  }
+
+  canActivate (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    return this.auth$.pipe(map(authState => {
+      const isNotLoggedIn = authState.accessToken === ''
+      if (!isNotLoggedIn) void this.router.navigate([''])
+      return isNotLoggedIn
+    }))
+  }
+}
+
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'register', component: RegisterPageComponent },
+  { path: 'login', component: LoginPageComponent, canActivate: [CanActivateNotLoggedIn] },
+  { path: 'register', component: RegisterPageComponent, canActivate: [CanActivateNotLoggedIn] },
   { path: 'dashboard', component: DashboardPageComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'project/:id', component: ProjectPageComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'search', component: SearchPageComponent, canActivate: [CanActivateLoggedIn] }

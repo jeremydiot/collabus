@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { ReactiveFormsModule } from '@angular/forms'
-import { AppRoutingModule, CanActivateLoggedIn } from './app-routing.module'
+import { AppRoutingModule, CanActivateLoggedIn, CanActivateNotLoggedIn } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MaterialModule } from './modules/material.module'
@@ -52,7 +52,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
       useClass: AuthInterceptor,
       multi: true
     },
-    CanActivateLoggedIn
+    CanActivateLoggedIn,
+    CanActivateNotLoggedIn
   ],
   bootstrap: [AppComponent]
 })
