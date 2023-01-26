@@ -13,7 +13,8 @@
     }
 
     a.signin,
-    a.search {
+    a.search,
+    button.signout {
       border: solid 1px mat.get-color-from-palette($primary-palette, 900);
     }
   }

@@ -21,6 +21,7 @@ import { SearchPageComponent } from './pages/search-page/search-page.component'
 import { NavbarFragmentComponent } from './fragments/navbar-fragment/navbar-fragment.component'
 import { FooterFragmentComponent } from './fragments/footer-fragment/footer-fragment.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component'
+import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     SearchPageComponent,
     NavbarFragmentComponent,
     FooterFragmentComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    EditUserProfilDialogComponent
   ],
   imports: [
     BrowserModule,

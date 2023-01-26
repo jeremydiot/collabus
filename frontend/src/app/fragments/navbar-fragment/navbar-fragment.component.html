@@ -16,6 +16,9 @@
             <ng-template #loggedIn>
                 <a mat-flat-button class="search" routerLink="/search">Rechercher</a>
                 <a mat-flat-button class="dashboard" routerLink="/dashboard">Tableau de bord</a>
+                <button class="signout" mat-icon-button (click)="signout()" disableRipple="true">
+                    <mat-icon fontIcon="mode_off_on" title="Déconnexion"></mat-icon>
+                </button>
             </ng-template>
 
         </div>

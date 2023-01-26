@@ -1,0 +1,46 @@
+<mat-dialog-content>
+    <h2 mat-dialog-title>Modifier le profil</h2>
+    <form [formGroup]="profileFormGroup" autocomplete="off" class="d-flex flex-column">
+        <div class="d-flex flex-row g-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Prénom</mat-label>
+                <input formControlName="firstName" type="text" matInput auto>
+                <mat-error *ngIf="profileFormGroup.controls.firstName.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input formControlName="lastName" type="text" matInput>
+                <mat-error *ngIf="profileFormGroup.controls.lastName.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" type="email" matInput>
+            <mat-error *ngIf="profileFormGroup.controls.email.status === 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Téléphone</mat-label>
+            <input formControlName="phone" type="text" matInput>
+            <mat-error *ngIf="profileFormGroup.controls.phone.status === 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+    </form>
+    <mat-divider class="mb-4"></mat-divider>
+    <form [formGroup]="passwordFormGroup" autocomplete="off" class="d-flex flex-column">
+        <h2 mat-dialog-title>Modifier le mot de passe</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Ancien mot de passe</mat-label>
+            <input formControlName="oldPassword" type="password" matInput autocomplete="new-password">
+            <mat-error *ngIf="passwordFormGroup.controls.oldPassword">Champ invalide</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Nouveau mot de passe</mat-label>
+            <input formControlName="newPassword" type="password" matInput autocomplete="new-password">
+            <mat-error *ngIf="passwordFormGroup.controls.newPassword">Champ invalide</mat-error>
+        </mat-form-field>
+    </form>
+    <mat-divider class="mb-1"></mat-divider>
+</mat-dialog-content>
+<mat-dialog-actions class="d-flex flex-row justify-content-center g-3">
+    <button mat-flat-button class="submit" (click)="onSubmit()" color="primary">Valider</button>
+    <button mat-flat-button class="close" (click)="onClose()">Fermer</button>
+</mat-dialog-actions>

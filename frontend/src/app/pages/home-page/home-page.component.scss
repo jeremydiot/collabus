@@ -107,23 +107,6 @@ section.form {
       flex: 1;
     }
 
-    mat-radio-group {
-      ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-        background-color: black !important;
-        /*inner circle color change*/
-      }
-
-      ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-        border-color: black !important;
-        /*outer ring color change*/
-      }
-
-      ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-        /*click effect color change*/
-        background-color: black !important;
-      }
-    }
-
     textarea {
       resize: none;
       overflow: hidden;
@@ -133,34 +116,6 @@ section.form {
       border-radius: 0 !important;
       height: 45px;
       width: 170px;
-    }
-
-    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
-      border-radius: 0 !important;
-    }
-
-    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
-      border-radius: 0 !important;
-    }
-
-    ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-      /*change border focused color*/
-      color: black;
-    }
-
-    ::ng-deep .mat-focused .mat-form-field-label {
-      /*change color of label*/
-      color: black !important;
-    }
-
-    ::ng-deep.mat-form-field-underline {
-      /*change color of underline*/
-      background-color: black !important;
-    }
-
-    ::ng-deep.mat-form-field-ripple {
-      /*change color of underline when focused*/
-      background-color: black !important;
     }
   }
 }

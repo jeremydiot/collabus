@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   updateUser (email: string, phone: string, firstName: string, lastName: string, username: string = '@me'): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/user/${username}/`, { username, email, phone, first_name: firstName, last_name: lastName })
+    return this.http.put<User>(`${this.apiUrl}/user/${username}/`, { email, phone, first_name: firstName, last_name: lastName })
   }
 
   changeUserPassword (oldPassword: string, newPassword: string, username: string = '@me'): Observable<never> {

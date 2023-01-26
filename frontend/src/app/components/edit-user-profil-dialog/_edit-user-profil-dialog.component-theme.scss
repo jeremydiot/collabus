@@ -1,0 +1,24 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  $primary-palette: map.get($theme, 'primary');
+  $accent-palette: map.get($theme, 'accent');
+
+  app-edit-user-profil-dialog {
+    button.close {
+      border: solid 1px mat.get-color-from-palette($primary-palette, 500);
+      color: mat.get-color-from-palette($primary-palette, 500);
+
+    }
+  }
+}
+
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+
+  @if $color-config !=null {
+    @include color($theme);
+  }
+}

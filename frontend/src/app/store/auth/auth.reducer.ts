@@ -4,13 +4,13 @@ import * as authActions from './auth.actions'
 import { USER_PROFILE, ACCESS_TOKEN, REFRESH_TOKEN } from 'src/app/constants'
 
 export interface AuthState {
-  user: User | {}
+  user?: User
   accessToken: string
   refreshToken: string
 }
 
 export const initialState: AuthState = {
-  user: JSON.parse(localStorage.getItem(USER_PROFILE) ?? '{}'),
+  user: (localStorage.getItem(USER_PROFILE) !== null) ? JSON.parse(localStorage.getItem(USER_PROFILE) as string) : undefined,
   accessToken: localStorage.getItem(ACCESS_TOKEN) ?? '',
   refreshToken: localStorage.getItem(REFRESH_TOKEN) ?? ''
 }
@@ -40,7 +40,6 @@ export const authReducer = createReducer(
 
   on(authActions.getUserProfileComplete, (state, { user }) => {
     localStorage.setItem(USER_PROFILE, JSON.stringify(user))
-
     return {
       ...state,
       user
@@ -53,7 +52,7 @@ export const authReducer = createReducer(
     localStorage.removeItem(REFRESH_TOKEN)
 
     return {
-      user: {},
+      user: undefined,
       accessToken: '',
       refreshToken: ''
     }

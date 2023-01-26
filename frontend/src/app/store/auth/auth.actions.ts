@@ -8,7 +8,7 @@ import { User } from 'src/app/interfaces'
 export const login = createAction('[Auth] Login', props<{ email: string, password: string }>())
 export const refreshToken = createAction('[Auth] Refresh token')
 export const getUserProfile = createAction('[Auth] Get user profile')
-// export const updateUserProfile = createAction('[Auth] Update user profile', props<User>())
+export const updateUserProfile = createAction('[Auth] Update user profile', props<{ email: string, phone: string, firstName: string, lastName: string }>())
 // export const changeUserPassword = createAction('[Auth] Change password', props<{ oldPassword: string, newPassword: string }>())
 // export const clearError = createAction('[Auth] Clear error')
 // reducer

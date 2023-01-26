@@ -1,0 +1,21 @@
+section.profile {
+  div.profile-icon-wrapper {
+    height: 170px;
+    width: 170px;
+
+    mat-icon {
+      height: 100%;
+      width: 100%;
+      font-size: 170px;
+      line-height: 170px;
+    }
+  }
+
+  div.profile-detail,
+  div.entity-detail {
+    span {
+      white-space: nowrap;
+
+    }
+  }
+}

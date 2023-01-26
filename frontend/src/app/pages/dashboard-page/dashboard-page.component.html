@@ -1,1 +1,49 @@
-<p>dashboard-page works!</p>
+<section class="profile m-5 g-5 p-5 d-flex flex-row" *ngIf="(auth$ | async) as authState">
+    <div class="profile-icon-wrapper d-flex flex-column">
+        <mat-icon fontIcon="person"></mat-icon>
+    </div>
+    <div class="profile-detail d-flex flex-column">
+        <span class="mat-headline mb-2">{{authState.user?.first_name+' '+authState.user?.last_name}}
+            <button color="accent" class="edit" mat-icon-button (click)="onEditProfile()">
+                <mat-icon fontIcon="edit" title="Modifier le profil"></mat-icon>
+            </button>
+        </span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1">
+            <mat-icon fontIcon="tune"></mat-icon>
+            {{(authState.user?.is_entity_staff)?'Gestionaire':'Collaborateur'}}</span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1">
+            <mat-icon fontIcon="mail"></mat-icon>
+            {{authState.user?.email}}
+        </span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1">
+            <mat-icon fontIcon="phone"></mat-icon>
+            {{authState.user?.phone}}
+        </span>
+    </div>
+    <div class="entity-detail d-flex flex-column">
+        <span class="mat-headline mb-2">{{authState.user?.entity?.name}}</span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1" *ngIf="authState.user?.entity?.kind==2">
+            <mat-icon fontIcon="tune"></mat-icon>
+            Ecole
+        </span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1" *ngIf="authState.user?.entity?.kind==3">
+            <mat-icon fontIcon="tune"></mat-icon>
+            Entreprise
+        </span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1">
+            <mat-icon fontIcon="mail"></mat-icon>
+            {{authState.user?.entity?.email}}
+        </span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1">
+            <mat-icon fontIcon="phone"></mat-icon>
+            {{authState.user?.entity?.phone}}
+        </span>
+        <span class="g-2 d-flex align-items-center mat-subheading-2 m-1">
+            <mat-icon fontIcon="location_on"></mat-icon>
+            {{authState.user?.entity?.address+' '+authState.user?.entity?.zip_code+' '+authState.user?.entity?.city}}
+        </span>
+    </div>
+</section>
+<section class="entity-projects">
+
+</section>

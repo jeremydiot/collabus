@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
-import { switchMap, withLatestFrom, firstValueFrom } from 'rxjs'
+import { switchMap, withLatestFrom, firstValueFrom, map } from 'rxjs'
 import { AuthService } from '../../services/auth.service'
 import * as authActions from './auth.actions'
 import { AuthState } from './auth.reducer'
@@ -42,6 +42,18 @@ export class AuthEffects {
       const { access } = await firstValueFrom(this.authService.refresh(state.refreshToken))
       return authActions.refreshTokenComplete({ accessToken: access })
     })
+  ))
+
+  updateUserProfile$ = createEffect(() => this.actions$.pipe(
+    ofType(authActions.updateUserProfile),
+    switchMap((data) => this.authService.updateUser(data.email, data.phone, data.firstName, data.lastName)
+      .pipe(
+        map((user) => authActions.getUserProfileComplete({ user }))
+      )
+    )
+    // tap().
+    // return
+    // })
   ))
 
   // logout$ = createEffect(() => this.actions$.pipe(
