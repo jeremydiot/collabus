@@ -1,8 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
-import { switchMap, withLatestFrom, firstValueFrom, map } from 'rxjs'
+import { switchMap, withLatestFrom, map, catchError, of } from 'rxjs'
 import { AuthService } from '../../services/auth.service'
 import * as authActions from './auth.actions'
 import { AuthState } from './auth.reducer'
@@ -18,42 +19,44 @@ export class AuthEffects {
 
   login$ = createEffect(() => this.actions$.pipe(
     ofType(authActions.login),
-    switchMap(async ({ email, password }) => {
-      const { access, refresh } = await firstValueFrom(this.authService.login(email, password))
-      this.store.dispatch(authActions.loginComplete({ accessToken: access, refreshToken: refresh }))
-      void this.router.navigate(['/dashboard'])
-      return authActions.getUserProfile()
-    }
-    ))
-  )
+    switchMap(({ email, password }) => this.authService.login(email, password).pipe(
+      map((tokens) => {
+        this.store.dispatch(authActions.loginComplete({ accessToken: tokens.access, refreshToken: tokens.refresh }))
+        void this.router.navigate(['/dashboard'])
+        return authActions.getUserProfile()
+      }),
+      catchError((err: HttpErrorResponse) => {
+        return of(authActions.error({ error: err.error }))
+      })
+    )
+    )
+  ))
 
   getUserProfile$ = createEffect(() => this.actions$.pipe(
     ofType(authActions.getUserProfile),
-    switchMap(async () => {
-      const user = await firstValueFrom(this.authService.getUser())
-      return authActions.getUserProfileComplete({ user })
-    })
-  ))
+    switchMap(() => this.authService.getUser()
+      .pipe(map((user) => authActions.getUserProfileComplete({ user })))
+    )))
 
   refreshToken$ = createEffect(() => this.actions$.pipe(
     ofType(authActions.refreshToken),
     withLatestFrom(this.store.select('auth')),
-    switchMap(async ([action, state]) => {
-      const { access } = await firstValueFrom(this.authService.refresh(state.refreshToken))
-      return authActions.refreshTokenComplete({ accessToken: access })
-    })
+    switchMap(([action, state]) => this.authService.refresh(state.refreshToken)
+      .pipe(map(({ access }) => authActions.refreshTokenComplete({ accessToken: access })))
+    )
   ))
 
   updateUserProfile$ = createEffect(() => this.actions$.pipe(
     ofType(authActions.updateUserProfile),
     switchMap((data) => this.authService.updateUser(data.email, data.phone, data.firstName, data.lastName)
       .pipe(
-        map((user) => authActions.getUserProfileComplete({ user }))
+        map((user) => authActions.getUserProfileComplete({ user })),
+        catchError((err) => {
+          console.log(err)
+          return of(authActions.error({ error: err }))
+        })
       )
     )
-    // tap().
-    // return
-    // })
   ))
 
   // logout$ = createEffect(() => this.actions$.pipe(

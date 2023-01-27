@@ -7,12 +7,14 @@ export interface AuthState {
   user?: User
   accessToken: string
   refreshToken: string
+  error: { [key: string]: string[] | string }
 }
 
 export const initialState: AuthState = {
   user: (localStorage.getItem(USER_PROFILE) !== null) ? JSON.parse(localStorage.getItem(USER_PROFILE) as string) : undefined,
   accessToken: localStorage.getItem(ACCESS_TOKEN) ?? '',
-  refreshToken: localStorage.getItem(REFRESH_TOKEN) ?? ''
+  refreshToken: localStorage.getItem(REFRESH_TOKEN) ?? '',
+  error: {}
 }
 
 export const authReducer = createReducer(
@@ -54,7 +56,14 @@ export const authReducer = createReducer(
     return {
       user: undefined,
       accessToken: '',
-      refreshToken: ''
+      refreshToken: '',
+      error: {}
+    }
+  }),
+  on(authActions.error, (state, { error }) => {
+    return {
+      ...state,
+      error
     }
   })
 )

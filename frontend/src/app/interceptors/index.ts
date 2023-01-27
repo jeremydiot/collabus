@@ -17,6 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.store.select('auth').pipe(
+      take(1), // prevent endless loop
       switchMap(({ accessToken }) => {
         if (req.url.startsWith(environment.backendUrl) && accessToken !== '') {
           req = this.setHeaders(req, accessToken)
@@ -48,6 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
       this.store.dispatch(authActions.refreshToken())
 
       return this.store.select('auth').pipe(
+        take(1), // prevent endless loop
         switchMap(({ accessToken }) => {
           this.refreshTokenInProgress = false
           this.refreshTokenSubject.next(accessToken) // allow pending requests
@@ -58,18 +60,6 @@ export class AuthInterceptor implements HttpInterceptor {
           return throwError(() => new HttpErrorResponse(err))
         })
       )
-
-      // return this.authService.refreshAccessToken().pipe(
-      //   switchMap((token) => {
-      //     this.refreshTokenInProgress = false
-      //     this.refreshTokenSubject.next(token) // allow pending requests
-      //     return next.handle(this.setHeaders(req, accessToken)) // resend request
-      //   }),
-      //   catchError((err) => { // refresh error
-      //     this.refreshTokenInProgress = false
-      //     return throwError(() => new HttpErrorResponse(err))
-      //   })
-      // )
     }
     // retry inqueue request after acces token refreshing
     return this.refreshTokenSubject.pipe(
