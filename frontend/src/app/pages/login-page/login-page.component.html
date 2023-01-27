@@ -2,7 +2,9 @@
     <div class="flex-spacer"></div>
     <div class="form-wrapper p-5 d-flex flex-column">
         <span class="mat-display-1 mb-5">Connexion</span>
-        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex flex-column p-4 g-2" autocomplete="off">
+        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex flex-column p-4 pt-5 g-2"
+            autocomplete="off">
+            <span class="error-message" *ngIf="errorMessage !==''">{{errorMessage}}</span>
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" type="email" matInput required>

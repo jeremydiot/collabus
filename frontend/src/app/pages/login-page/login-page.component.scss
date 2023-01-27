@@ -1,6 +1,10 @@
 div.form-wrapper {
   flex: 1;
 
+  span.error-message {
+    margin-top: -27px;
+  }
+
   span {
     text-align: center;
   }

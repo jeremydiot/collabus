@@ -3,11 +3,15 @@
 
 @mixin color($theme) {
   $primary-palette: map.get($theme, 'primary');
-  $accent-palette: map.get($theme, 'accent');
+  $warn-palette: map.get($theme, 'warn');
 
   app-login-page {
     form {
       border: solid 2px mat.get-color-from-palette($primary-palette, 500);
+
+      span.error-message {
+        color: mat.get-color-from-palette($warn-palette, 500);
+      }
     }
   }
 }
