@@ -44,7 +44,7 @@ import { EditUserProfilDialogComponent } from './components/edit-user-profil-dia
     StoreModule.forRoot({ auth: authReducer }, {}),
     EffectsModule.forRoot([AuthEffects]),
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
     ...extModules
 
   ],

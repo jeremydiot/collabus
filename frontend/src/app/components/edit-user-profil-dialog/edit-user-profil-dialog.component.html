@@ -16,7 +16,10 @@
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input formControlName="email" type="email" matInput>
-            <mat-error *ngIf="profileFormGroup.controls.email.status === 'INVALID'">Champ invalide</mat-error>
+            <mat-error *ngIf="profileFormGroup.controls.email.status === 'INVALID'">
+                {{ profileFormGroup.controls.email.hasError('apiError')?
+                profileFormGroup.controls.email.errors?.['apiError']:
+                'Champ invalide'}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Téléphone</mat-label>
@@ -29,13 +32,21 @@
         <h2 mat-dialog-title>Modifier le mot de passe</h2>
         <mat-form-field appearance="outline">
             <mat-label>Ancien mot de passe</mat-label>
-            <input formControlName="oldPassword" type="password" matInput autocomplete="new-password">
-            <mat-error *ngIf="passwordFormGroup.controls.oldPassword">Champ invalide</mat-error>
+            <input formControlName="oldPassword" type="password" matInput>
+            <mat-error *ngIf="passwordFormGroup.controls.oldPassword.status === 'INVALID'" id="old-password"
+                name="old-password" autocomplete="old-password">
+                {{ passwordFormGroup.controls.oldPassword.hasError('apiError')?
+                passwordFormGroup.controls.oldPassword.errors?.['apiError']:
+                'Champ invalide'}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Nouveau mot de passe</mat-label>
-            <input formControlName="newPassword" type="password" matInput autocomplete="new-password">
-            <mat-error *ngIf="passwordFormGroup.controls.newPassword">Champ invalide</mat-error>
+            <input formControlName="newPassword" type="password" matInput id="new-password" name="new-password"
+                autocomplete="new-password">
+            <mat-error *ngIf="passwordFormGroup.controls.newPassword.status === 'INVALID'">
+                {{ passwordFormGroup.controls.newPassword.hasError('apiError')?
+                passwordFormGroup.controls.newPassword.errors?.['apiError']:
+                'Champ invalide'}}</mat-error>
         </mat-form-field>
     </form>
     <mat-divider class="mb-1"></mat-divider>

@@ -65,5 +65,10 @@ export const authReducer = createReducer(
       ...state,
       error
     }
+  }),
+  on(authActions.noopAction, (state) => {
+    return {
+      ...state
+    }
   })
 )

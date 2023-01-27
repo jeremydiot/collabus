@@ -51,12 +51,22 @@ export class AuthEffects {
     switchMap((data) => this.authService.updateUser(data.email, data.phone, data.firstName, data.lastName)
       .pipe(
         map((user) => authActions.getUserProfileComplete({ user })),
-        catchError((err) => {
-          console.log(err)
-          return of(authActions.error({ error: err }))
+        catchError((err: HttpErrorResponse) => {
+          return of(authActions.error({ error: err.error }))
         })
       )
     )
+  ))
+
+  changeUserPassword$ = createEffect(() => this.actions$.pipe(
+    ofType(authActions.changeUserPassword),
+    switchMap((passwords) => this.authService.changeUserPassword(passwords.oldPassword, passwords.newPassword)
+      .pipe(
+        map(() => authActions.noopAction()),
+        catchError((err: HttpErrorResponse) => {
+          return of(authActions.error({ error: err.error }))
+        })
+      ))
   ))
 
   // logout$ = createEffect(() => this.actions$.pipe(
@@ -71,14 +81,6 @@ export class AuthEffects {
   // updateUserProfile$ = createEffect(() => this.actions$.pipe(
   //   ofType(authActions.updateUserProfile),
   //   switchMap((user) => this.authService.updateUserProfile(user).pipe(
-  //     map(() => authActions.refresh()),
-  //     catchError((error: HttpErrorResponse) => of(authActions.error({ error })))
-  //   ))
-  // ))
-
-  // changeUserPassword$ = createEffect(() => this.actions$.pipe(
-  //   ofType(authActions.changeUserPassword),
-  //   switchMap((passwords) => this.authService.changeUserPassword(passwords).pipe(
   //     map(() => authActions.refresh()),
   //     catchError((error: HttpErrorResponse) => of(authActions.error({ error })))
   //   ))

@@ -16,8 +16,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     const emailControl = control.get('email')
     const passwordControl = control.get('password')
 
-    if (emailControl !== null) removeFormControlError(emailControl, 'wrongCredentials')
-    if (passwordControl !== null) removeFormControlError(passwordControl, 'wrongCredentials')
+    if (emailControl !== null) removeFormControlError(emailControl, 'apiError')
+    if (passwordControl !== null) removeFormControlError(passwordControl, 'apiError')
     this.errorMessage = ''
 
     return null
@@ -43,8 +43,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.subscription = this.auth$.subscribe(({ error }) => {
       if (Object.keys(error).length > 0) {
         this.errorMessage = 'Identifiants de connexion non reconnus'
-        this.formGroup.controls.email.setErrors({ wrongCredentials: this.errorMessage })
-        this.formGroup.controls.password.setErrors({ wrongCredentials: this.errorMessage })
+        this.formGroup.controls.email.setErrors({ apiError: this.errorMessage })
+        this.formGroup.controls.password.setErrors({ apiError: this.errorMessage })
       }
     })
   }
