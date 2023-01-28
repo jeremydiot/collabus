@@ -22,22 +22,23 @@ export interface Entity {
   email: string
 }
 
-// TODO delete folowing interfaces
-
-export interface Project {
+export interface ProjectPrivate {
   pk: number
   name: string
   description: string
   note: string
-  type: number
+  kind: number
   is_closed: boolean
   is_hidden: boolean
   deadline: string
-  entity: [
+  entities: [
     {
       folder: number
       entity: Entity
       is_author: boolean
+      is_accepted: boolean
+      created_at: string
+      updated_at: string
     }
   ]
   created_at: string

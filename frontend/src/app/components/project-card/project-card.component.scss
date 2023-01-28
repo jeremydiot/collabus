@@ -1,0 +1,9 @@
+mat-card {
+  overflow: hidden;
+
+  mat-card-title,
+  mat-card-subtitle,
+  mat-card-content {
+    white-space: nowrap;
+  }
+}

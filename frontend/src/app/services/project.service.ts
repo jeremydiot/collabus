@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
-import { Project } from '../interfaces'
+import { ProjectPrivate } from 'src/app/interfaces'
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
@@ -10,8 +10,8 @@ export class ProjectService {
 
   constructor (private readonly http: HttpClient) { }
 
-  list (params: {}): Observable<Project[]> {
+  listPrivate (params: {}): Observable<ProjectPrivate[]> {
     const _params = new HttpParams({ fromObject: params })
-    return this.http.get<Project[]>(`${this.apiUrl}/folder/`, { params: _params })
+    return this.http.get<ProjectPrivate[]>(`${this.apiUrl}/entity/folder/`, { params: _params })
   }
 }

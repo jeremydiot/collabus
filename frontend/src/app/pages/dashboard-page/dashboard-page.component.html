@@ -1,4 +1,4 @@
-<section class="profile m-5 g-5 p-5 d-flex flex-row" *ngIf="(auth$ | async) as authState">
+<section class="profile mt-5 mr-5 ml-5 g-5 p-5 pb-0 d-flex flex-row" *ngIf="(auth$ | async) as authState">
     <div class="profile-icon-wrapper d-flex flex-column">
         <mat-icon fontIcon="person"></mat-icon>
     </div>
@@ -44,6 +44,18 @@
         </span>
     </div>
 </section>
-<section class="entity-projects">
-
+<section class="projects ml-5 mr-5 mb-5 p-5 d-flex flex-column">
+    <div class="d-flex flex-row align-items-center align-items-center mb-4 g-3">
+        <h1 class="m-0">Mes projets</h1>
+        <a mat-mini-fab routerLink="/project" class="new-project" color="accent" title="Nouveau projet">
+            <mat-icon fontIcon="add"></mat-icon>
+        </a>
+    </div>
+    <div class=" project-search-wrapper p-5 d-flex flex-row g-5">
+        <app-project-card *ngFor=" let project of (projectsPrivate|async)" [title]="project.name"
+            [subTitle]="projectKindToString(project.kind)" [projectId]="project.pk" [content]="project.description"
+            [deadline]="project.deadline">
+        </app-project-card>
+        <!-- https://v14.material.angular.io/components/chips/examples -->
+    </div>
 </section>

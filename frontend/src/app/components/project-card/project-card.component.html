@@ -1,0 +1,18 @@
+<mat-card class="border-3-accent">
+    <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+        <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="d-flex flex-column">
+        <span class="">{{content}}</span>
+
+    </mat-card-content>
+    <mat-card-actions class="d-flex flex-row">
+        <span
+            class="d-flex flex-row align-items-center g-2"><mat-icon>event</mat-icon>{{parseDeadline(deadline)}}</span>
+        <div class="flex-spacer"></div>
+        <a mat-raised-button color="accent" [routerLink]="['/project', projectId]">
+            <mat-icon fontIcon="arrow_forward"></mat-icon>
+        </a>
+    </mat-card-actions>
+</mat-card>

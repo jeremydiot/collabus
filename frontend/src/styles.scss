@@ -76,8 +76,46 @@ $spacer-multiplicator-5 : 3;
   $spacer-multiplicator-2, $spacer-multiplicator-3, $spacer-multiplicator-4, $spacer-multiplicator-5);
 
 // global
+
+.border-1-primary {
+  border: solid 1px mat.get-color-from-palette($primary-palette, 500);
+}
+
+.border-1-accent {
+  border: solid 1px mat.get-color-from-palette($accent-palette, 500);
+}
+
+.border-1-black {
+  border: solid 1px black;
+}
+
+.border-2-primary {
+  border: solid 2px mat.get-color-from-palette($primary-palette, 500);
+}
+
+.border-2-accent {
+  border: solid 2px mat.get-color-from-palette($accent-palette, 500);
+}
+
+.border-2-black {
+  border: solid 2px black;
+}
+
+.border-3-primary {
+  border: solid 3px mat.get-color-from-palette($primary-palette, 500);
+}
+
+.border-3-accent {
+  border: solid 3px mat.get-color-from-palette($accent-palette, 500);
+}
+
+.border-3-black {
+  border: solid 3px black;
+}
+
 button,
-a {
+a,
+mat-card {
   border-radius: 0 !important;
 }
 

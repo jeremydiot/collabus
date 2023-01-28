@@ -21,7 +21,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component'
 import { NavbarFragmentComponent } from './fragments/navbar-fragment/navbar-fragment.component'
 import { FooterFragmentComponent } from './fragments/footer-fragment/footer-fragment.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component'
-import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component'
+import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { EditUserProfilDialogComponent } from './components/edit-user-profil-dia
     NavbarFragmentComponent,
     FooterFragmentComponent,
     RegisterPageComponent,
-    EditUserProfilDialogComponent
+    EditUserProfilDialogComponent,
+    ProjectCardComponent
   ],
   imports: [
     BrowserModule,

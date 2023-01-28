@@ -63,11 +63,11 @@ export class EditUserProfilDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy (): void {
     this.subscription.unsubscribe()
+    this.store.dispatch(authActions.error({ error: {} }))
   }
 
   onClose (): void {
     this.dialogRef.close()
-    this.store.dispatch(authActions.error({ error: {} }))
   }
 
   onSubmit (): void {
