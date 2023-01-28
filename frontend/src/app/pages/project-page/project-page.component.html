@@ -1,1 +1,50 @@
-<p>project-page works!</p>
+<section class="informations p-5 m-5 mb-0 d-flex flex-row g-5">
+    <div *ngFor="let entity of relations">
+        <div class="author d-flex flex-column">
+            <span class=" g-2 d-flex align-items-center mat-headline mb-2">{{entity.entity.name}}</span>
+            <span class=" g-2 d-flex align-items-center mat-subheading-2 mb-1">
+                <mat-icon fontIcon="tune"></mat-icon>
+                {{
+                (entity.entity.kind === 2)?'Ecole':
+                (entity.entity.kind===3)?'Entreprise':''
+                }}
+            </span>
+            <span class=" g-2 d-flex align-items-center mat-subheading-2 mb-1">
+                <mat-icon fontIcon="mail"></mat-icon>
+                {{entity.entity.email}}
+            </span>
+            <span class=" g-2 d-flex align-items-center mat-subheading-2 mb-1">
+                <mat-icon fontIcon="phone"></mat-icon>
+                {{entity.entity.phone}}
+            </span>
+            <span class=" g-2 d-flex align-items-center mat-subheading-2 mb-1">
+                <mat-icon fontIcon="location_on"></mat-icon>
+                {{entity.entity.address+' '+entity.entity.zip_code+' '+entity.entity.city}}
+            </span>
+        </div>
+    </div>
+</section>
+<div class="ml-5 mr-5 pl-5 pr-5">
+    <mat-divider></mat-divider>
+</div>
+<div class="d-flex flex-row p-5 m-5 mt-0 g-5">
+    <section class="data d-flex flex-column">
+        <h1>{{project?.name}}</h1>
+        <span>Date de livraison : {{parseDate(project?.deadline)}}</span>
+        <span>Date de création : {{parseDate(project?.created_at)}}</span>
+        <span>Description</span>
+        <p>{{project?.description}}</p>
+        <mat-slide-toggle [checked]="project?.is_closed">Cloturer</mat-slide-toggle>
+        <mat-slide-toggle [checked]="project?.is_hidden">Cacher</mat-slide-toggle>
+        <span>{{projectKindToString(project?.kind)}}</span>
+        <form>
+            <mat-form-field appearance="outline">
+                <mat-label>Notes</mat-label>
+                <textarea matInput>{{project?.note}}</textarea>
+            </mat-form-field>
+        </form>
+    </section>
+    <section class="chat">
+        chat
+    </section>
+</div>

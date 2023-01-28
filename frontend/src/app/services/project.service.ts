@@ -29,6 +29,10 @@ export class ProjectService {
   }
 
   entityProjectList (): Observable<ProjectEntity[]> {
-    return this.http.get<ProjectEntity[]>(`${this.apiUrl}/folder/entity/`, {})
+    return this.http.get<ProjectEntity[]>(`${this.apiUrl}/folder/entity/`)
+  }
+
+  getProjectPrivate (idFolder: number): Observable<ProjectPrivate> {
+    return this.http.get<ProjectPrivate>(`${this.apiUrl}/entity/folder/${idFolder}/`)
   }
 }

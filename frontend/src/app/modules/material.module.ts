@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatChipsModule } from '@angular/material/chips'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatRadioModule } from '@angular/material/radio'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 @NgModule({
   exports: [
@@ -34,7 +35,8 @@ import { MatRadioModule } from '@angular/material/radio'
     MatAutocompleteModule,
     MatChipsModule,
     MatTabsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule { }

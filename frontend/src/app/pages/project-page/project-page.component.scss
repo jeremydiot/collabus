@@ -1,0 +1,14 @@
+section.informations>div {
+  // flex-grow: 1;
+
+  div.author,
+  div.contributor {}
+}
+
+section.data {
+  flex-grow: 2;
+}
+
+section.chat {
+  flex-grow: 1;
+}
