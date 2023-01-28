@@ -44,3 +44,20 @@ export interface ProjectPrivate {
   created_at: string
   updated_at: string
 }
+
+export interface ProjectPublic {
+  pk: number
+  name: string
+  description: string
+  kind: number
+  deadline: string
+}
+
+export interface ProjectEntity {
+  folder: ProjectPublic
+  entity: number
+  is_author: boolean
+  is_accepted: boolean
+  created_at: string
+  updated_at: string
+}

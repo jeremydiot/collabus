@@ -1,0 +1,8 @@
+div.projects-wrapper {
+  flex-wrap: wrap;
+
+  app-project-card {
+    width: calc(100% / 4 - (42px * 3 / 4));
+    // 100% / item-cout - (gap-size * gap-count / item-count) 
+  }
+}

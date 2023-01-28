@@ -11,8 +11,8 @@
         <span
             class="d-flex flex-row align-items-center g-2"><mat-icon>event</mat-icon>{{parseDeadline(deadline)}}</span>
         <div class="flex-spacer"></div>
-        <a mat-raised-button color="accent" [routerLink]="['/project', projectId]">
-            <mat-icon fontIcon="arrow_forward"></mat-icon>
-        </a>
+        <button mat-raised-button color="accent" (click)="onAction()">
+            <mat-icon fontIcon="{{buttonIcon}}"></mat-icon>
+        </button>
     </mat-card-actions>
 </mat-card>

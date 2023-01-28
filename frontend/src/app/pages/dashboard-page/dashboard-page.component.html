@@ -54,7 +54,7 @@
     <div class=" project-search-wrapper p-5 d-flex flex-row g-5">
         <app-project-card *ngFor=" let project of (projectsPrivate|async)" [title]="project.name"
             [subTitle]="projectKindToString(project.kind)" [projectId]="project.pk" [content]="project.description"
-            [deadline]="project.deadline">
+            [deadline]="project.deadline" buttonIcon="arrow_forward" (actionEvent)="onOpenProject($event)">
         </app-project-card>
         <!-- https://v14.material.angular.io/components/chips/examples -->
     </div>

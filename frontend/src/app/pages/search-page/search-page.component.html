@@ -1,1 +1,15 @@
-<p>search-page works!</p>
+<section class="head p-5 m-5 pb-2 mb-2">
+    <h1>Projets disponibles</h1>
+</section>
+<section class="filter ml-5 mr-5 pl-5 pr-5">
+    <mat-divider></mat-divider>
+</section>
+<section class="projects p-5 m-5 pt-4 mt-4">
+    <div class="projects-wrapper border-3-primary p-5 g-5 d-flex flex-row">
+        <app-project-card *ngFor=" let project of projectsPublic" [title]="project.name"
+            [subTitle]="projectKindToString(project.kind)" [projectId]="project.pk" [content]="project.description"
+            [deadline]="project.deadline" (actionEvent)="onJoinProject($event)"
+            buttonIcon="{{(entityProjectIds.includes(project.pk))?'person_remove':'person_add'}}">
+        </app-project-card>
+    </div>
+</section>

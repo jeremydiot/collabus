@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment'
 import { Store } from '@ngrx/store'
 import * as authActions from '../store/auth/auth.actions'
 import { AuthState } from 'src/app/store/auth/auth.reducer'
+import { Router } from '@angular/router'
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -12,7 +13,8 @@ export class AuthInterceptor implements HttpInterceptor {
   private readonly refreshTokenSubject = new BehaviorSubject<any>(null)
 
   constructor (
-    private readonly store: Store<{ auth: AuthState }>
+    private readonly store: Store<{ auth: AuthState }>,
+    private readonly router: Router
   ) {}
 
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,6 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
             )
             ) {
               this.store.dispatch(authActions.logout()) // logout at : refresh acces token error, login error, forbidden request
+              void this.router.navigate(['/'])
             } else if (err instanceof HttpErrorResponse && err.status === 401) { // unauthorized
               return this.handle401Error(req, next)
             }

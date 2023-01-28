@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { EditUserProfilDialogComponent } from 'src/app/components/edit-user-profil-dialog/edit-user-profil-dialog.component'
@@ -19,7 +20,8 @@ export class DashboardPageComponent implements OnInit {
   constructor (
     private readonly store: Store<{ auth: AuthState }>,
     public dialog: MatDialog,
-    private readonly projectService: ProjectService
+    private readonly projectService: ProjectService,
+    private readonly router: Router
   ) {
     this.auth$ = store.select('auth')
     this.projectsPrivate = this.projectService.listPrivate({})
@@ -36,5 +38,9 @@ export class DashboardPageComponent implements OnInit {
   projectKindToString (kind: number): string {
     const keys = Object.keys(ProjectKind).filter(key => ProjectKind[key as keyof typeof ProjectKind] === kind)
     return keys.length > 0 ? keys[0] : ''
+  }
+
+  onOpenProject (id: number): void {
+    void this.router.navigate(['project', id])
   }
 }
