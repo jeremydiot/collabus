@@ -78,39 +78,71 @@ $spacer-multiplicator-5 : 3;
 // global
 
 .border-1-primary {
-  border: solid 1px mat.get-color-from-palette($primary-palette, 500);
+  border: solid 1px mat.get-color-from-palette($primary-palette, 500) !important;
 }
 
 .border-1-accent {
-  border: solid 1px mat.get-color-from-palette($accent-palette, 500);
+  border: solid 1px mat.get-color-from-palette($accent-palette, 500) !important;
 }
 
 .border-1-black {
-  border: solid 1px black;
+  border: solid 1px black !important;
 }
 
 .border-2-primary {
-  border: solid 2px mat.get-color-from-palette($primary-palette, 500);
+  border: solid 2px mat.get-color-from-palette($primary-palette, 500) !important;
 }
 
 .border-2-accent {
-  border: solid 2px mat.get-color-from-palette($accent-palette, 500);
+  border: solid 2px mat.get-color-from-palette($accent-palette, 500) !important;
 }
 
 .border-2-black {
-  border: solid 2px black;
+  border: solid 2px black !important;
 }
 
 .border-3-primary {
-  border: solid 3px mat.get-color-from-palette($primary-palette, 500);
+  border: solid 3px mat.get-color-from-palette($primary-palette, 500) !important;
 }
 
 .border-3-accent {
-  border: solid 3px mat.get-color-from-palette($accent-palette, 500);
+  border: solid 3px mat.get-color-from-palette($accent-palette, 500) !important;
 }
 
 .border-3-black {
-  border: solid 3px black;
+  border: solid 3px black !important;
+}
+
+.color-black {
+  color: black !important;
+}
+
+.color-primary {
+  color: mat.get-color-from-palette($primary-palette, 500) !important;
+}
+
+.color-accent {
+  color: mat.get-color-from-palette($accent-palette, 500) !important;
+}
+
+.color-white {
+  color: white !important;
+}
+
+.background-color-black {
+  background-color: black !important;
+}
+
+.background-color-primary {
+  background-color: mat.get-color-from-palette($primary-palette, 500) !important;
+}
+
+.background-color-accent {
+  background-color: mat.get-color-from-palette($accent-palette, 500) !important;
+}
+
+.background-color-white {
+  background-color: white !important;
 }
 
 button,

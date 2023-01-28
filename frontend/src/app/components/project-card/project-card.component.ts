@@ -12,6 +12,7 @@ export class ProjectCardComponent implements OnInit {
   @Input() deadline = ''
   @Input() projectId!: number
   @Input() buttonIcon = ''
+  @Input() showButton = true
   @Output() actionEvent = new EventEmitter<number>()
 
   onAction (): void {
