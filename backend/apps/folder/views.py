@@ -245,7 +245,7 @@ class FolderEntityContributorViewSet (viewsets.ViewSet):
         })
 
         if serializer.is_valid():
-            folder_entity = serializer.save()
+            folder_entity = serializer.save(folder=folder)
             return Response(FolderEntitySerializerDetailFolder(folder_entity).data, status=HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
