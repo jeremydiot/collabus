@@ -57,10 +57,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
 
-        fields = ['last_login', 'date_joined', 'username', 'email', 'phone',
+        fields = ['pk', 'last_login', 'date_joined', 'username', 'email', 'phone',
                   'first_name', 'last_name', 'entity', 'is_entity_staff', 'password']
 
         extra_kwargs = {
+            'pk': {'read_only': True},
             'last_login': {'read_only': True},
             'date_joined': {'read_only': True},
             'entity': {'read_only': True},
