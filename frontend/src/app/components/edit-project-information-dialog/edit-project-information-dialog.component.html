@@ -9,7 +9,11 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Type</mat-label>
-                <input formControlName="kind" type="text" matInput>
+                <mat-select formControlName="kind">
+                    <mat-option *ngFor="let kind of kinds" [value]="kind.id">
+                        {{kind.name}}
+                    </mat-option>
+                </mat-select>
                 <mat-error *ngIf="formGroup.controls.kind.status  === 'INVALID'">Champ invalide</mat-error>
             </mat-form-field>
         </div>
@@ -23,17 +27,18 @@
                 <mat-label>Date de livraison</mat-label>
                 <input formControlName="deadline" matInput [matDatepicker]="picker">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <mat-datepicker #picker color="accent"></mat-datepicker>
                 <mat-error *ngIf="formGroup.controls.deadline.status  === 'INVALID'">Champ invalide</mat-error>
             </mat-form-field>
             <div class=" d-flex flex-column toogle-wrapper g-2 pl-2">
-                <mat-slide-toggle formControlName="isClosed">Cloturer</mat-slide-toggle>
-                <mat-slide-toggle formControlName="isHidden">Cacher</mat-slide-toggle>
+                <mat-slide-toggle formControlName="isClosed">Cloturé</mat-slide-toggle>
+                <mat-slide-toggle formControlName="isHidden">Caché</mat-slide-toggle>
             </div>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions class="d-flex flex-row g-4 justify-content-center">
-        <button mat-flat-button class="submit border-1-primary" (click)="onSubmit()" color="primary">Valider</button>
-        <button mat-flat-button class="close border-1-primary color-primary" (click)="onClose()">Fermer</button>
+        <button mat-flat-button type="submit" class="submit border-1-primary" color="primary">Valider</button>
+        <button mat-flat-button type="button" class="close border-1-primary color-primary"
+            (click)="onClose()">Fermer</button>
     </mat-dialog-actions>
 </form>

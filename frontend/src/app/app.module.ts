@@ -21,9 +21,10 @@ import { SearchPageComponent } from './pages/search-page/search-page.component'
 import { NavbarFragmentComponent } from './fragments/navbar-fragment/navbar-fragment.component'
 import { FooterFragmentComponent } from './fragments/footer-fragment/footer-fragment.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component'
-import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component';
-import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component'
+import { ProjectCardComponent } from './components/project-card/project-card.component'
 import { EditProjectInformationDialogComponent } from './components/edit-project-information-dialog/edit-project-information-dialog.component'
+import { MAT_DATE_LOCALE } from '@angular/material/core'
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { EditProjectInformationDialogComponent } from './components/edit-project
       useClass: AuthInterceptor,
       multi: true
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     CanActivateLoggedIn,
     CanActivateNotLoggedIn
   ],

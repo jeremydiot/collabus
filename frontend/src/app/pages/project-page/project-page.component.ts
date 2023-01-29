@@ -25,6 +25,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit (): void {
+    this.relations = []
     const routeSub = this.route.params.subscribe(params => {
       if (params['id'] !== undefined) {
         const subscription = this.projectService.getProjectPrivate(parseInt(params['id'])).subscribe((project) => {
@@ -40,6 +41,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       }
     })
     this.subscriptions.push(routeSub)
+    // this.onEditInformation()
   }
 
   ngOnDestroy (): void {
@@ -69,7 +71,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   onEditInformation (): void {
     const routeSub = this.route.params.subscribe(params => {
-      this.dialog.open(EditProjectInformationDialogComponent, { data: { projectId: params['id'] } })
+      const dialogRef = this.dialog.open(EditProjectInformationDialogComponent, { data: { projectId: params['id'] } })
+      dialogRef.afterClosed().subscribe((response) => {
+        if (response === true) {
+          this.ngOnInit()
+        }
+      })
     })
     this.subscriptions.push(routeSub)
   }

@@ -46,7 +46,6 @@ export class EditUserProfilDialogComponent implements OnInit, OnDestroy {
       if (this.profileFormGroup.controls.phone.value === '') this.profileFormGroup.controls.phone.setValue(user?.phone ?? '')
 
       if (Object.keys(error).length > 0) {
-        console.log(error)
         if (error['email'] !== undefined) this.profileFormGroup.controls.email.setErrors({ apiError: 'Déja utilisé' })
         if (error['old_password'] !== undefined) this.passwordFormGroup.controls.oldPassword.setErrors({ apiError: 'Eronné' })
         if (error['new_password'] !== undefined) this.passwordFormGroup.controls.newPassword.setErrors({ apiError: 'Trop court' })
