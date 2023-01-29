@@ -25,5 +25,6 @@
     "activityBar.background": "#EC7063",
     "activityBar.inactiveForeground": "#404040",
     "activityBar.foreground": "#FFFFFF",
-  }
+  },
+  "debug.javascript.usePreview": false
 }

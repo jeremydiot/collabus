@@ -41,9 +41,11 @@ section.data {
   }
 }
 
+div.bottom {
+  justify-content: space-between;
+}
+
 section.chat {
-  // flex-grow: 1;
-  // flex-shrink: 25%;
-
-
+  width: 40%;
+  height: 50vh;
 }

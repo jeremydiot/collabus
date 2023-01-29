@@ -61,3 +61,12 @@ export interface ProjectEntity {
   created_at: string
   updated_at: string
 }
+
+export interface Message {
+  pk: number
+  author: User
+  folder: number
+  content: number
+  created_at: number
+  updated_at: number
+}

@@ -1,0 +1,37 @@
+div.chat-wrapper {
+  height: 100%;
+
+  div.message-wrapper {
+    overflow: auto;
+    flex-direction: column-reverse;
+    display: flex;
+
+    div.message {
+      div.head {
+        align-items: flex-end;
+      }
+
+      div.body {
+        p.content {
+          overflow-wrap: anywhere;
+        }
+      }
+    }
+
+    div.message.right {
+      div.head {
+        flex-direction: row-reverse !important;
+      }
+
+      div.body {
+        flex-direction: row-reverse !important;
+      }
+    }
+  }
+}
+
+div.bottom {
+  ::ng-deep .mat-form-field-wrapper {
+    padding: 0;
+  }
+}

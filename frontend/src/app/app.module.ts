@@ -24,7 +24,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component'
 import { ProjectCardComponent } from './components/project-card/project-card.component'
 import { EditProjectInformationDialogComponent } from './components/edit-project-information-dialog/edit-project-information-dialog.component'
-import { MAT_DATE_LOCALE } from '@angular/material/core'
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ChatComponent } from './components/chat/chat.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
     RegisterPageComponent,
     EditUserProfilDialogComponent,
     ProjectCardComponent,
-    EditProjectInformationDialogComponent
+    EditProjectInformationDialogComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
