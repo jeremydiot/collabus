@@ -49,7 +49,7 @@
         </div>
         <form>
             <div class="d-flex flex-row align-items-center mb-2 g-2">
-                <h2 class="m-0">Notes</h2>
+                <h1 class="m-0">Notes</h1>
                 <button mat-icon-button color="accent" (click)="note.disabled = false; note.focus()">
                     <mat-icon>edit</mat-icon>
                 </button>
@@ -61,6 +61,7 @@
         </form>
     </section>
     <section class="chat">
+        <h1>Chat</h1>
         <app-chat *ngIf="projectId !== undefined" [projectId]="projectId"></app-chat>
     </section>
 </div>
