@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
+import { EditProjectInformationDialogComponent } from 'src/app/components/edit-project-information-dialog/edit-project-information-dialog.component'
 import { ProjectKind } from 'src/app/enums'
 import { ProjectPrivate } from 'src/app/interfaces'
 import { ProjectService } from 'src/app/services/project.service'
@@ -12,17 +14,18 @@ import { ProjectService } from 'src/app/services/project.service'
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
   project?: ProjectPrivate
-  routeSubscription!: Subscription
+  subscriptions: Subscription[] = []
   relations: ProjectPrivate['entities'] | any[] = []
   noteInputTimer?: NodeJS.Timeout
 
   constructor (
     private readonly projectService: ProjectService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit (): void {
-    this.routeSubscription = this.route.params.subscribe(params => {
+    const routeSub = this.route.params.subscribe(params => {
       if (params['id'] !== undefined) {
         const subscription = this.projectService.getProjectPrivate(parseInt(params['id'])).subscribe((project) => {
           // relation entities
@@ -36,10 +39,11 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         })
       }
     })
+    this.subscriptions.push(routeSub)
   }
 
   ngOnDestroy (): void {
-    this.routeSubscription.unsubscribe()
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
   parseDate (stringDate: string | undefined): string {
@@ -61,5 +65,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         })
       }
     }, 1000)
+  }
+
+  onEditInformation (): void {
+    const routeSub = this.route.params.subscribe(params => {
+      this.dialog.open(EditProjectInformationDialogComponent, { data: { projectId: params['id'] } })
+    })
+    this.subscriptions.push(routeSub)
   }
 }

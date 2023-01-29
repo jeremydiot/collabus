@@ -4,7 +4,7 @@
         <div class="d-flex flex-row g-4">
             <mat-form-field appearance="outline">
                 <mat-label>Prénom</mat-label>
-                <input formControlName="firstName" type="text" matInput auto>
+                <input formControlName="firstName" type="text" matInput>
                 <mat-error *ngIf="profileFormGroup.controls.firstName.status === 'INVALID'">Champ invalide</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
@@ -51,7 +51,7 @@
     </form>
     <mat-divider class="mb-1"></mat-divider>
 </mat-dialog-content>
-<mat-dialog-actions class="d-flex flex-row justify-content-center g-3">
+<mat-dialog-actions class="d-flex flex-row justify-content-center g-4">
     <button mat-flat-button class="submit" (click)="onSubmit()" color="primary">Valider</button>
     <button mat-flat-button class="close" (click)="onClose()">Fermer</button>
 </mat-dialog-actions>

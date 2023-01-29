@@ -22,7 +22,8 @@ import { NavbarFragmentComponent } from './fragments/navbar-fragment/navbar-frag
 import { FooterFragmentComponent } from './fragments/footer-fragment/footer-fragment.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component'
 import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component';
-import { ProjectCardComponent } from './components/project-card/project-card.component'
+import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { EditProjectInformationDialogComponent } from './components/edit-project-information-dialog/edit-project-information-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
     FooterFragmentComponent,
     RegisterPageComponent,
     EditUserProfilDialogComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    EditProjectInformationDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Informations</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup" autocomplete="off">
+    <mat-dialog-content class="d-flex flex-column g-1">
+        <div class="d-flex d-flex-row g-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input formControlName="name" type="text" matInput>
+                <mat-error *ngIf="formGroup.controls.name.status  === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <input formControlName="kind" type="text" matInput>
+                <mat-error *ngIf="formGroup.controls.kind.status  === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-error *ngIf="formGroup.controls.description.status  === 'INVALID'">Champ invalide</mat-error>
+        </mat-form-field>
+        <div class="d-flex flex-row bottom-part g-4">
+            <mat-form-field appearance="outline" class="deadline-wrapper">
+                <mat-label>Date de livraison</mat-label>
+                <input formControlName="deadline" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="formGroup.controls.deadline.status  === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <div class=" d-flex flex-column toogle-wrapper g-2 pl-2">
+                <mat-slide-toggle formControlName="isClosed">Cloturer</mat-slide-toggle>
+                <mat-slide-toggle formControlName="isHidden">Cacher</mat-slide-toggle>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="d-flex flex-row g-4 justify-content-center">
+        <button mat-flat-button class="submit border-1-primary" (click)="onSubmit()" color="primary">Valider</button>
+        <button mat-flat-button class="close border-1-primary color-primary" (click)="onClose()">Fermer</button>
+    </mat-dialog-actions>
+</form>

@@ -31,7 +31,7 @@
     <section class="data d-flex flex-column">
         <div class="d-flex flex-row align-items-center mb-3 g-2">
             <h1 class="m-0">{{project?.name}}</h1>
-            <button mat-icon-button color="accent">
+            <button mat-icon-button color="accent" (click)="onEditInformation()">
                 <mat-icon>edit</mat-icon>
             </button>
         </div>
