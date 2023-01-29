@@ -4,7 +4,7 @@
 
 - debian
 - vscode
-- chrome
+- chrome [developer](https://www.google.com/intl/fr/chrome/dev/)
 - node.js 16 and npm
 - @angular/cli ```npm install -g @angular/cli```
 
