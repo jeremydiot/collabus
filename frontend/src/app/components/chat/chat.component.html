@@ -1,52 +1,34 @@
 <div class="chat-wrapper d-flex flex-column border-3-primary">
-    <div class="message-wrapper flex-spacer p-4 pb-2 g-2">
-        <div class="message left d-flex flex-column alig-items-center">
+    <div #messageWrapper class="message-wrapper flex-spacer p-4 pb-2 g-2">
+        <div class="message left d-flex flex-column alig-items-center"
+            [ngClass]="(message.author.pk === currentUserId)?'right':'left'" *ngFor="let message of messages">
             <div class="d-flex flex-row mb-2 head">
                 <span class="username mat-body-2">
-                    full name
+                    {{message.author.first_name+' '+message.author.last_name}}
                 </span>
                 <div class="flex-spacer"></div>
                 <span class="datetime mat-caption">
-                    date time
+                    {{parseDate(message.created_at)}}
                 </span>
             </div>
             <div class="d-flex flex-row g-2 body">
-                <div class="userpicture"><mat-icon fontIcon="person"></mat-icon></div>
+                <div class="userpicture"><mat-icon [color]="(message.author.pk === currentUserId)?'accent':''"
+                        fontIcon="person"></mat-icon></div>
                 <p class="content border-1-black p-2 flex-spacer">
-                    likejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlk
-                    likejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlklikejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlk
-                    likejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlk
-                </p>
-            </div>
-        </div>
-        <div class="message right d-flex flex-column alig-items-center">
-            <div class="d-flex flex-row mb-2 head">
-                <span class="username mat-body-2">
-                    full name
-                </span>
-                <div class="flex-spacer"></div>
-                <span class="datetime mat-caption">
-                    date time
-                </span>
-            </div>
-            <div class="d-flex flex-row g-2 body">
-                <div class="userpicture"><mat-icon color="accent" fontIcon="person"></mat-icon></div>
-                <p class="content border-1-black p-2 flex-spacer">
-                    likejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlk
-                    likejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlklikejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlk
-                    likejehfkjehgvrkjgnlkjtrnlgkjrnlkgjrlgjterljrelkgjtntlk
+                    {{message.content}}
                 </p>
             </div>
         </div>
     </div>
     <mat-divider></mat-divider>
     <div class="bottom d-flex flex-row p-3">
-        <mat-form-field appearance="outline" class="flex-spacer test">
-            <input matInput type="text" placeholder="Message">
-            <button mat-icon-button matSuffix>
-                <mat-icon fontIcon="send"></mat-icon>
-            </button>
-        </mat-form-field>
+        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex flex-row flex-spacer">
+            <mat-form-field appearance="outline" class="flex-spacer test">
+                <input matInput type="text" placeholder="Message" formControlName="message" autocomplete="off">
+                <button type="submit" mat-icon-button matSuffix>
+                    <mat-icon fontIcon="send"></mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
     </div>
-
 </div>

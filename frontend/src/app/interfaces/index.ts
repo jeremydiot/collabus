@@ -1,4 +1,5 @@
 export interface User {
+  pk: number
   last_login: string
   username: string
   email: string
@@ -66,7 +67,7 @@ export interface Message {
   pk: number
   author: User
   folder: number
-  content: number
-  created_at: number
-  updated_at: number
+  content: string
+  created_at: string
+  updated_at: string
 }

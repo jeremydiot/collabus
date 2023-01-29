@@ -61,6 +61,6 @@
         </form>
     </section>
     <section class="chat">
-        <app-chat></app-chat>
+        <app-chat *ngIf="projectId !== undefined" [projectId]="projectId"></app-chat>
     </section>
 </div>

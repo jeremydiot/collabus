@@ -13,6 +13,7 @@ import { ProjectService } from 'src/app/services/project.service'
   styleUrls: ['./project-page.component.scss']
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
+  projectId?: number
   project?: ProjectPrivate
   subscriptions: Subscription[] = []
   relations: ProjectPrivate['entities'] | any[] = []
@@ -28,6 +29,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     this.relations = []
     const routeSub = this.route.params.subscribe(params => {
       if (params['id'] !== undefined) {
+        if (this.projectId === undefined) this.projectId = params['id']
+
         const subscription = this.projectService.getProjectPrivate(parseInt(params['id'])).subscribe((project) => {
           // relation entities
           const authorRelation = project.entities.find((relation) => relation.is_author)
