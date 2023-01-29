@@ -1,14 +1,49 @@
-section.informations>div {
-  // flex-grow: 1;
-
-  div.author,
-  div.contributor {}
-}
+section.informations {}
 
 section.data {
-  flex-grow: 2;
+  min-width: 30%;
+  max-width: 60%;
+
+  p.description {
+    max-height: 30vh;
+    overflow-y: auto;
+  }
+
+  h1::first-letter,
+  h2::first-letter {
+    text-transform: capitalize;
+  }
+
+  h3 {
+    display: list-item;
+    list-style-position: inside;
+  }
+
+  mat-form-field {
+    width: 100%;
+
+    div.mat-form-field-flex {
+      padding: 0 !important;
+    }
+
+    textarea {
+      resize: none;
+      height: 20vh;
+    }
+
+    textarea:disabled {
+      color: rgba($color: #000000, $alpha: 0.7);
+    }
+
+    textarea:focus {
+      border: none;
+    }
+  }
 }
 
 section.chat {
-  flex-grow: 1;
+  // flex-grow: 1;
+  // flex-shrink: 25%;
+
+
 }

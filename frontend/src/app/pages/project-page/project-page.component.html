@@ -29,18 +29,34 @@
 </div>
 <div class="d-flex flex-row p-5 m-5 mt-0 g-5">
     <section class="data d-flex flex-column">
-        <h1>{{project?.name}}</h1>
-        <span>Date de livraison : {{parseDate(project?.deadline)}}</span>
-        <span>Date de création : {{parseDate(project?.created_at)}}</span>
-        <span>Description</span>
-        <p>{{project?.description}}</p>
-        <mat-slide-toggle [checked]="project?.is_closed">Cloturer</mat-slide-toggle>
-        <mat-slide-toggle [checked]="project?.is_hidden">Cacher</mat-slide-toggle>
-        <span>{{projectKindToString(project?.kind)}}</span>
+        <div class="d-flex flex-row align-items-center mb-3 g-2">
+            <h1 class="m-0">{{project?.name}}</h1>
+            <button mat-icon-button color="accent">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
+        <h2>{{projectKindToString(project?.kind)}}</h2>
+        <p class="description">{{project?.description}}</p>
+        <div class="d-flex flex-row g-5 mb-5">
+            <div class="d-flex flex-column">
+                <h3 class="mb-0">Date de création : {{parseDate(project?.created_at)}}</h3>
+                <h3 class="mb-0">Date de livraison : {{parseDate(project?.deadline)}}</h3>
+            </div>
+            <div class="d-flex flex-column">
+                <h3 class="mb-0">Cloturé : {{(project?.is_closed)?'Oui':'Non'}}</h3>
+                <h3 class="mb-0">Caché : {{(project?.is_hidden)?'Oui':'Non'}}</h3>
+            </div>
+        </div>
         <form>
+            <div class="d-flex flex-row align-items-center mb-2 g-2">
+                <h2 class="m-0">Notes</h2>
+                <button mat-icon-button color="accent" (click)="note.disabled = false; note.focus()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
             <mat-form-field appearance="outline">
-                <mat-label>Notes</mat-label>
-                <textarea matInput>{{project?.note}}</textarea>
+                <textarea #note matInput disabled="true" (focusout)="note.disabled = true"
+                    (input)="noteInput(note.value)">{{project?.note}}</textarea>
             </mat-form-field>
         </form>
     </section>
