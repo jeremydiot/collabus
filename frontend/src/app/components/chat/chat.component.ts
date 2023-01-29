@@ -30,14 +30,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   }
 
-  onSubmit (): void {
-    const value = this.formGroup.controls.message.value
-    if (value !== '' && this.websocket !== undefined) {
-      this.websocket.send(JSON.stringify({ message: value }))
-      this.formGroup.controls.message.setValue('')
-    }
-  }
-
   ngOnInit (): void {
     this.subscription = this.store.select('auth').subscribe(authState => {
       if (this.projectId !== undefined && authState.user !== undefined) {
@@ -71,5 +63,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
     }
     return ''
+  }
+
+  onSubmit (): void {
+    const value = this.formGroup.controls.message.value
+    if (value !== '' && this.websocket !== undefined) {
+      this.websocket.send(JSON.stringify({ message: value }))
+      this.formGroup.controls.message.setValue('')
+    }
+  }
+
+  deleteMessage (messageId: number): void {
+    if (this.websocket !== undefined) this.websocket.send(JSON.stringify({ delete: messageId }))
   }
 }
