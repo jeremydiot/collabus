@@ -66,32 +66,44 @@ class AsyncChatConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data=None, bytes_data=None):
         text_data_json = json.loads(text_data)
-        content = text_data_json["message"]
+        content = text_data_json.get('message', None)
+        message_id = text_data_json.get('delete', None)
+
+        @sync_to_async
+        def data(serializer):
+            return serializer.data
+
         if ChatKind(self.chat_kind) == ChatKind.FOLDER:
-            message = await Message.objects.acreate(
-                folder=self.kind_instance,
-                author=self.scope['user'],
-                content=content
-            )
+            if content is not None:
+                message = await Message.objects.acreate(
+                    folder=self.kind_instance,
+                    author=self.scope['user'],
+                    content=content
+                )
 
-            serializer = MessageSerializer(message)
+                # Send message to room group
+                await self.channel_layer.group_send(
+                    self.room_group_name, {"type": "chat_message", "message": await data(MessageSerializer(message))}
+                )
 
-            @sync_to_async
-            def data():
-                return serializer.data
+            elif message_id is not None:
+                message = await Message.objects.filter(author=self.scope['user'], id=message_id).afirst()
+                await sync_to_async(message.delete)()
 
-            # Send message to room group
-            await self.channel_layer.group_send(
-                self.room_group_name, {"type": "chat_message", "message": await data()}
-            )
-        else:
-            await self.channel_layer.group_send(
-                self.room_group_name, {"type": "chat_message", "message": content}
-            )
+                queryset = self.kind_instance.message_set.all()
+
+                # Send message to room group
+                await self.channel_layer.group_send(
+                    self.room_group_name, {"type": "chat_message", "messages": await data(MessageSerializer(queryset, many=True))}
+                )
 
     # Receive message from room group
     async def chat_message(self, event):
-        message = event["message"]
+        message = event.get('message', None)
+        messages = event.get('messages', None)
 
         # Send message to WebSocket
-        await self.send(text_data=json.dumps({"message": message}))
+        if (message is not None):
+            await self.send(text_data=json.dumps({"message": message}))
+        elif (messages is not None):
+            await self.send(text_data=json.dumps({"messages": messages}))
