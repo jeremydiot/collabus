@@ -7,7 +7,6 @@ import { ProjectKind } from 'src/app/enums'
 import { ProjectPrivate } from 'src/app/interfaces'
 import { AttachmentService } from 'src/app/services/attachment.service'
 import { ProjectService } from 'src/app/services/project.service'
-import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-project-page',
