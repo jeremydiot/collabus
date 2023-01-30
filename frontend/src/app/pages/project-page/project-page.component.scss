@@ -59,4 +59,59 @@ section.attachment {
       display: none;
     }
   }
+
+  div.body {
+    flex-wrap: wrap;
+
+    a {
+      height: 170px;
+      width: 170px;
+      position: relative;
+
+      button.delete {
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        margin: auto;
+        right: 0;
+        top: 0;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        // background-color: black;
+        border-bottom-left-radius: 25% !important;
+
+        mat-icon {
+          font-size: 15px;
+          font-weight: bolder;
+          -webkit-text-stroke: medium;
+        }
+      }
+
+      mat-icon {
+        height: 100%;
+        width: 100%;
+        font-size: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+
+      span.file-name {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
 }

@@ -70,7 +70,7 @@
     <mat-divider></mat-divider>
 </div>
 <section class="attachment p-5 m-5 mt-0">
-    <div class="head d-flex flex-row g-3 align-items-center mb-4">
+    <div class="head d-flex flex-row g-3 align-items-center mb-5">
         <h1 class="m-0">Fichiers</h1>
         <div *ngIf="project !== undefined">
             <button mat-mini-fab (click)="inputFile.click()" class=" add-attachment" color="accent"
@@ -79,5 +79,18 @@
             </button>
             <input [ngStyle]="{display:'none'}" #inputFile (change)="onFileUpload($event)" type="file">
         </div>
+    </div>
+    <div class="body d-flex d-row g-4">
+        <a disableRipple="true" class="border-3-primary material-symbols-rounded" mat-icon-button
+            [href]="backendHost+attachment.file" target="_blank" *ngFor="let attachment of attachments"
+            [matTooltip]="attachment.name">
+            <mat-icon [ngStyle]="{display:'none'}" #attachmentIcon fontIcon="open_in_new"></mat-icon>
+            <img #attachmentImage [src]="backendHost+attachment.file"
+                (error)="attachmentIcon._elementRef.nativeElement.style.display = ''; attachmentImage.style.display='none'; attachmentLabel.style.display=''">
+            <span #attachmentLabel [ngStyle]="{display:'none'}" class="file-name pr-2 pl-2">{{attachment.name}}</span>
+            <button mat-icon-button class="delete background-color-accent" (click)="onDeleteFile($event,attachment.pk)">
+                <mat-icon class="color-white">close</mat-icon>
+            </button>
+        </a>
     </div>
 </section>

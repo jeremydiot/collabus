@@ -77,6 +77,10 @@ $spacer-multiplicator-5 : 3;
 
 // global
 
+.mat-tooltip {
+  font-size: 14px;
+}
+
 .border-1-primary {
   border: solid 1px mat.get-color-from-palette($primary-palette, 500) !important;
 }

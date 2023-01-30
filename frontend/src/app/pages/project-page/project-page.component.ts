@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { EditProjectInformationDialogComponent } from 'src/app/components/edit-project-information-dialog/edit-project-information-dialog.component'
 import { ProjectKind } from 'src/app/enums'
-import { ProjectPrivate } from 'src/app/interfaces'
+import { Attachment, ProjectPrivate } from 'src/app/interfaces'
 import { AttachmentService } from 'src/app/services/attachment.service'
 import { ProjectService } from 'src/app/services/project.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-project-page',
@@ -20,6 +21,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   relations: ProjectPrivate['entities'] | any[] = []
   noteInputTimer?: NodeJS.Timeout
   sendAttachmentUrl?: string
+  attachments?: Attachment[]
+  backendHost = environment.backendHost
 
   constructor (
     private readonly projectService: ProjectService,
@@ -34,7 +37,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       if (params['id'] !== undefined) {
         if (this.projectId === undefined) this.projectId = params['id']
 
-        const subscription = this.projectService.getProjectPrivate(parseInt(params['id'])).subscribe((project) => {
+        this.projectService.getProjectPrivate(parseInt(params['id'])).subscribe((project) => {
           // relation entities
           const authorRelation = project.entities.find((relation) => relation.is_author)
           if (authorRelation !== undefined) this.relations?.push(authorRelation)
@@ -42,7 +45,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
           if (contributorRelation !== undefined) this.relations?.push(contributorRelation)
           // project
           this.project = project
-          subscription.unsubscribe()
+
+          this.attachmentService.get(params['id']).subscribe(attachments => { this.attachments = attachments })
         })
       }
     })
@@ -89,7 +93,18 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   onFileUpload (event: any): void {
     if (this.projectId !== undefined) {
       const file = event.target.files[0] as File
-      this.attachmentService.add(this.projectId, file).subscribe()
+      this.attachmentService.add(this.projectId, file).subscribe(() => {
+        if (this.projectId !== undefined) this.attachmentService.get(this.projectId).subscribe(attachments => { this.attachments = attachments })
+      })
+    }
+  }
+
+  onDeleteFile (event: Event, attachmentId: number): void {
+    event.preventDefault()
+    if (this.projectId !== undefined) {
+      this.attachmentService.delete(this.projectId, attachmentId).subscribe(() => {
+        if (this.projectId !== undefined) this.attachmentService.get(this.projectId).subscribe(attachments => { this.attachments = attachments })
+      })
     }
   }
 }

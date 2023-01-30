@@ -17,8 +17,7 @@
                         (mouseenter)="personIcon._elementRef.nativeElement.style.display = 'none'; deleteIcon._elementRef.nativeElement.style.display = ''"
                         (mouseleave)="personIcon._elementRef.nativeElement.style.display = ''; deleteIcon._elementRef.nativeElement.style.display = 'none'"
                         (click)="deleteMessage(message.pk)" mat-icon-button>
-                        <mat-icon #personIcon color="accent" fontIcon="person">
-                        </mat-icon>
+                        <mat-icon #personIcon color="accent" fontIcon="person"></mat-icon>
                         <mat-icon color="warn" [ngStyle]="{display :'none'}" #deleteIcon fontIcon="close"></mat-icon>
                     </button>
                     <mat-icon *ngIf="message.author.pk !== currentUserId" fontIcon="person">

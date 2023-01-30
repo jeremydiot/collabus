@@ -12,6 +12,15 @@ div.chat-wrapper {
       }
 
       div.body {
+        div.userpicture {
+          button {
+            display: flex;
+            align-items: center;
+            width: 24px;
+            height: 28px;
+          }
+        }
+
         p.content {
           overflow-wrap: anywhere;
         }

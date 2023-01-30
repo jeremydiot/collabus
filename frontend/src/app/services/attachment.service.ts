@@ -28,7 +28,7 @@ export class AttachmentService {
     return this.http.put<Attachment[]>(`${this.apiUrl}/folder/${folderId}/attachment/${attachmentId}/`, formData, { observe: 'body', reportProgress: true })
   }
 
-  delete (folderId: number): Observable<Attachment[]> {
-    return this.http.delete<Attachment[]>(`${this.apiUrl}/folder/${folderId}/attachment/`)
+  delete (folderId: number, attachmentId: number): Observable<Attachment[]> {
+    return this.http.delete<Attachment[]>(`${this.apiUrl}/folder/${folderId}/attachment/${attachmentId}/`)
   }
 }
