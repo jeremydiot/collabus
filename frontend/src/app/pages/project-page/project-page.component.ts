@@ -47,7 +47,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       }
     })
     this.subscriptions.push(routeSub)
-    // this.onEditInformation()
   }
 
   ngOnDestroy (): void {
@@ -79,8 +78,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     const routeSub = this.route.params.subscribe(params => {
       const dialogRef = this.dialog.open(EditProjectInformationDialogComponent, { data: { projectId: params['id'] } })
       dialogRef.afterClosed().subscribe((response) => {
-        if (response === true) {
-          this.ngOnInit()
+        if (response !== undefined) {
+          this.project = response
         }
       })
     })

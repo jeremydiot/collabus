@@ -66,9 +66,9 @@ export class EditProjectInformationDialogComponent implements OnInit {
           this.formGroup.controls.isClosed.value,
           this.formGroup.controls.isHidden.value,
           `${year}-${month}-${day}`
-        ).subscribe(() => {
+        ).subscribe((project) => {
           this.ngOnInit()
-          this.dialogRef.close(true)
+          this.dialogRef.close(project)
           this.toaster.success('Informations mises à jours')
         })
       }
@@ -76,6 +76,6 @@ export class EditProjectInformationDialogComponent implements OnInit {
   }
 
   onClose (): void {
-    this.dialogRef.close(false)
+    this.dialogRef.close()
   }
 }
