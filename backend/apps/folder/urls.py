@@ -10,7 +10,7 @@ urlpatterns = [
         name='folder_attachment'
     ),
     path(
-        '<int:id_folder>/attachment/<int:id_attachment>',
+        '<int:id_folder>/attachment/<int:id_attachment>/',
         views.FolderAttachmentViewSet.as_view({'put': 'update', 'delete': 'destroy'}),
         name='folder_attachment_detail'
     ),
