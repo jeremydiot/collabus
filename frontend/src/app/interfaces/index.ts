@@ -71,3 +71,12 @@ export interface Message {
   created_at: string
   updated_at: string
 }
+
+export interface Attachment {
+  pk: number
+  folder: number
+  file: string
+  name: string
+  created_at: string
+  updated_at: string
+}

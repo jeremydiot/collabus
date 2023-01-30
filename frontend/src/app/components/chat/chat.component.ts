@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.subscription = this.store.select('auth').subscribe(authState => {
       if (this.projectId !== undefined && authState.user !== undefined) {
         this.currentUserId = authState.user.pk
-        this.websocket = new WebSocket(`${environment.backendWebsocketChat}folder/${this.projectId}/?token=${authState.accessToken}`)
+        this.websocket = new WebSocket(`${environment.backendWebsocketChat}/folder/${this.projectId}/?token=${authState.accessToken}`)
 
         this.websocket.onmessage = (e: MessageEvent<string>) => {
           const data = JSON.parse(e.data)

@@ -5,7 +5,9 @@ import { Subscription } from 'rxjs'
 import { EditProjectInformationDialogComponent } from 'src/app/components/edit-project-information-dialog/edit-project-information-dialog.component'
 import { ProjectKind } from 'src/app/enums'
 import { ProjectPrivate } from 'src/app/interfaces'
+import { AttachmentService } from 'src/app/services/attachment.service'
 import { ProjectService } from 'src/app/services/project.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-project-page',
@@ -18,11 +20,13 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = []
   relations: ProjectPrivate['entities'] | any[] = []
   noteInputTimer?: NodeJS.Timeout
+  sendAttachmentUrl?: string
 
   constructor (
     private readonly projectService: ProjectService,
     private readonly route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private readonly attachmentService: AttachmentService
   ) {}
 
   ngOnInit (): void {
@@ -82,5 +86,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       })
     })
     this.subscriptions.push(routeSub)
+  }
+
+  onFileUpload (event: any): void {
+    if (this.projectId !== undefined) {
+      const file = event.target.files[0] as File
+      this.attachmentService.add(this.projectId, file).subscribe()
+    }
   }
 }

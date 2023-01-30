@@ -27,7 +27,7 @@
 <div class="ml-5 mr-5 pl-5 pr-5">
     <mat-divider></mat-divider>
 </div>
-<div class="d-flex flex-row p-5 m-5 mt-0 g-5 bottom">
+<div class="d-flex flex-row p-5 m-5 mt-0 mb-0 g-5 bottom">
     <section class="data d-flex flex-column">
         <div class="d-flex flex-row align-items-center mb-3 g-2">
             <h1 class="m-0">{{project?.name}}</h1>
@@ -37,7 +37,7 @@
         </div>
         <h2>{{projectKindToString(project?.kind)}}</h2>
         <p class="description">{{project?.description}}</p>
-        <div class="d-flex flex-row g-5 mb-5">
+        <div class="d-flex flex-row g-5 pb-4 pt-4">
             <div class="d-flex flex-column">
                 <h3 class="mb-0">Date de création : {{parseDate(project?.created_at)}}</h3>
                 <h3 class="mb-0">Date de livraison : {{parseDate(project?.deadline)}}</h3>
@@ -50,7 +50,8 @@
         <form>
             <div class="d-flex flex-row align-items-center mb-2 g-2">
                 <h1 class="m-0">Notes</h1>
-                <button mat-icon-button color="accent" (click)="note.disabled = false; note.focus()">
+                <button *ngIf="project !== undefined" mat-icon-button color="accent"
+                    (click)="note.disabled = false; note.focus()">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
@@ -65,3 +66,18 @@
         <app-chat *ngIf="projectId !== undefined" [projectId]="projectId"></app-chat>
     </section>
 </div>
+<div class="ml-5 mr-5 pl-5 pr-5">
+    <mat-divider></mat-divider>
+</div>
+<section class="attachment p-5 m-5 mt-0">
+    <div class="head d-flex flex-row g-3 align-items-center mb-4">
+        <h1 class="m-0">Fichiers</h1>
+        <div *ngIf="project !== undefined">
+            <button mat-mini-fab (click)="inputFile.click()" class=" add-attachment" color="accent"
+                title="Ajouter un fichier">
+                <mat-icon fontIcon="add"></mat-icon>
+            </button>
+            <input [ngStyle]="{display:'none'}" #inputFile (change)="onFileUpload($event)" type="file">
+        </div>
+    </div>
+</section>

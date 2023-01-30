@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store'
 import * as authActions from '../store/auth/auth.actions'
 import { AuthState } from 'src/app/store/auth/auth.reducer'
 import { Router } from '@angular/router'
+import { HTTP_CONTEXT_CONTENT_TYPE } from '../constants'
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -76,7 +77,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return req.clone({
       setHeaders: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': req.context.get(HTTP_CONTEXT_CONTENT_TYPE),
         Authorization: `Bearer ${accessToken}`
       }
     })
