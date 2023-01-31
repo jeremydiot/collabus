@@ -45,12 +45,21 @@
     </div>
 </section>
 <section class="projects ml-5 mr-5 mb-5 p-5 d-flex flex-column">
-    <div class="d-flex flex-row align-items-center align-items-center mb-4 g-3">
-        <h1 class="m-0">Mes projets</h1>
-        <a mat-mini-fab routerLink="/project" *ngIf="(auth$ | async)?.user?.entity?.kind === 3" class="new-project"
-            color="accent" title="Nouveau projet">
-            <mat-icon fontIcon="add"></mat-icon>
-        </a>
+    <div class="d-flex flex-row g-3">
+        <div class="d-flex flex-row align-items-center align-items-center mb-4 g-3">
+            <h1 class="m-0">Mes projets</h1>
+            <a mat-mini-fab routerLink="/project" *ngIf="(auth$ | async)?.user?.entity?.kind === 3" class="new-project"
+                color="accent" matTooltip="Nouveau projet">
+                <mat-icon fontIcon="add"></mat-icon>
+            </a>
+        </div>
+        <div class="d-flex flex-row align-items-center align-items-center mb-4 g-3">
+            <button mat-mini-fab *ngIf="(auth$ | async)?.user?.entity?.kind === 3" class="access-managment"
+                color="accent" [matBadge]="countAccessRequest" matBadgeColor="warn" matTooltip="Gestion des accès"
+                matBadgeSize="medium" matBadgeOverlap="true" [matBadgeHidden]="(countAccessRequest <1)?true:false">
+                <mat-icon>manage_accounts</mat-icon>
+            </button>
+        </div>
     </div>
     <mat-divider></mat-divider>
     <div class=" project-search-wrapper pt-5 d-flex flex-row g-5">

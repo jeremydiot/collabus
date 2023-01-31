@@ -17,6 +17,7 @@ import { AuthState } from 'src/app/store/auth/auth.reducer'
 export class DashboardPageComponent implements OnInit {
   auth$: Observable<AuthState>
   projectsPrivate: Observable<ProjectPrivate[]>
+  countAccessRequest = 0
   constructor (
     private readonly store: Store<{ auth: AuthState }>,
     public dialog: MatDialog,
@@ -28,7 +29,11 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit (): void {
-
+    this.projectService.listPrivate({}).subscribe(projects => {
+      projects.forEach(project => project.entities.forEach(relation => {
+        if (!relation.is_accepted) this.countAccessRequest++
+      }))
+    })
   }
 
   onEditProfile (): void {

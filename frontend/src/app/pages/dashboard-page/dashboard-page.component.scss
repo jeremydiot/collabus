@@ -21,8 +21,16 @@ section.profile {
 }
 
 section.projects {
-  a.new-project {
+
+  a.new-project,
+  button.access-managment {
     border-radius: 50% !important;
+
+    ::ng-deep span.mat-badge-content {
+      right: -6px;
+      top: -6px;
+
+    }
   }
 
   div.project-search-wrapper {
