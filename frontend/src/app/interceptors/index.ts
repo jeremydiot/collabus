@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http'
-import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs'
+import { BehaviorSubject, catchError, filter, Observable, skip, switchMap, take, throwError } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { Store } from '@ngrx/store'
 import * as authActions from '../store/auth/auth.actions'
@@ -52,6 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
       this.store.dispatch(authActions.refreshToken())
 
       return this.store.select('auth').pipe(
+        skip(1), // skip refresh request
         take(1), // prevent endless loop
         switchMap(({ accessToken }) => {
           this.refreshTokenInProgress = false
