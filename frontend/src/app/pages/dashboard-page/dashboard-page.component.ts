@@ -31,10 +31,10 @@ export class DashboardPageComponent implements OnInit {
   ngOnInit (): void {
     this.projectService.listPrivate({}).subscribe(projects => {
       this.projects = projects
+      this.countAccessRequest = 0
       projects.forEach(project => project.entities.forEach(relation => {
         if (!relation.is_accepted) this.countAccessRequest++
       }))
-      // this.onManageAccess()
     })
   }
 
@@ -52,6 +52,11 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onManageAccess (): void {
-    if (this.projects !== undefined) this.dialog.open(ProjectAccessDialogComponent, { data: { projects: this.projects } })
+    if (this.projects !== undefined) {
+      const dialogRef = this.dialog.open(ProjectAccessDialogComponent, { data: { projects: this.projects } })
+      dialogRef.afterClosed().subscribe(() => {
+        this.ngOnInit()
+      })
+    }
   }
 }

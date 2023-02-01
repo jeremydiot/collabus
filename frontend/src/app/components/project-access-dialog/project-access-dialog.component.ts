@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store'
 import { Observable, Subscription } from 'rxjs'
 import { ProjectKind } from 'src/app/enums'
 import { ProjectPrivate } from 'src/app/interfaces'
+import { ProjectService } from 'src/app/services/project.service'
 import { AuthState } from 'src/app/store/auth/auth.reducer'
 
 export interface datasourceInterface {
@@ -26,6 +27,7 @@ export interface datasourceInterface {
 })
 export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort
+  // @ViewChild(MatTable) table!: MatTable<datasourceInterface>
   displayedColumns: string[] = ['projectName', 'projectType', 'entityName', 'relationDate', 'entityAddress', 'entityPhone', 'action']
   dataSource = new MatTableDataSource<datasourceInterface>()
 
@@ -36,7 +38,8 @@ export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
   constructor (
     public dialogRef: MatDialogRef<ProjectAccessDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { projects: ProjectPrivate[] },
-    store: Store<{ 'auth': AuthState }>
+    private readonly store: Store<{ 'auth': AuthState }>,
+    private readonly projectService: ProjectService
   ) {
     this.auth$ = store.select('auth')
     this.projects = data.projects
@@ -47,9 +50,7 @@ export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
       if (authState.user !== undefined) {
         const relations: datasourceInterface[] = []
         this.projects.forEach(project => project.entities.forEach(relation => {
-          if (relation.entity.pk !== authState.user?.entity.pk) {
-            // console.log(this.projectkindToString(project.kind))
-
+          if (relation.entity.pk !== authState.user?.entity.pk && !relation.is_accepted) {
             relations.push({
               entityAddress: `${relation.entity.address}, ${relation.entity.zip_code} ${relation.entity.city}`,
               entityId: relation.entity.pk,
@@ -98,10 +99,22 @@ export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
   }
 
   onDeleteRelation (idFolder: number, idEntity: number): void {
-    console.log(idFolder, idEntity)
+    this.projectService.authorRefuseRelation(idFolder, idEntity).subscribe(() => {
+      const index = this.dataSource.data.findIndex((e) => e.entityId === idEntity && e.projectId === idFolder)
+      if (index > -1) {
+        this.dataSource.data.splice(index, 1)
+        this.dataSource._updateChangeSubscription()
+      }
+    })
   }
 
   onAcceptRelation (idFolder: number, idEntity: number): void {
-    console.log(idFolder, idEntity)
+    this.projectService.authorAcceptRelation(idFolder, idEntity, true).subscribe(() => {
+      const index = this.dataSource.data.findIndex((e) => e.entityId === idEntity && e.projectId === idFolder)
+      if (index > -1) {
+        this.dataSource.data.splice(index, 1)
+        this.dataSource._updateChangeSubscription()
+      }
+    })
   }
 }

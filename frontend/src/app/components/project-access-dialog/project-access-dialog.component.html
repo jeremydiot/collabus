@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Gestion des accès</h1>
+<h1 mat-dialog-title>Gestion des demandes d'accès</h1>
 <div mat-dialog-content>
 
     <mat-form-field appearance="standard">
@@ -9,7 +9,12 @@
     <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="projectName">
             <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Nom du projet</th>
-            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+            <td class="pr-3" mat-cell *matCellDef="let element">
+                <a mat-button [routerLink]="['project',element.projectId]" target="_blank" color="accent"
+                    disableRipple="true">
+                    {{element.projectName}}
+                </a>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="projectType">
@@ -42,12 +47,12 @@
             <td class="pr-3" mat-cell *matCellDef="let element" [ngStyle]="{width:'85px'}">
                 <div class="accept" [ngStyle]="{float:'left'}">
                     <button mat-icon-button [ngStyle]="{color:'green'}"
-                        (click)="onAcceptRelation(element.projectId, element.entityId)">
+                        (click)="onAcceptRelation(element.projectId, element.entityId)" matTooltip="accepter">
                         <mat-icon>thumb_up</mat-icon>
                     </button>
                 </div>
                 <div class="refuse" [ngStyle]="{float:'right'}"
-                    (click)="onDeleteRelation(element.projectId, element.entityId)">
+                    (click)="onDeleteRelation(element.projectId, element.entityId)" matTooltip="refuser">
                     <button mat-icon-button color="warn">
                         <mat-icon>thumb_down</mat-icon>
                     </button>

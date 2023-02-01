@@ -47,4 +47,12 @@ export class ProjectService {
       deadline
     })
   }
+
+  authorRefuseRelation (idFolder: number, idEntity: number): Observable<never> {
+    return this.http.delete<never>(`${this.apiUrl}/folder/${idFolder}/entity/${idEntity}/`)
+  }
+
+  authorAcceptRelation (idFolder: number, idEntity: number, isAccepted: boolean): Observable<{ entity: number, is_accepted: boolean }> {
+    return this.http.put<{ entity: number, is_accepted: boolean }>(`${this.apiUrl}/folder/${idFolder}/entity/${idEntity}/`, { is_accepted: isAccepted })
+  }
 }
