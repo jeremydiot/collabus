@@ -18,6 +18,8 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatBadgeModule } from '@angular/material/badge'
+import { MatTableModule } from '@angular/material/table'
+import { MatSortModule } from '@angular/material/sort'
 
 @NgModule({
   exports: [
@@ -40,7 +42,9 @@ import { MatBadgeModule } from '@angular/material/badge'
     MatRadioModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatTableModule,
+    MatSortModule
   ]
 })
 export class MaterialModule { }

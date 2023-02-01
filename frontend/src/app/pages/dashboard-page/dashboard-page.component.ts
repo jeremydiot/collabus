@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { EditUserProfilDialogComponent } from 'src/app/components/edit-user-profil-dialog/edit-user-profil-dialog.component'
+import { ProjectAccessDialogComponent } from 'src/app/components/project-access-dialog/project-access-dialog.component'
 import { ProjectKind } from 'src/app/enums'
 import { ProjectPrivate } from 'src/app/interfaces'
 import { ProjectService } from 'src/app/services/project.service'
@@ -16,8 +17,8 @@ import { AuthState } from 'src/app/store/auth/auth.reducer'
 })
 export class DashboardPageComponent implements OnInit {
   auth$: Observable<AuthState>
-  projectsPrivate: Observable<ProjectPrivate[]>
   countAccessRequest = 0
+  projects?: ProjectPrivate[]
   constructor (
     private readonly store: Store<{ auth: AuthState }>,
     public dialog: MatDialog,
@@ -25,14 +26,15 @@ export class DashboardPageComponent implements OnInit {
     private readonly router: Router
   ) {
     this.auth$ = store.select('auth')
-    this.projectsPrivate = this.projectService.listPrivate({})
   }
 
   ngOnInit (): void {
     this.projectService.listPrivate({}).subscribe(projects => {
+      this.projects = projects
       projects.forEach(project => project.entities.forEach(relation => {
         if (!relation.is_accepted) this.countAccessRequest++
       }))
+      // this.onManageAccess()
     })
   }
 
@@ -47,5 +49,9 @@ export class DashboardPageComponent implements OnInit {
 
   onOpenProject (id: number): void {
     void this.router.navigate(['project', id])
+  }
+
+  onManageAccess (): void {
+    if (this.projects !== undefined) this.dialog.open(ProjectAccessDialogComponent, { data: { projects: this.projects } })
   }
 }

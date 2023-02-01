@@ -25,7 +25,8 @@ import { EditUserProfilDialogComponent } from './components/edit-user-profil-dia
 import { ProjectCardComponent } from './components/project-card/project-card.component'
 import { EditProjectInformationDialogComponent } from './components/edit-project-information-dialog/edit-project-information-dialog.component'
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { ChatComponent } from './components/chat/chat.component'
+import { ChatComponent } from './components/chat/chat.component';
+import { ProjectAccessDialogComponent } from './components/project-access-dialog/project-access-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { ChatComponent } from './components/chat/chat.component'
     EditUserProfilDialogComponent,
     ProjectCardComponent,
     EditProjectInformationDialogComponent,
-    ChatComponent
+    ChatComponent,
+    ProjectAccessDialogComponent
   ],
   imports: [
     BrowserModule,

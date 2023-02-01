@@ -40,7 +40,7 @@
         </span>
         <span class="g-2 d-flex align-items-center mat-subheading-2 mb-1">
             <mat-icon fontIcon="location_on"></mat-icon>
-            {{authState.user?.entity?.address+' '+authState.user?.entity?.zip_code+' '+authState.user?.entity?.city}}
+            {{authState.user?.entity?.address+', '+authState.user?.entity?.zip_code+' '+authState.user?.entity?.city}}
         </span>
     </div>
 </section>
@@ -56,14 +56,15 @@
         <div class="d-flex flex-row align-items-center align-items-center mb-4 g-3">
             <button mat-mini-fab *ngIf="(auth$ | async)?.user?.entity?.kind === 3" class="access-managment"
                 color="accent" [matBadge]="countAccessRequest" matBadgeColor="warn" matTooltip="Gestion des accès"
-                matBadgeSize="medium" matBadgeOverlap="true" [matBadgeHidden]="(countAccessRequest <1)?true:false">
+                matBadgeSize="medium" matBadgeOverlap="true" [matBadgeHidden]="(countAccessRequest <1)?true:false"
+                (click)="onManageAccess()">
                 <mat-icon>manage_accounts</mat-icon>
             </button>
         </div>
     </div>
     <mat-divider></mat-divider>
     <div class=" project-search-wrapper pt-5 d-flex flex-row g-5">
-        <app-project-card *ngFor=" let project of (projectsPrivate|async)" [title]="project.name"
+        <app-project-card *ngFor=" let project of projects" [title]="project.name"
             [subTitle]="projectKindToString(project.kind)" [projectId]="project.pk" [content]="project.description"
             [deadline]="project.deadline" buttonIcon="arrow_forward" (actionEvent)="onOpenProject($event)">
         </app-project-card>
