@@ -27,7 +27,6 @@ export interface datasourceInterface {
 })
 export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort
-  // @ViewChild(MatTable) table!: MatTable<datasourceInterface>
   displayedColumns: string[] = ['projectName', 'projectType', 'entityName', 'relationDate', 'entityAddress', 'entityPhone', 'action']
   dataSource = new MatTableDataSource<datasourceInterface>()
 
