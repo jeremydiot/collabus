@@ -8,38 +8,51 @@
 
     <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="projectName">
-            <th class="mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Nom du projet</th>
-            <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Nom du projet</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.projectName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="projectType">
-            <th class="mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Type de projet</th>
-            <td mat-cell *matCellDef="let element"> {{element.projectType}} </td>
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Type de projet</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.projectType}} </td>
         </ng-container>
 
         <ng-container matColumnDef="entityName">
-            <th class="mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Nom de l'école</th>
-            <td mat-cell *matCellDef="let element"> {{element.entityName}} </td>
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Nom de l'école</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.entityName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="relationDate">
-            <th class="mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Date de la demande</th>
-            <td mat-cell *matCellDef="let element"> {{element.relationDate}} </td>
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef mat-sort-header>Date de la demande</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.relationDate}} </td>
         </ng-container>
 
         <ng-container matColumnDef="entityAddress">
-            <th class="mat-subheading-2" mat-header-cell *matHeaderCellDef>Adresse de l'école</th>
-            <td mat-cell *matCellDef="let element"> {{element.entityAddress}} </td>
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Adresse de l'école</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.entityAddress}} </td>
         </ng-container>
 
         <ng-container matColumnDef="entityPhone">
-            <th class="mat-subheading-2" mat-header-cell *matHeaderCellDef>Téléphone de l'école</th>
-            <td mat-cell *matCellDef="let element"> {{element.entityPhone}} </td>
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Téléphone de l'école</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.entityPhone}} </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <th class="mat-subheading-2" mat-header-cell *matHeaderCellDef>Action</th>
-            <td mat-cell *matCellDef="let element"></td>
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Action</th>
+            <td class="pr-3" mat-cell *matCellDef="let element" [ngStyle]="{width:'85px'}">
+                <div class="accept" [ngStyle]="{float:'left'}">
+                    <button mat-icon-button [ngStyle]="{color:'green'}"
+                        (click)="onAcceptRelation(element.projectId, element.entityId)">
+                        <mat-icon>thumb_up</mat-icon>
+                    </button>
+                </div>
+                <div class="refuse" [ngStyle]="{float:'right'}"
+                    (click)="onDeleteRelation(element.projectId, element.entityId)">
+                    <button mat-icon-button color="warn">
+                        <mat-icon>thumb_down</mat-icon>
+                    </button>
+                </div>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

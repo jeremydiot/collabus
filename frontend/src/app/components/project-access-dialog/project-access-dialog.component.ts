@@ -98,10 +98,10 @@ export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
   }
 
   onDeleteRelation (idFolder: number, idEntity: number): void {
-
+    console.log(idFolder, idEntity)
   }
 
   onAcceptRelation (idFolder: number, idEntity: number): void {
-
+    console.log(idFolder, idEntity)
   }
 }
