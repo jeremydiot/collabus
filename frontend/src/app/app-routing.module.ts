@@ -56,7 +56,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterPageComponent, canActivate: [CanActivateNotLoggedIn] },
   { path: 'dashboard', component: DashboardPageComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'project/:id', component: ProjectPageComponent, canActivate: [CanActivateLoggedIn] },
-  { path: 'project', component: ProjectPageComponent, canActivate: [CanActivateLoggedIn] },
   { path: 'search', component: SearchPageComponent, canActivate: [CanActivateLoggedIn] }
 ]
 

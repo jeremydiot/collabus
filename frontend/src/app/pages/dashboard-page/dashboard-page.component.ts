@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
+import { EditProjectInformationDialogComponent } from 'src/app/components/edit-project-information-dialog/edit-project-information-dialog.component'
 import { EditUserProfilDialogComponent } from 'src/app/components/edit-user-profil-dialog/edit-user-profil-dialog.component'
 import { ProjectAccessDialogComponent } from 'src/app/components/project-access-dialog/project-access-dialog.component'
 import { ProjectKind } from 'src/app/enums'
@@ -58,5 +59,12 @@ export class DashboardPageComponent implements OnInit {
         this.ngOnInit()
       })
     }
+  }
+
+  onCreateNewProject (): void {
+    const dialogRef = this.dialog.open(EditProjectInformationDialogComponent)
+    dialogRef.afterClosed().subscribe((response) => {
+      this.ngOnInit()
+    })
   }
 }

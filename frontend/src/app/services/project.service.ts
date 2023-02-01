@@ -48,6 +48,18 @@ export class ProjectService {
     })
   }
 
+  createProjectPrivate (name?: string, description?: string, note?: string, kind?: number, isClosed?: boolean, isHidden?: boolean, deadline?: string): Observable<ProjectPrivate> {
+    return this.http.post<ProjectPrivate>(`${this.apiUrl}/entity/folder/`, {
+      name,
+      description,
+      note,
+      kind,
+      is_closed: isClosed,
+      is_hidden: isHidden,
+      deadline
+    })
+  }
+
   authorRefuseRelation (idFolder: number, idEntity: number): Observable<never> {
     return this.http.delete<never>(`${this.apiUrl}/folder/${idFolder}/entity/${idEntity}/`)
   }

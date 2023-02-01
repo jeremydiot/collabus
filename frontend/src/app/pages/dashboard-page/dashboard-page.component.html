@@ -48,10 +48,10 @@
     <div class="d-flex flex-row g-3">
         <div class="d-flex flex-row align-items-center align-items-center mb-4 g-3">
             <h1 class="m-0">Mes projets</h1>
-            <a mat-mini-fab routerLink="/project" *ngIf="(auth$ | async)?.user?.entity?.kind === 3" class="new-project"
-                color="accent" matTooltip="Nouveau projet">
+            <button mat-mini-fab *ngIf="(auth$ | async)?.user?.entity?.kind === 3" class="new-project" color="accent"
+                matTooltip="Nouveau projet" (click)="onCreateNewProject()">
                 <mat-icon fontIcon="add"></mat-icon>
-            </a>
+            </button>
         </div>
         <div class="d-flex flex-row align-items-center align-items-center mb-4 g-3">
             <button mat-mini-fab *ngIf="(auth$ | async)?.user?.entity?.kind === 3" class="access-managment"
