@@ -44,7 +44,7 @@ class Folder(ModelTimeStampMixin):
     is_verified = models.BooleanField(default=False)
     deadline = models.DateField(null=True, blank=True)
     description = models.TextField()
-    note = models.TextField()
+    note = models.TextField(blank=True)
 
     def __str__(self):
         return f'{self.name} : {Folder.Kind(self.kind).label}'
