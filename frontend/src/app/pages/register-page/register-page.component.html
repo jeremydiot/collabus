@@ -1,1 +1,89 @@
 <p>register-page works!</p>
+<div class="d-flex flex-row">
+    <div class="flex-spacer"></div>
+    <div class="form-wrapper p-5 d-flex flex-column">
+        <span class="mat-display-1 mb-5">S'inscrire</span>
+        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex flex-column p-4 pt-5 g-2 border-2-primary"
+            autocomplete="off">
+            <!-- <span class="error-message" *ngIf="errorMessage !==''">{{errorMessage}}</span> -->
+            <h1>Utilisateur</h1>
+            <div class="d-flex flex-row g-4">
+                <mat-form-field appearance="outline" class="flex-spacer">
+                    <mat-label>Prénom</mat-label>
+                    <input formControlName="userFirstName" type="text" matInput required>
+                    <mat-error *ngIf="formGroup.controls.userFirstName.status === 'INVALID'">Champ invalide</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="flex-spacer">
+                    <mat-label>Nom</mat-label>
+                    <input formControlName="userLastName" type="text" matInput required>
+                    <mat-error *ngIf="formGroup.controls.userLastName.status === 'INVALID'">Champ invalide</mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="userEmail" type="email" matInput required>
+                <mat-error *ngIf="formGroup.controls.userEmail.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Téléphone</mat-label>
+                <input formControlName="userPhone" type="text" matInput required>
+                <mat-error *ngIf="formGroup.controls.userPhone.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Mot de passe</mat-label>
+                <input formControlName="userPassword1" type="password" matInput autocomplete="new-password"
+                    name="password1" id="password1" required>
+                <mat-error *ngIf="formGroup.controls.userPassword1.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Confirmez le mot de passe</mat-label>
+                <input formControlName="userPassword2" type="password" matInput autocomplete="new-password"
+                    name="password2" id="password2" required>
+                <mat-error *ngIf="formGroup.controls.userPassword2.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+
+
+            <h1 class="mt-3">Entreprise / École</h1>
+            <mat-form-field appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input formControlName="entityName" type="text" matInput required>
+                <mat-error *ngIf="formGroup.controls.entityName.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="entityEmail" type="text" matInput required>
+                <mat-error *ngIf="formGroup.controls.entityEmail.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Téléphone</mat-label>
+                <input formControlName="entityPhone" type="text" matInput required>
+                <mat-error *ngIf="formGroup.controls.entityPhone.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Siret</mat-label>
+                <input formControlName="entitySiret" type="text" placeholder="Laisser vide si inexistant" matInput>
+                <mat-error *ngIf="formGroup.controls.entitySiret.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Adresse</mat-label>
+                <input formControlName="entityAddress" type="text" matInput required>
+                <mat-error *ngIf="formGroup.controls.entityAddress.status === 'INVALID'">Champ invalide</mat-error>
+            </mat-form-field>
+            <div class="d-flex flex-row g-4">
+                <mat-form-field appearance="outline" class="flex-spacer">
+                    <mat-label>Code postal</mat-label>
+                    <input formControlName="entityZipCode" type="text" matInput required>
+                    <mat-error *ngIf="formGroup.controls.entityZipCode.status === 'INVALID'">Champ invalide</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="flex-spacer">
+                    <mat-label>Ville</mat-label>
+                    <input formControlName="entityCity" type="text" matInput required>
+                    <mat-error *ngIf="formGroup.controls.entityCity.status === 'INVALID'">Champ invalide</mat-error>
+                </mat-form-field>
+            </div>
+            <button type="submit" [disabled]="!formGroup.valid" mat-flat-button color="primary">Créer un compte</button>
+            <a mat-flat-button disableRipple="true" routerLink="/login">Vous avez déjà un compte ?</a>
+        </form>
+    </div>
+    <div class="flex-spacer"></div>
+</div>

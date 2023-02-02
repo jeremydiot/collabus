@@ -22,8 +22,29 @@ export class AuthService {
     return this.http.post<never>(`${this.apiUrl}/token/verify/`, { token })
   }
 
-  createUser (username: string, email: string, phone: string, firstName: string, lastName: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/user/`, { username, email, phone, first_name: firstName, last_name: lastName, password })
+  createUser (userEmail: string, userPhone: string, userFirstName: string, userLastName: string, userPassword: string,
+    entityName: string, entityEmail: string, entityPhone: string, entitySiret: string, entityAddress: string,
+    entityZipCode: string, entityCity: string, entityCountry: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/user/`, {
+      user: {
+        username: userEmail,
+        email: userEmail,
+        phone: userPhone,
+        first_name: userFirstName,
+        last_name: userLastName,
+        password: userPassword
+      },
+      entity: {
+        name: entityName,
+        address: entityAddress,
+        zip_code: entityZipCode,
+        city: entityCity,
+        country: entityCountry,
+        phone: entityPhone,
+        email: entityEmail,
+        siret: entitySiret
+      }
+    })
   }
 
   getUser (username: string = '@me'): Observable<User> {
