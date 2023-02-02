@@ -10,7 +10,7 @@ from drf_spectacular.utils import extend_schema
 
 from apps.main.models import Entity
 from apps.main.permissions import IsOwner, AllowAny, HasCompanyEntity, HasSchoolEntity, IsEntityStaff, HasEntityAssociatedToFolder
-from apps.main.serializers import UserPaswordSerializer, PingPongSerializer, UserSerializer
+from apps.main.serializers import UserPaswordSerializer, PingPongSerializer, UserSerializer, CreateUserWithEntitySerializer
 from apps.main.utils import schema_parameters_builder, request_params_to_queryset
 from apps.folder.models import Folder, FolderEntity
 from apps.folder.serializers import FolderPrivateSerializer
@@ -46,12 +46,15 @@ class UserViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-    @extend_schema(request=UserSerializer, responses=UserSerializer, summary='Create user')
+    @extend_schema(request=CreateUserWithEntitySerializer,
+                   responses=CreateUserWithEntitySerializer,
+                   summary='Create user with entity'
+                   )
     def create(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = CreateUserWithEntitySerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            return Response(UserSerializer(user).data, status=HTTP_201_CREATED)
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 

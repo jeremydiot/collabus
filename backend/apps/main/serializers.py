@@ -3,6 +3,7 @@ from django.core.validators import RegexValidator
 from rest_framework import serializers
 from rest_framework.fields import empty
 from rest_framework.validators import UniqueValidator
+from rest_framework.exceptions import ValidationError
 from .models import Entity
 
 
@@ -14,14 +15,7 @@ class EntitySerializer(serializers.ModelSerializer):
 
         extra_kwargs = {
             'pk': {'read_only': True},
-            'name': {'read_only': True},
-            'kind': {'read_only': True},
-            'address': {'read_only': True},
-            'zip_code': {'read_only': True},
-            'city': {'read_only': True},
-            'country': {'read_only': True},
-            'phone': {'read_only': True},
-            'email': {'read_only': True},
+            'kind': {'read_only': True}
         }
 
 
@@ -79,6 +73,31 @@ class UserSerializer(serializers.ModelSerializer):
                 ]
             },
         }
+
+
+class CreateUserWithEntitySerializer(serializers.Serializer):
+    user = UserSerializer()
+    entity = EntitySerializer()
+
+    def validate(self, attrs):
+        user_serializer = UserSerializer(data=attrs.get('user'))
+        entity_srializer = EntitySerializer(data=attrs.get('entity'))
+
+        if (not user_serializer.is_valid() or not entity_srializer.is_valid()):
+            raise ValidationError({'user': user_serializer.errors, 'entity': entity_srializer.errors})
+
+        return super().validate({'user': user_serializer, 'entity': entity_srializer})
+
+    def create(self, validated_data):
+        user = validated_data.get('user').save(is_entity_staff=True)
+        entity = validated_data.get('entity').save()
+
+        user.entity = entity
+        user.save()
+        return {'user': user, 'entity': entity}
+
+    def update(self, instance, validated_data):
+        ...
 
 
 class UserPaswordSerializer(serializers.ModelSerializer):
