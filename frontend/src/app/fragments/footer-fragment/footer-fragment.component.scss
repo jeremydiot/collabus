@@ -1,26 +1,17 @@
 footer {
+  white-space: nowrap;
+  overflow: hidden;
 
-  a:link {
-    text-decoration: none;
-  }
-
-
-  a:visited {
-    text-decoration: none;
-  }
-
-
-  a:hover {
-    text-decoration: none;
-  }
-
-
+  a:link,
+  a:visited,
+  a:hover,
   a:active {
     text-decoration: none;
   }
 
   a {
     color: inherit;
+    text-align: center;
 
     img.logo {
       height: 45px;
