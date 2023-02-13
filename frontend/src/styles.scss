@@ -6,6 +6,9 @@
 @use './theme/padding.scss' as padding;
 @use './theme/margin.scss' as margin;
 @use './theme/gap.scss' as gap;
+@use './theme/background.scss' as background;
+@use './theme/border.scss' as border;
+@use './theme/color.scss' as color;
 
 @use'./app/components/edit-user-profil-dialog/edit-user-profil-dialog.component-theme' as edit-profile-dialog;
 
@@ -47,6 +50,7 @@ $light-theme: theme.define-light-theme($theme-typography, $primary-palette, $acc
 @include mat.core($theme-typography);
 @include mat.all-component-themes($light-theme);
 
+
 @include edit-profile-dialog.theme($light-theme);
 
 @include navbar.theme($light-theme);
@@ -75,78 +79,14 @@ $spacer-multiplicator-5 : 3;
 @include margin.build($spacer, $spacer-multiplicator-0, $spacer-multiplicator-1,
   $spacer-multiplicator-2, $spacer-multiplicator-3, $spacer-multiplicator-4, $spacer-multiplicator-5);
 
+@include background.build($primary-palette, $accent-palette);
+@include border.build($primary-palette, $accent-palette, 1px, 2px, 3px);
+@include color.build($primary-palette, $accent-palette);
+
 // global
 
 .mat-tooltip {
   font-size: 14px;
-}
-
-.border-1-primary {
-  border: solid 1px mat.get-color-from-palette($primary-palette, 500) !important;
-}
-
-.border-1-accent {
-  border: solid 1px mat.get-color-from-palette($accent-palette, 500) !important;
-}
-
-.border-1-black {
-  border: solid 1px black !important;
-}
-
-.border-2-primary {
-  border: solid 2px mat.get-color-from-palette($primary-palette, 500) !important;
-}
-
-.border-2-accent {
-  border: solid 2px mat.get-color-from-palette($accent-palette, 500) !important;
-}
-
-.border-2-black {
-  border: solid 2px black !important;
-}
-
-.border-3-primary {
-  border: solid 3px mat.get-color-from-palette($primary-palette, 500) !important;
-}
-
-.border-3-accent {
-  border: solid 3px mat.get-color-from-palette($accent-palette, 500) !important;
-}
-
-.border-3-black {
-  border: solid 3px black !important;
-}
-
-.color-black {
-  color: black !important;
-}
-
-.color-primary {
-  color: mat.get-color-from-palette($primary-palette, 500) !important;
-}
-
-.color-accent {
-  color: mat.get-color-from-palette($accent-palette, 500) !important;
-}
-
-.color-white {
-  color: white !important;
-}
-
-.background-color-black {
-  background-color: black !important;
-}
-
-.background-color-primary {
-  background-color: mat.get-color-from-palette($primary-palette, 500) !important;
-}
-
-.background-color-accent {
-  background-color: mat.get-color-from-palette($accent-palette, 500) !important;
-}
-
-.background-color-white {
-  background-color: white !important;
 }
 
 button,
@@ -237,10 +177,12 @@ app-root {
 }
 
 .flex-column {
+  display: flex !important;
   flex-direction: column !important;
 }
 
 .flex-row {
+  display: flex !important;
   flex-direction: row !important;
 }
 

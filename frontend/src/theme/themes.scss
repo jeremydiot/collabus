@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-@function define-light-theme($typography, $primary, $accent, $warn, $success, $shade) {
+@function define-light-theme($typography, $primary, $accent, $warn, $success, $grey) {
   $light-theme: mat.define-light-theme((color: (primary: $primary, accent: $accent, warn: $warn), typography:$typography));
-  $other-palettes: (success: $success, shade: $shade);
+  $other-palettes: (success: $success, grey: $grey);
   @return map-merge($light-theme, $other-palettes);
 }

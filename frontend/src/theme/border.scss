@@ -1,0 +1,51 @@
+@use '@angular/material' as mat;
+
+@mixin build($primary-palette, $accent-palette, $size-1, $size-2, $size-3) {
+  .border-1-primary {
+    border: solid $size-1 mat.get-color-from-palette($primary-palette, 500) !important;
+  }
+
+  .border-2-primary {
+    border: solid $size-2 mat.get-color-from-palette($primary-palette, 500) !important;
+  }
+
+  .border-3-primary {
+    border: solid $size-3 mat.get-color-from-palette($primary-palette, 500) !important;
+  }
+
+  .border-1-accent {
+    border: solid $size-1 mat.get-color-from-palette($accent-palette, 500) !important;
+  }
+
+  .border-2-accent {
+    border: solid $size-2 mat.get-color-from-palette($accent-palette, 500) !important;
+  }
+
+  .border-3-accent {
+    border: solid $size-3 mat.get-color-from-palette($accent-palette, 500) !important;
+  }
+
+  .border-1-black {
+    border: solid $size-1 black !important;
+  }
+
+  .border-2-black {
+    border: solid $size-2 black !important;
+  }
+
+  .border-3-black {
+    border: solid $size-3 black !important;
+  }
+
+  .border-1-white {
+    border: solid $size-1 white !important;
+  }
+
+  .border-2-white {
+    border: solid $size-2 white !important;
+  }
+
+  .border-3-white {
+    border: solid $size-3 white !important;
+  }
+}

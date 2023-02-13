@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+@mixin build($primary-palette, $accent-palette) {
+  .color-primary {
+    color: mat.get-color-from-palette($primary-palette, 500) !important;
+  }
+
+  .color-accent {
+    color: mat.get-color-from-palette($accent-palette, 500) !important;
+  }
+
+  .color-black {
+    color: black !important;
+  }
+
+  .color-white {
+    color: white !important;
+  }
+}

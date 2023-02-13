@@ -2,7 +2,7 @@
 @use '@angular/material' as mat;
 
 @mixin color($theme) {
-  $primary-palette: map.get($theme, 'shade');
+  $primary-palette: map.get($theme, 'accent');
 
   app-navbar-fragment {
 
