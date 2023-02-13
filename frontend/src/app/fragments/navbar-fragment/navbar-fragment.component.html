@@ -10,13 +10,15 @@
         <div class="d-flex flex-row g-3">
             <div *ngIf="(auth$ | async)?.accessToken === '';then notLoggedIn; else loggedIn"></div>
             <ng-template #notLoggedIn>
-                <a mat-flat-button class="signin" routerLink="/login">Connexion</a>
-                <a mat-flat-button class="signup" routerLink="/register">S'inscrire</a>
+                <a mat-flat-button class="signin border-1-accent" routerLink="/login">Connexion</a>
+                <a mat-flat-button class="signup background-color-accent color-white"
+                    routerLink="/register">S'inscrire</a>
             </ng-template>
             <ng-template #loggedIn>
-                <a mat-flat-button class="search" routerLink="/search">Rechercher</a>
-                <a mat-flat-button class="dashboard" routerLink="/dashboard">Tableau de bord</a>
-                <button class="signout" mat-icon-button (click)="signout()" disableRipple="true">
+                <a mat-flat-button class="search border-1-accent" routerLink="/search">Rechercher</a>
+                <a mat-flat-button class="dashboard background-color-accent color-white" routerLink="/dashboard">Tableau
+                    de bord</a>
+                <button class="signout border-1-accent" mat-icon-button (click)="signout()" disableRipple="true">
                     <mat-icon fontIcon="mode_off_on" title="Déconnexion"></mat-icon>
                 </button>
             </ng-template>

@@ -12,7 +12,6 @@
 
 @use'./app/components/edit-user-profil-dialog/edit-user-profil-dialog.component-theme' as edit-profile-dialog;
 
-@use'./app/fragments/navbar-fragment/navbar-fragment.component-theme' as navbar;
 @use'./app/fragments/footer-fragment/footer-fragment.component-theme' as footer;
 
 @use'./app/pages/home-page/home-page.component-theme' as home;
@@ -53,7 +52,6 @@ $light-theme: theme.define-light-theme($theme-typography, $primary-palette, $acc
 
 @include edit-profile-dialog.theme($light-theme);
 
-@include navbar.theme($light-theme);
 @include footer.theme($light-theme);
 
 @include home.theme($light-theme);
