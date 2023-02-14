@@ -6,22 +6,6 @@
   $accent-palette: map.get($theme, 'accent');
 
   app-home-page {
-    section.intro {
-      background-color: mat.get-color-from-palette($primary-palette, 500);
-      color: mat.get-color-from-palette($primary-palette, '500-contrast');
-
-      button.iamschool {
-        background-color: mat.get-color-from-palette($primary-palette, A100);
-        color: mat.get-color-from-palette($primary-palette, 'A100-contrast');
-      }
-
-      button.iamcompany {
-        background-color: mat.get-color-from-palette($primary-palette, 500);
-        color: mat.get-color-from-palette($primary-palette, '500-contrast');
-        border: solid 3px mat.get-color-from-palette($primary-palette, '500-contrast');
-      }
-
-    }
 
     section.contact {
       a.register {

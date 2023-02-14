@@ -17,11 +17,16 @@ export class HomePageComponent implements OnInit {
     message: new FormControl()
   })
 
-  constructor () { }
+  moreInfoRouterLink = 'company'
 
   ngOnInit (): void {
   }
 
   onSubmit (): void {
+  }
+
+  onTabChange (index: number): void {
+    if (index === 0) this.moreInfoRouterLink = 'company'
+    else this.moreInfoRouterLink = 'school'
   }
 }

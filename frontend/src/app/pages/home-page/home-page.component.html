@@ -1,4 +1,4 @@
-<section class="intro d-flex flex-row p-5">
+<section class="intro d-flex flex-row p-5 background-color-primary color-white">
     <div class="left d-flex flex-column g-5 p-5">
         <span class="title mb-0 mat-display-2 ">S'inspirer des talents du futur</span>
         <p class="mat-headline mb-0">
@@ -13,13 +13,19 @@
         </p>
     </div>
     <div class="right d-flex flex-column p-5">
-        <button mat-flat-button class="iamschool mat-title mb-0">Je suis une école</button>
-        <button mat-flat-button class="iamcompany mat-title mb-0">Je suis une entreprise</button>
+        <a mat-flat-button routerLink="school"
+            class="iamschool mat-title mb-0 background-color-white color-primary flex-row align-items-center justify-content-center">
+            Je suis une école
+        </a>
+        <a mat-flat-button routerLink="company"
+            class="iamcompany mat-title mb-0 background-color-primary color-white border-3-white flex-row align-items-center justify-content-center">
+            Je suis une entreprise
+        </a>
     </div>
 </section>
 <section class="presentation d-flex flex-column pl-5 pr-5 pt-5">
     <span class=" title mat-headline">Collabus c'est le début d'une collaboration 2.0 !</span>
-    <mat-tab-group mat-align-tabs="center" class="mr-5 ml-5">
+    <mat-tab-group mat-align-tabs="center" class="mr-5 ml-5" (selectedIndexChange)="onTabChange($event)">
         <mat-tab>
             <ng-template mat-tab-label>
                 <span class="mat-title mb-0">
@@ -98,10 +104,11 @@
     </div>
     <div class="d-flex flex-row g-5 justify-content-center align-items-center pr-5 pl-5">
         <a mat-flat-button class="register mat-subheading-2 d-flex align-items-center justify-content-center"
-            routerLink="register">Nous
-            rejoindre</a>
+            routerLink="register">
+            Nous rejoindre
+        </a>
         <a mat-flat-button class="contact mat-subheading-2 d-flex align-items-center justify-content-center"
-            routerLink="" fragment="contact-form" [scrollTop]="true">En savoir plus</a>
+            [routerLink]="moreInfoRouterLink">En savoir plus</a>
     </div>
 </section>
 <div class="mb-5 pl-5 pr-5">
