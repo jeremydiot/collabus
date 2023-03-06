@@ -31,11 +31,26 @@ class FolderEntity(ModelTimeStampMixin):
 class Folder(ModelTimeStampMixin):
 
     class Kind(models.IntegerChoices):
-        WEBSITE_DEVELOPMENT = 1, 'website development'
-        WEBSITE_DESIGN = 2, 'website design'
-        GRAPHIC_CHARTER = 3, 'graphic charter'
-        COMMUNICATION_STRATEGY = 4, 'communication strategy'
-        DIGITAL_STRATEGY = 5, 'digital strategy'
+        # UX / UI
+        VISUAL_IDENTITY = 1, 'Identité visuelle'
+        GRAPHIC_CHARTER = 2, 'Charte graphique'
+        LOGO_CREATION = 3, 'Création de logo'
+        USER_EXPERIENCE = 4, 'Parcours utilisateur'
+        GRAPHIC_DESIGN = 5, 'Maquettage graphique'
+
+        # DEV
+        WEBSITE_DEVELOPMENT = 6, 'Développement de site'
+        APPLICATION_DEVELOPMENT = 7, 'Développement d\'application'
+        SOFTWARE_DEVELOPMENT = 8, 'Développement de logiciel'
+        PROJECT_SPECIFICATIONS = 9, 'Spécifications technique et fonctionnelle'
+        PROJECT_MANAGEMENT = 10, 'Gestion et organisation de projet'
+
+        # MARKETING
+        COMMUNICATION_STRATEGY = 11, 'Stratégie de communication'
+        DIGITAL_STRATEGY = 12, 'Stratégie digitale'
+        MARKET_ANALYSIS = 13, 'Analyse de marché'
+        ADVERTISING_CAMPAIGN = 14, 'Campagne publicitaire'
+        PRICING_STRATEGY = 15, 'Stratégie de prix et de distribution'
 
     name = models.CharField(max_length=254)
     kind = models.IntegerField(choices=Kind.choices)
