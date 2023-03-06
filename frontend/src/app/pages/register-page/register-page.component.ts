@@ -17,6 +17,7 @@ export class RegisterPageComponent implements OnInit {
     userFirstName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     userLastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     userPassword: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(8)] }),
+    entityKind: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     entityName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     entityAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     entityZipCode: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -53,14 +54,13 @@ export class RegisterPageComponent implements OnInit {
         this.formGroup.controls.entityAddress.value,
         this.formGroup.controls.entityZipCode.value,
         this.formGroup.controls.entityCity.value,
-        this.formGroup.controls.entityCountry.value
+        this.formGroup.controls.entityCountry.value,
+        this.formGroup.controls.entityKind.value
 
       ).pipe(catchError((err) => {
         if (err.error?.user?.email !== undefined || err.error?.user?.username !== undefined) {
           this.formGroup.controls.userEmail.setErrors({ alreadyUsed: 'Email déjà utilisé' })
         }
-
-        console.log()
 
         return err
       })).subscribe(() => {

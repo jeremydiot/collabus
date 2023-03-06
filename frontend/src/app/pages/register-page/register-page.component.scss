@@ -4,4 +4,10 @@ div.form-wrapper {
   span {
     text-align: center;
   }
+
+  mat-button-toggle-group {
+    mat-button-toggle {
+      flex: 1;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 export enum EntityKind {
   'non défini' = 1,
   'école' = 2,
-  'entrerpise' = 3,
+  'entreprise' = 3,
 }
 
 export enum ProjectKind {

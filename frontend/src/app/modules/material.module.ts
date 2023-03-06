@@ -20,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatBadgeModule } from '@angular/material/badge'
 import { MatTableModule } from '@angular/material/table'
 import { MatSortModule } from '@angular/material/sort'
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
 @NgModule({
   exports: [
@@ -44,7 +45,8 @@ import { MatSortModule } from '@angular/material/sort'
     MatTooltipModule,
     MatBadgeModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule { }

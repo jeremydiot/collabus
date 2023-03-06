@@ -24,7 +24,7 @@ export class AuthService {
 
   createUser (userEmail: string, userPhone: string, userFirstName: string, userLastName: string, userPassword: string,
     entityName: string, entityEmail: string, entityPhone: string, entitySiret: string, entityAddress: string,
-    entityZipCode: string, entityCity: string, entityCountry: string): Observable<User> {
+    entityZipCode: string, entityCity: string, entityCountry: string, entityKind: string): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/user/`, {
       user: {
         username: userEmail,
@@ -42,7 +42,8 @@ export class AuthService {
         country: entityCountry,
         phone: entityPhone,
         email: entityEmail,
-        siret: entitySiret
+        siret: entitySiret,
+        kind: entityKind
       }
     })
   }
