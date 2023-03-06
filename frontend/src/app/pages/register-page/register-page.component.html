@@ -77,6 +77,12 @@
                         maximum</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
+                    <mat-label>Activité</mat-label>
+                    <input formControlName="entityActivity" type="text"
+                        placeholder="Domaines d'activité de votre entité" matInput>
+                    <mat-error *ngIf="formGroup.controls.entitySiret.status === 'INVALID'">Champ obligatoire</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
                     <mat-label>Adresse</mat-label>
                     <input formControlName="entityAddress" type="text" matInput required>
                     <mat-error *ngIf="formGroup.controls.entityAddress.status === 'INVALID'">

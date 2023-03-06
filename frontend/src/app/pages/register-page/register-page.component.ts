@@ -18,6 +18,7 @@ export class RegisterPageComponent implements OnInit {
     userLastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     userPassword: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(8)] }),
     entityKind: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    entityActivity: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     entityName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     entityAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     entityZipCode: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -55,7 +56,8 @@ export class RegisterPageComponent implements OnInit {
         this.formGroup.controls.entityZipCode.value,
         this.formGroup.controls.entityCity.value,
         this.formGroup.controls.entityCountry.value,
-        this.formGroup.controls.entityKind.value
+        this.formGroup.controls.entityKind.value,
+        this.formGroup.controls.entityActivity.value
 
       ).pipe(catchError((err) => {
         if (err.error?.user?.email !== undefined || err.error?.user?.username !== undefined) {

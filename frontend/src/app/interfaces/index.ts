@@ -21,6 +21,7 @@ export interface Entity {
   country: string
   phone: string
   email: string
+  activity: string
 }
 
 export interface ProjectPrivate {
