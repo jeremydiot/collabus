@@ -1,6 +1,6 @@
 <header class="d-flex flex-row p-3 pl-5 pr-5">
     <nav class="d-flex flex-row align-items-center">
-        <a class="d-flex flex-row align-items-center g-3" routerLink="">
+        <a class="d-flex flex-row align-items-center g-3" href="">
             <img class="logo" src="/assets/images/logo_orange.svg" alt="logo">
             <img class="name" src="/assets/images/name_black.svg" alt="name">
         </a>
@@ -8,10 +8,10 @@
     <div class="flex-spacer"></div>
     <nav class="d-flex flex-row align-items-center">
         <div class="d-flex flex-row g-3">
-            <a mat-button routerLink="">Accueil</a>
+            <a mat-button href="">Accueil</a>
             <a mat-button routerLink="school">École</a>
             <a mat-button routerLink="company">Entreprise</a>
-            <a mat-button routerLink="">Contact</a>
+            <a mat-button href="#contact-form">Contact</a>
 
             <div *ngIf="(auth$ | async)?.accessToken === '';then notLoggedIn; else loggedIn"></div>
             <ng-template #notLoggedIn>
