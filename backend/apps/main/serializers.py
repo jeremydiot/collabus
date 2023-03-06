@@ -15,7 +15,6 @@ class EntitySerializer(serializers.ModelSerializer):
 
         extra_kwargs = {
             'pk': {'read_only': True},
-            'kind': {'read_only': True},
             'siret': {'write_only': True}
         }
 
