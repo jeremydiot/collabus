@@ -131,8 +131,13 @@ class EntityFolderViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = FolderPrivateSerializer(data=request.data)
         if serializer.is_valid():
-            folder = serializer.save()
-            FolderEntity(folder=folder, entity=request.user.entity, is_author=True, is_accepted=True).save()
+            folder = serializer.save(is_verified=True)
+            FolderEntity(
+                folder=folder,
+                entity=request.user.entity,
+                is_author=True,
+                is_accepted=True
+            ).save()
             return Response(FolderPrivateSerializer(folder).data, status=HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
