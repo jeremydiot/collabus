@@ -15,7 +15,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
+    min-width: 120px;
   }
 
   button.signout {

@@ -20,7 +20,8 @@
                     routerLink="/register">S'inscrire</a>
             </ng-template>
             <ng-template #loggedIn>
-                <a mat-flat-button class="search border-1-accent" routerLink="/search">Rechercher</a>
+                <a *ngIf="(auth$ | async)?.user?.entity?.kind === 2 " mat-flat-button class="search border-1-accent"
+                    routerLink="/search">Rechercher</a>
                 <a mat-flat-button class="dashboard background-color-accent color-white" routerLink="/dashboard">Tableau
                     de bord</a>
                 <button class="signout border-1-accent" mat-icon-button (click)="signout()" disableRipple="true">

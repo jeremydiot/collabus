@@ -17,8 +17,7 @@ export class EditProjectInformationDialogComponent implements OnInit {
     description: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     kind: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(1)] }),
     isClosed: new FormControl<boolean>(false, { nonNullable: true, validators: [Validators.required] }),
-    isHidden: new FormControl<boolean>(false, { nonNullable: true, validators: [Validators.required] }),
-    deadline: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    isHidden: new FormControl<boolean>(false, { nonNullable: true, validators: [Validators.required] })
   })
 
   routeSubscription!: Subscription
@@ -41,7 +40,6 @@ export class EditProjectInformationDialogComponent implements OnInit {
         this.formGroup.controls.kind.setValue(project.kind)
         this.formGroup.controls.isClosed.setValue(project.is_closed)
         this.formGroup.controls.isHidden.setValue(project.is_hidden)
-        this.formGroup.controls.deadline.setValue(project.deadline)
         subscription.unsubscribe()
       })
     }
@@ -49,10 +47,10 @@ export class EditProjectInformationDialogComponent implements OnInit {
 
   onSubmit (): void {
     if (this.formGroup.valid) {
-      const deadline = new Date(this.formGroup.controls.deadline.value)
-      const year = deadline.getFullYear()
-      const month = ('0' + (deadline.getMonth() + 1).toString()).slice(-2)
-      const day = ('0' + deadline.getDate().toString()).slice(-2)
+      // const deadline = new Date(this.formGroup.controls.deadline.value)
+      // const year = deadline.getFullYear()
+      // const month = ('0' + (deadline.getMonth() + 1).toString()).slice(-2)
+      // const day = ('0' + deadline.getDate().toString()).slice(-2)
 
       const formData = {
         idFolder: this.data?.projectId,
@@ -61,8 +59,7 @@ export class EditProjectInformationDialogComponent implements OnInit {
         note: '',
         kind: this.formGroup.controls.kind.value,
         isClosed: this.formGroup.controls.isClosed.value,
-        isHidden: this.formGroup.controls.isHidden.value,
-        deadline: `${year}-${month}-${day}`
+        isHidden: this.formGroup.controls.isHidden.value
       }
 
       if (formData.idFolder !== undefined) {
@@ -73,8 +70,7 @@ export class EditProjectInformationDialogComponent implements OnInit {
           formData.note,
           formData.kind,
           formData.isClosed,
-          formData.isHidden,
-          formData.deadline
+          formData.isHidden
         ).subscribe((project) => {
           this.ngOnInit()
           this.dialogRef.close(project)
@@ -87,8 +83,7 @@ export class EditProjectInformationDialogComponent implements OnInit {
           formData.note,
           formData.kind,
           formData.isClosed,
-          formData.isHidden,
-          formData.deadline
+          formData.isHidden
         ).subscribe((project) => {
           this.dialogRef.close(project)
           this.toaster.success(`Projet ${formData.name} créé`)

@@ -22,18 +22,9 @@
             <textarea matInput formControlName="description"></textarea>
             <mat-error *ngIf="formGroup.controls.description.status  === 'INVALID'">Champ invalide</mat-error>
         </mat-form-field>
-        <div class="d-flex flex-row bottom-part g-4">
-            <mat-form-field appearance="outline" class="deadline-wrapper">
-                <mat-label>Date de livraison</mat-label>
-                <input formControlName="deadline" matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker color="accent"></mat-datepicker>
-                <mat-error *ngIf="formGroup.controls.deadline.status  === 'INVALID'">Champ invalide</mat-error>
-            </mat-form-field>
-            <div class=" d-flex flex-column toogle-wrapper g-2 pl-2">
-                <mat-slide-toggle formControlName="isClosed">Cloturé</mat-slide-toggle>
-                <mat-slide-toggle formControlName="isHidden">Caché</mat-slide-toggle>
-            </div>
+        <div class="d-flex flex-row g-5 pb-3 justify-content-center">
+            <mat-slide-toggle formControlName=" isClosed" color="primary">Cloturé</mat-slide-toggle>
+            <mat-slide-toggle formControlName="isHidden" color="primary">Caché</mat-slide-toggle>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions class="d-flex flex-row g-4 justify-content-center">

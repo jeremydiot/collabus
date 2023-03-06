@@ -3,10 +3,6 @@ textarea {
   height: 15vh;
 }
 
-div.bottom-part {
-
-  .deadline-wrapper,
-  .toogle-wrapper {
-    max-width: 47%;
-  }
+mat-dialog-content {
+  overflow: unset;
 }

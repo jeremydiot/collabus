@@ -36,27 +36,25 @@ export class ProjectService {
     return this.http.get<ProjectPrivate>(`${this.apiUrl}/entity/folder/${idFolder}/`)
   }
 
-  updateProjectPrivate (idFolder: number, name?: string, description?: string, note?: string, kind?: number, isClosed?: boolean, isHidden?: boolean, deadline?: string): Observable<ProjectPrivate> {
+  updateProjectPrivate (idFolder: number, name?: string, description?: string, note?: string, kind?: number, isClosed?: boolean, isHidden?: boolean): Observable<ProjectPrivate> {
     return this.http.put<ProjectPrivate>(`${this.apiUrl}/entity/folder/${idFolder}/`, {
       name,
       description,
       note,
       kind,
       is_closed: isClosed,
-      is_hidden: isHidden,
-      deadline
+      is_hidden: isHidden
     })
   }
 
-  createProjectPrivate (name?: string, description?: string, note?: string, kind?: number, isClosed?: boolean, isHidden?: boolean, deadline?: string): Observable<ProjectPrivate> {
+  createProjectPrivate (name?: string, description?: string, note?: string, kind?: number, isClosed?: boolean, isHidden?: boolean): Observable<ProjectPrivate> {
     return this.http.post<ProjectPrivate>(`${this.apiUrl}/entity/folder/`, {
       name,
       description,
       note,
       kind,
       is_closed: isClosed,
-      is_hidden: isHidden,
-      deadline
+      is_hidden: isHidden
     })
   }
 
