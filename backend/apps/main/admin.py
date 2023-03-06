@@ -47,7 +47,7 @@ admin.site.unregister(Group)
 
 class EntityAdmin(admin.ModelAdmin):
     fieldsets = (
-        (None, {'fields': ('name', 'kind', 'address', 'zip_code', 'city', 'country', 'phone', 'email', 'siret',)}),
+        (None, {'fields': ('name', 'kind', 'address', 'zip_code', 'city', 'country', 'phone', 'email', 'siret', 'activity',)}),
     )
     list_display = (
         'name',
@@ -62,6 +62,7 @@ class EntityAdmin(admin.ModelAdmin):
         'pk',
         'updated_at',
         'created_at',
+        'activity'
     )
     list_filter = ('kind', 'city', 'country',)
     search_fields = ('name', 'email', 'siret', 'phone', 'address',)
