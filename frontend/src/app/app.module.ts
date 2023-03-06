@@ -24,11 +24,13 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { EditUserProfilDialogComponent } from './components/edit-user-profil-dialog/edit-user-profil-dialog.component'
 import { ProjectCardComponent } from './components/project-card/project-card.component'
 import { EditProjectInformationDialogComponent } from './components/edit-project-information-dialog/edit-project-information-dialog.component'
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { ChatComponent } from './components/chat/chat.component';
-import { ProjectAccessDialogComponent } from './components/project-access-dialog/project-access-dialog.component';
-import { CompanyPageComponent } from './pages/company-page/company-page.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core'
+import { ChatComponent } from './components/chat/chat.component'
+import { ProjectAccessDialogComponent } from './components/project-access-dialog/project-access-dialog.component'
+import { CompanyPageComponent } from './pages/company-page/company-page.component'
 import { SchoolPageComponent } from './pages/school-page/school-page.component'
+import { TeamPageComponent } from './pages/team-page/team-page.component'
+import { LegalPageComponent } from './pages/legal-page/legal-page.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,9 @@ import { SchoolPageComponent } from './pages/school-page/school-page.component'
     ChatComponent,
     ProjectAccessDialogComponent,
     CompanyPageComponent,
-    SchoolPageComponent
+    SchoolPageComponent,
+    TeamPageComponent,
+    LegalPageComponent
   ],
   imports: [
     BrowserModule,

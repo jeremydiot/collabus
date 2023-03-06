@@ -8,6 +8,11 @@
     <div class="flex-spacer"></div>
     <nav class="d-flex flex-row align-items-center">
         <div class="d-flex flex-row g-3">
+            <a mat-button routerLink="">Accueil</a>
+            <a mat-button routerLink="school">École</a>
+            <a mat-button routerLink="company">Entreprise</a>
+            <a mat-button routerLink="">Contact</a>
+
             <div *ngIf="(auth$ | async)?.accessToken === '';then notLoggedIn; else loggedIn"></div>
             <ng-template #notLoggedIn>
                 <a mat-flat-button class="signin border-1-accent" routerLink="/login">Connexion</a>

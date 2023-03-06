@@ -5,11 +5,13 @@ import { map, Observable } from 'rxjs'
 import { CompanyPageComponent } from './pages/company-page/company-page.component'
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component'
 import { HomePageComponent } from './pages/home-page/home-page.component'
+import { LegalPageComponent } from './pages/legal-page/legal-page.component'
 import { LoginPageComponent } from './pages/login-page/login-page.component'
 import { ProjectPageComponent } from './pages/project-page/project-page.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component'
 import { SchoolPageComponent } from './pages/school-page/school-page.component'
 import { SearchPageComponent } from './pages/search-page/search-page.component'
+import { TeamPageComponent } from './pages/team-page/team-page.component'
 import { AuthState } from './store/auth/auth.reducer'
 
 @Injectable()
@@ -56,6 +58,8 @@ const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'school', component: SchoolPageComponent },
   { path: 'company', component: CompanyPageComponent },
+  { path: 'team', component: TeamPageComponent },
+  { path: 'legal', component: LegalPageComponent },
   { path: 'login', component: LoginPageComponent, canActivate: [CanActivateNotLoggedIn] },
   { path: 'register', component: RegisterPageComponent, canActivate: [CanActivateNotLoggedIn] },
   { path: 'dashboard', component: DashboardPageComponent, canActivate: [CanActivateLoggedIn] },

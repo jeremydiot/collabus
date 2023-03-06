@@ -1,6 +1,6 @@
 <section class="intro d-flex flex-row p-5 background-color-primary color-white">
     <div class="left d-flex flex-column g-5 p-5">
-        <span class="title mb-0 mat-display-2 ">S'inspirer des talents du futur</span>
+        <span class="title mb-0 mat-display-4">S'inspirer des talents du futur</span>
         <p class="mat-headline mb-0">
             Besoins d'un regard neuf ? De dynamiser vos projets digitaux ?
             <br />
@@ -14,11 +14,11 @@
     </div>
     <div class="right d-flex flex-column p-5">
         <a mat-flat-button routerLink="school"
-            class="iamschool mat-title mb-0 background-color-white color-primary flex-row align-items-center justify-content-center">
+            class="mat-headline mb-0 background-color-white color-primary flex-row align-items-center justify-content-center">
             Je suis une école
         </a>
         <a mat-flat-button routerLink="company"
-            class="iamcompany mat-title mb-0 background-color-primary color-white border-3-white flex-row align-items-center justify-content-center">
+            class="mat-headline mb-0 background-color-primary color-white border-3-white flex-row align-items-center justify-content-center">
             Je suis une entreprise
         </a>
     </div>
@@ -84,37 +84,33 @@
 <div class="mb-5 pl-5 pr-5">
     <mat-divider class="mr-5 ml-5"></mat-divider>
 </div>
-<section class="contact d-flex flex-row justify-content-center g-5 pr-5 pl-5 mb-3">
+<section class="contact d-flex flex-row justify-content-center g-5 pr-5 pl-5 pb-5">
     <div class="d-flex flex-column pr-5 pl-5">
         <span class="mat-headline">
             Collabus c'est simple !
         </span>
         <ul class="pr-5 pl-5">
             <li class="mat-title">
-                <span class="mat-display-2 mr-3">1.</span>S'inscrire sur la
+                <span class="mat-display-4 mr-3">1.</span>S'inscrire sur la
                 plateforme
             </li>
             <li class="mat-title">
-                <span class="mat-display-2 mr-2">2.</span>Trouver une entreprise / Déposer votre projet
+                <span class="mat-display-4 mr-2">2.</span>Trouver une entreprise / Déposer votre projet
             </li>
             <li class="mat-title">
-                <span class="mat-display-2 mr-2">3.</span>Collaborez !
+                <span class="mat-display-4 mr-2">3.</span>Collaborez !
             </li>
         </ul>
     </div>
     <div class="d-flex flex-row g-5 justify-content-center align-items-center pr-5 pl-5">
-        <a mat-flat-button class="register mat-subheading-2 d-flex align-items-center justify-content-center"
-            routerLink="register">
+        <a mat-flat-button class="register d-flex align-items-center justify-content-center" routerLink="register">
             Nous rejoindre
         </a>
-        <a mat-flat-button class="contact mat-subheading-2 d-flex align-items-center justify-content-center"
+        <a mat-flat-button class="contact d-flex align-items-center justify-content-center"
             [routerLink]="moreInfoRouterLink">En savoir plus</a>
     </div>
 </section>
-<div class="mb-5 pl-5 pr-5">
-    <mat-divider class="mr-5 ml-5"></mat-divider>
-</div>
-<section class="project d-flex flex-column pl-5 pr-5">
+<section class="project d-flex flex-column pl-5 pr-5 pt-5 background-color-primary-light">
     <span class="mat-headline">
         Les projets disponibles
     </span>
@@ -154,10 +150,7 @@
         </div>
     </div>
 </section>
-<div class="mb-5 pl-5 pr-5">
-    <mat-divider class="mr-5 ml-5"></mat-divider>
-</div>
-<section class="form d-flex flex-row pl-5 pr-5" id="contact-form">
+<section class="form d-flex flex-row pl-5 pr-5 pt-5" id="contact-form">
     <div class="form ml-5 mb-5 p-5 ">
         <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
             <div class="row d-flex flex-row g-5 mb-2">
@@ -178,20 +171,6 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Téléphone</mat-label>
                     <input matInput formControlName="phone" type="tel">
-                </mat-form-field>
-            </div>
-            <div class="row d-flex flex-row g-5 mb-2">
-                <div class="radio-button-group d-flex flex-column g-3">
-                    <label>Entité : </label>
-                    <mat-radio-group formControlName="entity">
-                        <mat-radio-button class="mr-3 mb-3" value="school">Ecole</mat-radio-button>
-                        <mat-radio-button class="mr-3 mb-3" value="company">Entreprise</mat-radio-button>
-                        <mat-radio-button class="mr-3 mb-3" value="other">Autre</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Nom de votre entité </mat-label>
-                    <input matInput formControlName="entityName">
                 </mat-form-field>
             </div>
             <div class="row d-flex flex-row g-5 mb-3">

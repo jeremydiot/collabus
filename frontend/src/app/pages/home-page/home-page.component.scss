@@ -1,10 +1,6 @@
 section.intro {
   div.left {
     flex: 2;
-
-    span.title {
-      font-family: 'Limelight', cursive;
-    }
   }
 
   div.right {
@@ -12,9 +8,7 @@ section.intro {
     justify-content: space-between;
 
     a {
-      border-radius: 0;
-      height: 30%;
-      font-weight: 500;
+      height: 90px;
     }
   }
 }
@@ -61,12 +55,6 @@ section.contact {
 
     ul {
       list-style-type: none;
-
-      li {
-        span {
-          font-family: 'Limelight', cursive;
-        }
-      }
     }
   }
 }
