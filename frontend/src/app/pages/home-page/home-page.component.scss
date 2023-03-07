@@ -65,15 +65,11 @@ section.project {
   }
 
   div.projects-wrapper {
-    justify-content: space-between;
 
+    flex-wrap: wrap;
 
-    div.project-card {
-      flex: 1;
-
-      ul {
-        list-style-type: circle;
-      }
+    app-project-card {
+      width: calc(100% / 4 - (42px * 3 / 4));
     }
   }
 }

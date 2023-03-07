@@ -115,39 +115,26 @@
         Les projets disponibles
     </span>
     <div class="projects-wrapper p-5 pt-4 d-flex flex-row g-5">
-        <div class="project-card p-3">
-            <span class="mat-title">Interfaces et expérience utilisateur</span>
-            <mat-divider></mat-divider>
-            <ul>
-                <li class="mat-subheading-2">Identité visuelle</li>
-                <li class="mat-subheading-2">Charte graphique</li>
-                <li class="mat-subheading-2">Création de logo</li>
-                <li class="mat-subheading-2">Parcours utilisateur</li>
-                <li class="mat-subheading-2">Maquettage graphique</li>
-            </ul>
-        </div>
-        <div class="project-card p-3">
-            <span class="mat-title">Développement et solution digitale</span>
-            <mat-divider></mat-divider>
-            <ul>
-                <li class="mat-subheading-2">Développement de site</li>
-                <li class="mat-subheading-2">Développement d'application</li>
-                <li class="mat-subheading-2">Développement de logiciel</li>
-                <li class="mat-subheading-2">Spécifications technique et fonctionnelle</li>
-                <li class="mat-subheading-2">Gestion et organisation de projet</li>
-            </ul>
-        </div>
-        <div class="project-card p-3">
-            <span class="mat-title">Marketing et relation client</span>
-            <mat-divider></mat-divider>
-            <ul>
-                <li class="mat-subheading-2">Stratégie de communication</li>
-                <li class="mat-subheading-2">Stratégie digitale</li>
-                <li class="mat-subheading-2">Analyse de marché</li>
-                <li class="mat-subheading-2">Campagne publicitaire</li>
-                <li class="mat-subheading-2">Stratégie de prix et de distribution</li>
-            </ul>
-        </div>
+        <app-project-card entityName="Novacore" entityActivity="Fabrication d'équipement électronique"
+            entityLocation="Nantes, Pays de la Loire" projectName="Visualité" [projectKind]="1"
+            projectDescription="Visualité est un projet visant à concevoir une identité visuelle forte et cohérente pour une entreprise. Il s'agit de créer une identité de marque qui représente efficacement l'entreprise et ses valeurs, tout en étant facilement reconnaissable."
+            [showButton]="false">
+        </app-project-card>
+        <app-project-card entityName="Skyglider" entityActivity="Services de transport aérien"
+            entityLocation="Tours, Indre-et-Loire" projectName="Communiwise" [projectKind]="11"
+            projectDescription="L'objectif est de définir les messages clés, les canaux de communication, les publics cibles et les tactiques les plus appropriées pour atteindre les objectifs de communication de l'entreprise. Le projet comprend une analyse approfondie de l'image de marque de l'entreprise, de sa réputation et de son positionnement sur le marché, ainsi que des études de marché pour mieux comprendre les attentes des consommateurs et des parties prenantes."
+            [showButton]="false">
+        </app-project-card>
+        <app-project-card entityName="Techwarez" entityActivity="Vente de produits de beauté"
+            entityLocation="Poitiers, Vienne" projectName="Site Builders" [projectKind]="6"
+            projectDescription="Site Builders est un projet de développement d'un site web pour une entreprise. Le site web est une vitrine en ligne de l'entreprise et doit être conçu de manière à offrir une expérience utilisateur optimale, tout en respectant les normes de développement web."
+            [showButton]="false">
+        </app-project-card>
+        <app-project-card entityName="Innovaris" entityActivity="Gestion de patrimoine immobilier"
+            entityLocation="Nantes, Pays de la Loire" projectName="Market Insights" [projectKind]="13"
+            projectDescription="Ce projet vise à recueillir des informations sur le marché dans lequel l’entreprise évolue. Il s'agit d'analyser les tendances, la concurrence, les segments de marché, les besoins des clients et les opportunités de croissance pour aider l'entreprise à prendre des décisions éclairées sur sa stratégie commerciale."
+            [showButton]="false">
+        </app-project-card>
     </div>
 </section>
 <section class="form d-flex flex-row pl-5 pr-5 pt-5" id="contact-form">

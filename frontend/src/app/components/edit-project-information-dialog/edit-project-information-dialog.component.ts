@@ -56,7 +56,6 @@ export class EditProjectInformationDialogComponent implements OnInit {
         idFolder: this.data?.projectId,
         name: this.formGroup.controls.name.value,
         description: this.formGroup.controls.description.value,
-        note: '',
         kind: this.formGroup.controls.kind.value,
         isClosed: this.formGroup.controls.isClosed.value,
         isHidden: this.formGroup.controls.isHidden.value
@@ -67,7 +66,7 @@ export class EditProjectInformationDialogComponent implements OnInit {
           formData.idFolder,
           formData.name,
           formData.description,
-          formData.note,
+          undefined,
           formData.kind,
           formData.isClosed,
           formData.isHidden
@@ -80,7 +79,7 @@ export class EditProjectInformationDialogComponent implements OnInit {
         this.projectService.createProjectPrivate(
           formData.name,
           formData.description,
-          formData.note,
+          undefined,
           formData.kind,
           formData.isClosed,
           formData.isHidden
