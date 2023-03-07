@@ -67,12 +67,33 @@
         </button>
     </div>
     <mat-divider></mat-divider>
-    <div class=" project-search-wrapper pt-5 d-flex flex-row g-5">
-        <app-project-card *ngFor=" let project of projects">
-            <!-- [title]="project.name"
-            [subTitle]="projectKindToString(project.kind)" [projectId]="project.pk" [content]="project.description"
-            [deadline]="project.deadline" buttonIcon="arrow_forward" (actionEvent)="onOpenProject($event)" -->
-        </app-project-card>
-        <!-- https://v14.material.angular.io/components/chips/examples -->
-    </div>
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="projectName">
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Nom du projet</th>
+            <td class="pr-3" mat-cell *matCellDef="let element">
+                <a mat-button [routerLink]="['/project',element.projectId]" target="_blank" color="accent"
+                    disableRipple="true">
+                    {{element.projectName}}
+                </a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="projectType">
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Type de projet</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.projectType}} </td>
+        </ng-container>
+        <ng-container matColumnDef="entityName">
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Nom de l'entité</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.entityName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="entityEmail">
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Email de l'entité</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.entityEmail}} </td>
+        </ng-container>
+        <ng-container matColumnDef="entityPhone">
+            <th class="pr-3 mat-subheading-2" mat-header-cell *matHeaderCellDef>Téléphone de l'entité</th>
+            <td class="pr-3" mat-cell *matCellDef="let element"> {{element.entityPhone}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </section>
