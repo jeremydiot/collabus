@@ -31,26 +31,23 @@
     <section class="data d-flex flex-column">
         <div class="d-flex flex-row align-items-center mb-3 g-2">
             <h1 class="m-0">{{project?.name}}</h1>
-            <button mat-icon-button color="accent" (click)="onEditInformation()">
+            <button *ngIf="(auth$ | async)?.user?.entity?.kind === 3" mat-icon-button color="primary"
+                (click)="onEditInformation()">
                 <mat-icon>edit</mat-icon>
             </button>
         </div>
         <h2>{{projectKindToString(project?.kind)}}</h2>
         <p class="description">{{project?.description}}</p>
         <div class="d-flex flex-row g-5 pb-4 pt-4">
-            <div class="d-flex flex-column">
-                <h3 class="mb-0">Date de création : {{parseDate(project?.created_at)}}</h3>
-                <h3 class="mb-0">Date de livraison : {{parseDate(project?.deadline)}}</h3>
-            </div>
-            <div class="d-flex flex-column">
-                <h3 class="mb-0">Cloturé : {{(project?.is_closed)?'Oui':'Non'}}</h3>
-                <h3 class="mb-0">Caché : {{(project?.is_hidden)?'Oui':'Non'}}</h3>
-            </div>
+            <h3 class="mb-0">Date de création : {{parseDate(project?.created_at)}}</h3>
+            <h3 class="mb-0">Cloturé : {{(project?.is_closed)?'Oui':'Non'}}</h3>
+            <h3 class="mb-0">Caché : {{(project?.is_hidden)?'Oui':'Non'}}</h3>
+
         </div>
         <form>
             <div class="d-flex flex-row align-items-center mb-2 g-2">
                 <h1 class="m-0">Notes</h1>
-                <button *ngIf="project !== undefined" mat-icon-button color="accent"
+                <button *ngIf="project !== undefined" mat-icon-button color="primary"
                     (click)="note.disabled = false; note.focus()">
                     <mat-icon>edit</mat-icon>
                 </button>
@@ -73,7 +70,7 @@
     <div class="head d-flex flex-row g-3 align-items-center mb-5">
         <h1 class="m-0">Fichiers</h1>
         <div *ngIf="project !== undefined">
-            <button mat-mini-fab (click)="inputFile.click()" class=" add-attachment" color="accent"
+            <button mat-mini-fab (click)="inputFile.click()" class=" add-attachment" color="primary"
                 title="Ajouter un fichier">
                 <mat-icon fontIcon="add"></mat-icon>
             </button>
@@ -88,7 +85,8 @@
             <img #attachmentImage [src]="backendHost+attachment.file"
                 (error)="attachmentIcon._elementRef.nativeElement.style.display = ''; attachmentImage.style.display='none'; attachmentLabel.style.display=''">
             <span #attachmentLabel [ngStyle]="{display:'none'}" class="file-name pr-2 pl-2">{{attachment.name}}</span>
-            <button mat-icon-button class="delete background-color-accent" (click)="onDeleteFile($event,attachment.pk)">
+            <button mat-icon-button class="delete background-color-primary"
+                (click)="onDeleteFile($event,attachment.pk)">
                 <mat-icon class="color-white">close</mat-icon>
             </button>
         </a>

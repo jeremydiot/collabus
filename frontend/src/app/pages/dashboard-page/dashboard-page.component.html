@@ -59,7 +59,7 @@
             Nouveau projet
         </button>
         <button *ngIf="(auth$ | async)?.user?.entity?.kind === 3" mat-flat-button color="primary"
-            (click)="onManageAccess()" [matBadge]="countAccessRequest" matBadgeColor="warn"
+            (click)="onManageAccess()" [matBadge]="countAccessRequest" matBadgeColor="accent"
             matTooltip="Gestion des accès" matBadgeSize="medium" matBadgeOverlap="true"
             [matBadgeHidden]="(countAccessRequest <1)?true:false">
             <mat-icon fontIcon="manage_accounts"></mat-icon>
@@ -94,6 +94,7 @@
             <td class="pr-3" mat-cell *matCellDef="let element"> {{element.entityPhone}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns;"
+            [class.background-color-primary-light]="even"></tr>
     </table>
 </section>

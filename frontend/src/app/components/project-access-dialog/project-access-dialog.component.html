@@ -61,7 +61,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns;"
+            [class.background-color-primary-light]="even"></tr>
     </table>
 </div>
 <div mat-dialog-actions class="d-flex flex-row justify-content-center">

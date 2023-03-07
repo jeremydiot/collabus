@@ -1,13 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { EditProjectInformationDialogComponent } from 'src/app/components/edit-project-information-dialog/edit-project-information-dialog.component'
 import { ProjectKind } from 'src/app/enums'
 import { Attachment, ProjectPrivate } from 'src/app/interfaces'
 import { AttachmentService } from 'src/app/services/attachment.service'
 import { ProjectService } from 'src/app/services/project.service'
 import { environment } from 'src/environments/environment'
+import { AuthState } from 'src/app/store/auth/auth.reducer'
+import { Store } from '@ngrx/store'
 
 @Component({
   selector: 'app-project-page',
@@ -23,13 +25,17 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   sendAttachmentUrl?: string
   attachments?: Attachment[]
   backendHost = environment.backendHost
+  auth$: Observable<AuthState>
 
   constructor (
+    private readonly store: Store<{ auth: AuthState }>,
     private readonly projectService: ProjectService,
     private readonly route: ActivatedRoute,
     public dialog: MatDialog,
     private readonly attachmentService: AttachmentService
-  ) {}
+  ) {
+    this.auth$ = store.select('auth')
+  }
 
   ngOnInit (): void {
     this.relations = []
