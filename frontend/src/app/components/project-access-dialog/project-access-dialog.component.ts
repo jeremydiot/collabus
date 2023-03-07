@@ -15,7 +15,7 @@ export interface datasourceInterface {
   projectName: string
   projectType: string
   relationDate: string
-  entityAddress: string
+  entityEmail: string
   entityPhone: string
   entityName: string
 }
@@ -27,7 +27,7 @@ export interface datasourceInterface {
 })
 export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort
-  displayedColumns: string[] = ['projectName', 'projectType', 'entityName', 'relationDate', 'entityAddress', 'entityPhone', 'action']
+  displayedColumns: string[] = ['projectName', 'projectType', 'entityName', 'relationDate', 'entityEmail', 'entityPhone', 'action']
   dataSource = new MatTableDataSource<datasourceInterface>()
 
   auth$: Observable<AuthState>
@@ -51,7 +51,7 @@ export class ProjectAccessDialogComponent implements OnInit, OnDestroy {
         this.projects.forEach(project => project.entities.forEach(relation => {
           if (relation.entity.pk !== authState.user?.entity.pk && !relation.is_accepted) {
             relations.push({
-              entityAddress: `${relation.entity.address}, ${relation.entity.zip_code} ${relation.entity.city}`,
+              entityEmail: relation.entity.email,
               entityId: relation.entity.pk,
               entityPhone: relation.entity.phone,
               projectId: relation.folder,
