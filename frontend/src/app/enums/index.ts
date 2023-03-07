@@ -21,3 +21,9 @@ export enum ProjectKind {
   'Campagne publicitaire' = 14,
   'Stratégie de prix et de distribution' = 15,
 }
+
+export enum ProjectDomain {
+  'Interface et expérience utilisateur' = 1,
+  'Développement et solution digitale' = 2,
+  'Marketing et relation client' = 3,
+}

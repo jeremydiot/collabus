@@ -1,17 +1,26 @@
-<mat-card class="border-3-primary">
-    <mat-card-header>
-        <mat-card-title>{{title}}</mat-card-title>
-        <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
-    </mat-card-header>
+<mat-card class="mat-elevation-z3">
+    <img class="header" [src]="projectKindToHeaderPicturePath(projectKind)" alt="">
     <mat-card-content class="d-flex flex-column">
-        <span class="">{{content}}</span>
+        <div class="domain pl-2 pr-2 mb-2" [class.uxui]="projectKind >= 1 && projectKind <= 5"
+            [class.dev]="projectKind >= 6 && projectKind <= 10" [class.market]="projectKind >= 11 && projectKind <= 15">
+            {{projectKindToDomainString(projectKind)}}
+        </div>
+        <span class="color-primary mat-title mb-2">{{entityName}}</span>
+        <span class="mat-subheading-2 mb-2">{{entityActivity}}</span>
+        <span class="mb-3 location">
+            <mat-icon class="mr-2" fontIcon="location_on"></mat-icon>
+            {{entityLocation}}
+        </span>
+        <mat-divider class="mb-2"></mat-divider>
+        <span class="mat-title mb-2">{{projectName}}</span>
+        <span class="mat-subheading-2 mb-3">{{projectKindToString(projectKind)}}</span>
+        <p class="description p-2">{{projectDescription}}</p>
 
     </mat-card-content>
-    <mat-card-actions class="d-flex flex-row">
-        <span
-            class="d-flex flex-row align-items-center g-2"><mat-icon>event</mat-icon>{{parseDeadline(deadline)}}</span>
+    <mat-card-actions class="d-flex flex-row pb-2 pt-0">
         <div class="flex-spacer"></div>
-        <button color="accent" *ngIf="showButton === true" mat-raised-button (click)="onAction()">
+        <button color="primary" *ngIf="showButton === true" mat-raised-button (click)="onAction()">
+            {{buttonText}}
             <mat-icon fontIcon="{{buttonIcon}}"></mat-icon>
         </button>
     </mat-card-actions>

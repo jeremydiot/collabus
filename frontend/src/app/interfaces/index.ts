@@ -53,6 +53,7 @@ export interface ProjectPublic {
   description: string
   kind: number
   deadline: string
+  author_entity: Entity
 }
 
 export interface ProjectEntity {

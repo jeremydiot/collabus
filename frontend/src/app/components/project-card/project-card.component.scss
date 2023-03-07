@@ -1,9 +1,46 @@
 mat-card {
   overflow: hidden;
 
-  mat-card-title,
-  mat-card-subtitle,
-  mat-card-content {
+  img.header {
+    width: calc(100% + 32px);
+    height: calc(100vw / 12);
+    margin: -16px -16px -17px -16px;
+
+    object-fit: cover;
+  }
+
+  div.domain {
+    background-color: white;
+    border: solid 1px black;
+    width: fit-content;
     white-space: nowrap;
+    width: auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+  }
+
+  div.domain.uxui {
+    border: solid 2px lightseagreen;
+  }
+
+  div.domain.dev {
+    border: solid 2px cornflowerblue;
+  }
+
+  div.domain.market {
+    border: solid 2px sandybrown;
+  }
+
+  span.location {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  p.description {
+    border: solid 1px rgba(0, 0, 0, 0.12);
+    height: calc(100vw / 15);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { map, Observable, switchMap } from 'rxjs'
-import { ProjectKind } from 'src/app/enums'
+
 import { ProjectPublic } from 'src/app/interfaces'
 import { ProjectService } from 'src/app/services/project.service'
 import { AuthState } from 'src/app/store/auth/auth.reducer'
@@ -35,11 +35,6 @@ export class SearchPageComponent implements OnInit {
       this.projectsPublic = projects
       subscription.unsubscribe()
     })
-  }
-
-  projectKindToString (kind: number): string {
-    const keys = Object.keys(ProjectKind).filter(key => ProjectKind[key as keyof typeof ProjectKind] === kind)
-    return keys.length > 0 ? keys[0] : ''
   }
 
   onJoinProject (id: number): void {
