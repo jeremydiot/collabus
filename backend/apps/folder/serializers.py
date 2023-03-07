@@ -35,6 +35,8 @@ class FolderEntitySerializerDetailEntity(serializers.ModelSerializer):
 
 
 class FolderPublicSerializer(serializers.ModelSerializer):
+    author_entity = EntitySerializer(read_only=True)
+
     class Meta:
         model = Folder
         fields = [
@@ -43,6 +45,7 @@ class FolderPublicSerializer(serializers.ModelSerializer):
             'description',
             'kind',
             'deadline',
+            'author_entity',
         ]
 
         extra_kwargs = {
@@ -51,6 +54,7 @@ class FolderPublicSerializer(serializers.ModelSerializer):
             'description': {'read_only': True},
             'kind': {'read_only': True},
             'deadline': {'read_only': True},
+            'author_entity': {'read_only': True},
         }
 
 
@@ -73,6 +77,7 @@ class FolderPrivateSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'entities',
+            'author_entity',
         ]
 
         extra_kwargs = {
@@ -80,6 +85,7 @@ class FolderPrivateSerializer(serializers.ModelSerializer):
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True},
             'entities': {'read_only': True},
+            'author_entity': {'read_only': True},
         }
 
 

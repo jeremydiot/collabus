@@ -131,7 +131,7 @@ class EntityFolderViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = FolderPrivateSerializer(data=request.data)
         if serializer.is_valid():
-            folder = serializer.save(is_verified=True)
+            folder = serializer.save(is_verified=True, author_entity=request.user.entity)
             FolderEntity(
                 folder=folder,
                 entity=request.user.entity,

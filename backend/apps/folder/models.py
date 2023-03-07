@@ -60,6 +60,7 @@ class Folder(ModelTimeStampMixin):
     deadline = models.DateField(null=True, blank=True)
     description = models.TextField()
     note = models.TextField(blank=True)
+    author_entity = models.ForeignKey('main.entity', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name} : {Folder.Kind(self.kind).label}'
