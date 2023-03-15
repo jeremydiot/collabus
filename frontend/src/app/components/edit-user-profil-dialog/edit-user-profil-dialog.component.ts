@@ -51,8 +51,8 @@ export class EditUserProfilDialogComponent implements OnInit, OnDestroy {
         if (error['new_password'] !== undefined) this.passwordFormGroup.controls.newPassword.setErrors({ apiError: 'Trop court' })
         this.store.dispatch(authActions.error({ error: {} }))
       } else {
-        if (this.updateProfileInProgress) this.toaster.success('Profil mis à jours')
-        if (this.updatePasswordInProgress) this.toaster.success('Mot de passe mis à jours')
+        if (this.updateProfileInProgress) this.toaster.success('Profil mis à jour')
+        if (this.updatePasswordInProgress) this.toaster.success('Mot de passe mis à jour')
       }
       this.updatePasswordInProgress = false
       this.updateProfileInProgress = false

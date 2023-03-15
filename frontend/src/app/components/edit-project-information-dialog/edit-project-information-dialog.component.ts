@@ -73,7 +73,7 @@ export class EditProjectInformationDialogComponent implements OnInit {
         ).subscribe((project) => {
           this.ngOnInit()
           this.dialogRef.close(project)
-          this.toaster.success('Informations mises à jours')
+          this.toaster.success('Informations mises à jour')
         })
       } else {
         this.projectService.createProjectPrivate(
